@@ -1,4 +1,4 @@
 # ignore brio files, these you should create yourself for testing. 
 *.brio
 
-test/
+test/*.brio
