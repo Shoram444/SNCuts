@@ -1,0 +1,6 @@
+# ignore brio files, these you should create yourself for testing. 
+CD.brio
+SD.Brio
+
+test/CD.brio
+test/SD.brio 
