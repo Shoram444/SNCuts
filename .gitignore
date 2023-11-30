@@ -1,6 +1,4 @@
 # ignore brio files, these you should create yourself for testing. 
-CD.brio
-SD.Brio
+*.brio
 
-test/CD.brio
-test/SD.brio 
+test/
