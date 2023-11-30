@@ -1,0 +1,1 @@
+/pbs/software/centos-7-x86_64/gcc/7.3.0/bin/g++ -fPIC -L/pbs/software/centos-7-x86_64/python/2.7.15/lib -shared -Wl,-soname,libSNCuts.so -o libSNCuts.so CMakeFiles/SNCuts.dir/src/SNCuts.cpp.o 
