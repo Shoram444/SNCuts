@@ -398,6 +398,9 @@ ROOT_rootrm_CMD:FILEPATH=/sps/nemo/sw/BxCppDev/opt/root-6.16.00/bin/rootrm
 //Value Computed by CMake
 SNCuts_BINARY_DIR:STATIC=/pbs/home/m/mpetro/sps_mpetro/Projects/TestFalaiseModule/SNCuts/build
 
+//Dependencies for the target
+SNCuts_LIB_DEPENDS:STATIC=general;Falaise::Falaise;general;/sps/nemo/sw/BxCppDev/opt/root-6.16.00/lib/root/libCore.so;general;/sps/nemo/sw/BxCppDev/opt/root-6.16.00/lib/root/libImt.so;general;/sps/nemo/sw/BxCppDev/opt/root-6.16.00/lib/root/libRIO.so;general;/sps/nemo/sw/BxCppDev/opt/root-6.16.00/lib/root/libNet.so;general;/sps/nemo/sw/BxCppDev/opt/root-6.16.00/lib/root/libHist.so;general;/sps/nemo/sw/BxCppDev/opt/root-6.16.00/lib/root/libGraf.so;general;/sps/nemo/sw/BxCppDev/opt/root-6.16.00/lib/root/libGraf3d.so;general;/sps/nemo/sw/BxCppDev/opt/root-6.16.00/lib/root/libGpad.so;general;/sps/nemo/sw/BxCppDev/opt/root-6.16.00/lib/root/libROOTDataFrame.so;general;/sps/nemo/sw/BxCppDev/opt/root-6.16.00/lib/root/libTree.so;general;/sps/nemo/sw/BxCppDev/opt/root-6.16.00/lib/root/libTreePlayer.so;general;/sps/nemo/sw/BxCppDev/opt/root-6.16.00/lib/root/libRint.so;general;/sps/nemo/sw/BxCppDev/opt/root-6.16.00/lib/root/libPostscript.so;general;/sps/nemo/sw/BxCppDev/opt/root-6.16.00/lib/root/libMatrix.so;general;/sps/nemo/sw/BxCppDev/opt/root-6.16.00/lib/root/libPhysics.so;general;/sps/nemo/sw/BxCppDev/opt/root-6.16.00/lib/root/libMathCore.so;general;/sps/nemo/sw/BxCppDev/opt/root-6.16.00/lib/root/libThread.so;general;/sps/nemo/sw/BxCppDev/opt/root-6.16.00/lib/root/libMultiProc.so;
+
 //Value Computed by CMake
 SNCuts_SOURCE_DIR:STATIC=/pbs/home/m/mpetro/sps_mpetro/Projects/TestFalaiseModule/SNCuts
 

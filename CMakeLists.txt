@@ -6,12 +6,13 @@ project(SNCuts)
 
 #Finds ROOT and Falaise packages and defines cmake variables
 find_package(Falaise REQUIRED)
+find_package(ROOT    REQUIRED)
 
 include_directories(include ${Bayeux_INCLUDE_DIRS})
 
+file(GLOB SOURCES "src/*.cpp" "src/dicts/*.cpp")
+add_library(SNCuts SHARED ${SOURCES} )
 
-add_library(SNCuts SHARED src/SNCuts.cpp include/SNCuts.h)
-
-target_link_libraries(SNCuts PUBLIC Falaise::FalaiseModule)  
+target_link_libraries(SNCuts PUBLIC Falaise::Falaise ${ROOT_LIBRARIES})  
 
 install(TARGETS SNCuts DESTINATION ${CMAKE_INSTALL_PLUGINDIR})

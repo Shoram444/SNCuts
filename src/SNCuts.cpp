@@ -1,5 +1,7 @@
 // Interface from Falaise
-#include "SNCuts.h"
+#include "SNCuts.hh"
+#include "Event.hh"
+#include "Particle.hh"
 
 
 DPP_MODULE_REGISTRATION_IMPLEMENT(SNCuts, "SNCuts")
@@ -52,8 +54,9 @@ void SNCuts::reset()
 
 void SNCuts::fill_event(datatools::things& workItem)
 {
-    event.eventNumber = eventNo;
-    
+    Event* event = new Event();
+
+    event->set_event_number(eventNo);
 
     if(workItem.has("PTD"))
     {
@@ -64,40 +67,41 @@ void SNCuts::fill_event(datatools::things& workItem)
 
         for (const auto& iParticle : PTDparticles)
         {
+            Particle* particle = new Particle();
+
             const snemo::datamodel::particle_track& track = iParticle.get();
             if      (particle_has_negative_charge (track)) 
             {               
-                particle.charge = -1;
+                particle->charge = -1;
             }           
             else if (particle_has_neutral_charge  (track)) 
             {           
-                particle.charge = 0;
+                particle->charge = 0;
             }                   
             else if (particle_has_positive_charge (track)) 
             {       
-                particle.charge = 1;
+                particle->charge = 1;
             }               
             else if (particle_has_undefined_charge(track)) 
             {       
-                particle.charge = 1000;
+                particle->charge = 1000;
             }           
             else 
             {
-                particle.charge = 1001; //something fishy
+                particle->charge = 1001; //something fishy
             }
 
-            particle.energy = 10.0;
-            particle.foilVertexPosition = {7.0, 8.0, 9.0};
-            particle.caloVertexPosition = {7.0, 8.0, 9.0};
+            particle->energy = 10.0;
+            particle->foilVertexPosition = {7.0, 8.0, 9.0};
+            particle->caloVertexPosition = {7.0, 8.0, 9.0};
 
-            // for (const auto& vertex : PTDp->get().get_vertices())
-            event.add_particle(particle);
+            event->add_particle(particle);
+            delete particle;
         }
 
     }
     else std::cout << "No PTD Bank!!!\n";
     
-    event.print();
-
-
+    event->print();
+    delete event;
 }

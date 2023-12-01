@@ -174,6 +174,54 @@ SNCuts/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SNCuts.dir/build.make CMakeFiles/SNCuts.dir/build
 .PHONY : SNCuts/fast
 
+src/Event.o: src/Event.cpp.o
+.PHONY : src/Event.o
+
+# target to build an object file
+src/Event.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SNCuts.dir/build.make CMakeFiles/SNCuts.dir/src/Event.cpp.o
+.PHONY : src/Event.cpp.o
+
+src/Event.i: src/Event.cpp.i
+.PHONY : src/Event.i
+
+# target to preprocess a source file
+src/Event.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SNCuts.dir/build.make CMakeFiles/SNCuts.dir/src/Event.cpp.i
+.PHONY : src/Event.cpp.i
+
+src/Event.s: src/Event.cpp.s
+.PHONY : src/Event.s
+
+# target to generate assembly for a file
+src/Event.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SNCuts.dir/build.make CMakeFiles/SNCuts.dir/src/Event.cpp.s
+.PHONY : src/Event.cpp.s
+
+src/Particle.o: src/Particle.cpp.o
+.PHONY : src/Particle.o
+
+# target to build an object file
+src/Particle.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SNCuts.dir/build.make CMakeFiles/SNCuts.dir/src/Particle.cpp.o
+.PHONY : src/Particle.cpp.o
+
+src/Particle.i: src/Particle.cpp.i
+.PHONY : src/Particle.i
+
+# target to preprocess a source file
+src/Particle.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SNCuts.dir/build.make CMakeFiles/SNCuts.dir/src/Particle.cpp.i
+.PHONY : src/Particle.cpp.i
+
+src/Particle.s: src/Particle.cpp.s
+.PHONY : src/Particle.s
+
+# target to generate assembly for a file
+src/Particle.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SNCuts.dir/build.make CMakeFiles/SNCuts.dir/src/Particle.cpp.s
+.PHONY : src/Particle.cpp.s
+
 src/SNCuts.o: src/SNCuts.cpp.o
 .PHONY : src/SNCuts.o
 
@@ -198,6 +246,54 @@ src/SNCuts.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SNCuts.dir/build.make CMakeFiles/SNCuts.dir/src/SNCuts.cpp.s
 .PHONY : src/SNCuts.cpp.s
 
+src/dicts/Eventdict.o: src/dicts/Eventdict.cpp.o
+.PHONY : src/dicts/Eventdict.o
+
+# target to build an object file
+src/dicts/Eventdict.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SNCuts.dir/build.make CMakeFiles/SNCuts.dir/src/dicts/Eventdict.cpp.o
+.PHONY : src/dicts/Eventdict.cpp.o
+
+src/dicts/Eventdict.i: src/dicts/Eventdict.cpp.i
+.PHONY : src/dicts/Eventdict.i
+
+# target to preprocess a source file
+src/dicts/Eventdict.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SNCuts.dir/build.make CMakeFiles/SNCuts.dir/src/dicts/Eventdict.cpp.i
+.PHONY : src/dicts/Eventdict.cpp.i
+
+src/dicts/Eventdict.s: src/dicts/Eventdict.cpp.s
+.PHONY : src/dicts/Eventdict.s
+
+# target to generate assembly for a file
+src/dicts/Eventdict.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SNCuts.dir/build.make CMakeFiles/SNCuts.dir/src/dicts/Eventdict.cpp.s
+.PHONY : src/dicts/Eventdict.cpp.s
+
+src/dicts/Particledict.o: src/dicts/Particledict.cpp.o
+.PHONY : src/dicts/Particledict.o
+
+# target to build an object file
+src/dicts/Particledict.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SNCuts.dir/build.make CMakeFiles/SNCuts.dir/src/dicts/Particledict.cpp.o
+.PHONY : src/dicts/Particledict.cpp.o
+
+src/dicts/Particledict.i: src/dicts/Particledict.cpp.i
+.PHONY : src/dicts/Particledict.i
+
+# target to preprocess a source file
+src/dicts/Particledict.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SNCuts.dir/build.make CMakeFiles/SNCuts.dir/src/dicts/Particledict.cpp.i
+.PHONY : src/dicts/Particledict.cpp.i
+
+src/dicts/Particledict.s: src/dicts/Particledict.cpp.s
+.PHONY : src/dicts/Particledict.s
+
+# target to generate assembly for a file
+src/dicts/Particledict.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SNCuts.dir/build.make CMakeFiles/SNCuts.dir/src/dicts/Particledict.cpp.s
+.PHONY : src/dicts/Particledict.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -211,9 +307,21 @@ help:
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... SNCuts"
+	@echo "... src/Event.o"
+	@echo "... src/Event.i"
+	@echo "... src/Event.s"
+	@echo "... src/Particle.o"
+	@echo "... src/Particle.i"
+	@echo "... src/Particle.s"
 	@echo "... src/SNCuts.o"
 	@echo "... src/SNCuts.i"
 	@echo "... src/SNCuts.s"
+	@echo "... src/dicts/Eventdict.o"
+	@echo "... src/dicts/Eventdict.i"
+	@echo "... src/dicts/Eventdict.s"
+	@echo "... src/dicts/Particledict.o"
+	@echo "... src/dicts/Particledict.i"
+	@echo "... src/dicts/Particledict.s"
 .PHONY : help
 
 

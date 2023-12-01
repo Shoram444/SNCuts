@@ -52,6 +52,10 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/pbs/home/m/mpetro/sps_mpetro/Projects/TestFalaiseModule/SNCuts/build/libSNCuts.so")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libSNCuts.so" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libSNCuts.so")
+    file(RPATH_CHANGE
+         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libSNCuts.so"
+         OLD_RPATH "/pbs/home/m/mpetro/PROGRAMS/Falaise/install/lib64:/sps/nemo/sw/BxCppDev/opt/root-6.16.00/lib/root:/sps/nemo/sw/BxCppDev/opt/bayeux-3.5.0/lib64:/sps/nemo/sw/BxCppDev/opt/boost-1.69.0/lib:/sps/nemo/sw/BxCppDev/opt/camp-0.8.4/lib:/sps/nemo/sw/BxCppDev/opt/clhep-2.1.3.1/lib:/sps/nemo/sw/BxDecay0/install-1.0.10/lib64:/sps/nemo/sw/BxCppDev/opt/gsl-2.4/lib:"
+         NEW_RPATH "")
     if(CMAKE_INSTALL_DO_STRIP)
       execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libSNCuts.so")
     endif()
