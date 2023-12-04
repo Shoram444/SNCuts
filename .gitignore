@@ -2,3 +2,5 @@
 *.brio
 
 test/*.brio
+lib/
+build/

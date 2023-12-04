@@ -1,4 +1,4 @@
-rm -rf build lib ./src/dicts/
+rm -rf build lib ./src/dicts/ CDFiltered.brio
 mkdir  build lib
 
 echo "#############################################"
@@ -11,6 +11,8 @@ echo "rootcint: ./include/Event.hh         -> ./lib/Eventdict_rdict.pcm         
       	      rootcint -f ../lib/Eventdict.cpp          Event.hh+
 echo "rootcint: ./include/Particle.hh         -> ./lib/Particledict_rdict.pcm         + ./src/dicts/Particledict.cpp"
       	      rootcint -f ../lib/Particledict.cpp          Particle.hh+
+echo "rootcint: ./include/Filters.hh         -> ./lib/Filtersdict_rdict.pcm         + ./src/dicts/Filtersdict.cpp"
+      	      rootcint -f ../lib/Filtersdict.cpp          Filters.hh+
 
 echo " "
 echo "Dictionaries generated!"
@@ -33,5 +35,5 @@ cd build
 
 cd ../
 	
-	flreconstruct -i CD.brio -p SNCutsPipeline.conf -o CD.brio
+	flreconstruct -i CD.brio -p SNCutsPipeline.conf -o CDFiltered.brio
 

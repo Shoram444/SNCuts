@@ -7,10 +7,13 @@
 
 #include "falaise/snemo/processing/module.h"
 #include "falaise/snemo/datamodels/particle_track_data.h"
+#include "falaise/snemo/datamodels/tracker_clustering_solution.h"
 
 
 #include "Event.hh"
 #include "Particle.hh"
+#include "Filters.hh"
+
 
 
 class SNCuts : public dpp::base_module
@@ -37,10 +40,15 @@ public:
     virtual dpp::base_module::process_status process(datatools::things &workItem);
     ////////////////////////////////////////////////
     // Everything else is optional for your usecase
-    void fill_event(datatools::things &workI);
+    Event get_event_data(datatools::things &workItem);
 
 private:
     int eventNo;
+    Event event;
+
+    std::vector<Filters::FilterFunction> filtersList;                   // container of filter functions to be applied to the event
+    Filters eventFilter;                                   // construct Filters instance which holds the filters
+
 
     DPP_MODULE_REGISTRATION_INTERFACE(SNCuts);
 };

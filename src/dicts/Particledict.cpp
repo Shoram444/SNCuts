@@ -54,7 +54,7 @@ namespace ROOT {
       ::Particle *ptr = 0;
       static ::TVirtualIsAProxy* isa_proxy = new ::TInstrumentedIsAProxy< ::Particle >(0);
       static ::ROOT::TGenericClassInfo 
-         instance("Particle", ::Particle::Class_Version(), "Particle.hh", 19,
+         instance("Particle", ::Particle::Class_Version(), "Particle.hh", 14,
                   typeid(::Particle), ::ROOT::Internal::DefineBehavior(ptr, ptr),
                   &::Particle::Dictionary, isa_proxy, 4,
                   sizeof(::Particle) );

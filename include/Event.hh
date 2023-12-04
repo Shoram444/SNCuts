@@ -20,11 +20,12 @@ class Event: public TObject
 		//! desctructor
 		~Event();
 
-		void set_event_number(int eventNumber);
-		void add_particle(const Particle &newParticle); // add a particle into the event
-		void reset(); 									// resets the values of the Event
+		void set_event_number(int _eventNumber);
+		void add_particle(Particle &_newParticle); // add a particle into the event
+		void reset(); 							   // resets the values of the Event
 		void print();	
 
+		std::vector<Particle> get_particles();     
 
 		int get_event_number(); 
 

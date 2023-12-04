@@ -2,6 +2,8 @@
 #include "SNCuts.hh"
 #include "Event.hh"
 #include "Particle.hh"
+#include "Filters.hh"
+
 
 
 DPP_MODULE_REGISTRATION_IMPLEMENT(SNCuts, "SNCuts")
@@ -31,17 +33,36 @@ void SNCuts::initialize(
 
 dpp::base_module::process_status SNCuts::process(datatools::things& workItem) 
 {
-    std::cout << "Event number = " << eventNo << std::endl;
-    fill_event(workItem);
+    // event.reset();
+    event = get_event_data(workItem);
 
-    if(eventNo == 99)
+    filtersList.push_back(&Filters::event_has_two_particles);
+    filtersList.push_back(&Filters::event_has_two_negative_particles);
+    filtersList.push_back(&Filters::event_has_particles);
+
+    eventFilter.add_filters(filtersList);                                   // construct Filters instance which holds the filters
+
+
+    if( eventFilter.event_passed_filters(event) )
     {
-        std::cout << "removed event: " << eventNo << std::endl;
-        eventNo++;
+        std::cout << "Event: " << eventNo << " Passed! "  <<std::endl;
 
+        eventNo++;
+        return falaise::processing::status::PROCESS_OK;
+
+    }
+    else if (!eventFilter.event_passed_filters(event))
+    {
+        std::cout << "Event: " << eventNo << " Failed! "  <<std::endl;
+
+        eventNo++;
         return dpp::base_module::PROCESS_STOP;
     }
-    eventNo++;
+    else
+    {
+        std:cout << "Event: " << eventNo << " Neither passed nor failed, wtf?! "  <<std::endl;
+        eventNo++;
+    }
 
     return falaise::processing::status::PROCESS_OK;
 }
@@ -52,11 +73,10 @@ void SNCuts::reset()
 }
 
 
-void SNCuts::fill_event(datatools::things& workItem)
+Event SNCuts::get_event_data(datatools::things& workItem)
 {
-    Event* event = new Event();
-
-    event->set_event_number(eventNo);
+    event.reset();
+    event.set_event_number(eventNo);
 
     if(workItem.has("PTD"))
     {
@@ -65,43 +85,74 @@ void SNCuts::fill_event(datatools::things& workItem)
         snemo::datamodel::particle_track_data    PTDbank = workItem.get<particle_track_data>("PTD");
         const snemo::datamodel::ParticleHdlCollection& PTDparticles = PTDbank.particles();
 
-        for (const auto& iParticle : PTDparticles)
+        for (auto& iParticle : PTDparticles)
         {
-            Particle* particle = new Particle();
+            ::Particle* particle = new ::Particle(); //explicitly creates instance of Particle class from this Cuts module, as there is a name clash with Bayeux
 
             const snemo::datamodel::particle_track& track = iParticle.get();
             if      (particle_has_negative_charge (track)) 
             {               
-                particle->charge = -1;
+                particle->set_charge(-1);
             }           
             else if (particle_has_neutral_charge  (track)) 
             {           
-                particle->charge = 0;
+                particle->set_charge(0);
             }                   
             else if (particle_has_positive_charge (track)) 
             {       
-                particle->charge = 1;
+                particle->set_charge(1);
             }               
             else if (particle_has_undefined_charge(track)) 
             {       
-                particle->charge = 1000;
+                particle->set_charge(1000);
             }           
             else 
             {
-                particle->charge = 1001; //something fishy
+                particle->set_charge(1001); //something fishy
             }
 
-            particle->energy = 10.0;
-            particle->foilVertexPosition = {7.0, 8.0, 9.0};
-            particle->caloVertexPosition = {7.0, 8.0, 9.0};
+            if (track.has_vertices()) // There isn't any time ordering to the vertices so check them all
+            {
+                for (const auto& iVertex : track.get_vertices())
+                {
+                    if (particle_track::vertex_is_on_source_foil(iVertex.get()))
+                    {
+                        particle->set_foil_vertex_position(
+                            iVertex.get().get_position().x(),
+                            iVertex.get().get_position().y(),
+                            iVertex.get().get_position().z()
+                            );
+                    }
+                    
+                    else if (
+                        particle_track::vertex_is_on_main_calorimeter(iVertex.get()) || 
+                        particle_track::vertex_is_on_x_calorimeter   (iVertex.get()) ||
+                        particle_track::vertex_is_on_gamma_veto      (iVertex.get()) 
+                    )
+                    {
+                        particle->set_calo_vertex_position(
+                            iVertex.get().get_position().x(),
+                            iVertex.get().get_position().y(),
+                            iVertex.get().get_position().z()
+                            );
+                    }
+                }
+            }
 
-            event->add_particle(particle);
+            if (track.has_associated_calorimeter_hits()) // There isn't any time ordering to the vertices so check them all
+            {
+                for (const auto& iCaloHit : track.get_associated_calorimeter_hits())
+                {
+                    particle->set_energy(iCaloHit.get().get_energy() / CLHEP::keV);  //energy in kev
+                }
+            }
+            
+            event.add_particle(*particle);
             delete particle;
         }
 
     }
     else std::cout << "No PTD Bank!!!\n";
-    
-    event->print();
-    delete event;
+    event.print();
+    return event;
 }
