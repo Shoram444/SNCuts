@@ -1,4 +1,4 @@
-rm -rf build lib ./src/dicts/ CDFiltered.brio
+rm -rf build lib ./src/dicts/ CDFiltered.brio 
 mkdir  build lib
 
 echo "#############################################"

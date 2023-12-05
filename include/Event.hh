@@ -21,16 +21,21 @@ class Event: public TObject
 		~Event();
 
 		void set_event_number(int _eventNumber);
+		void set_event_total_energy(double _eventTotalEnergy);
 		void add_particle(Particle &_newParticle); // add a particle into the event
 		void reset(); 							   // resets the values of the Event
 		void print();	
 
 		std::vector<Particle> get_particles();     
 
-		int get_event_number(); 
+		int 	get_event_number(); 
+		double 	get_event_total_energy();
+
 
 	private:
-		int eventNumber;
+		int 	ventNumber;
+		double 	eventTotalEnergy; 
+
 		std::vector<Particle> particles;
     
     

@@ -33,12 +33,18 @@ void SNCuts::initialize(
 
 dpp::base_module::process_status SNCuts::process(datatools::things& workItem) 
 {
-    // event.reset();
     event = get_event_data(workItem);
+
+    eventFilter.set_min_energy_filter(0.0);
+    eventFilter.set_max_energy_filter(35000.0);
 
     filtersList.push_back(&Filters::event_has_two_particles);
     filtersList.push_back(&Filters::event_has_two_negative_particles);
-    filtersList.push_back(&Filters::event_has_particles);
+    filtersList.push_back(&Filters::event_has_two_foil_vertices);
+    filtersList.push_back(&Filters::event_has_two_calo_hits);
+    filtersList.push_back(&Filters::event_has_two_associated_calo_hits);
+    filtersList.push_back(&Filters::event_has_sum_energy_above);
+    filtersList.push_back(&Filters::event_has_sum_energy_below);
 
     eventFilter.add_filters(filtersList);                                   // construct Filters instance which holds the filters
 
@@ -77,6 +83,8 @@ Event SNCuts::get_event_data(datatools::things& workItem)
 {
     event.reset();
     event.set_event_number(eventNo);
+    
+    double totEne = 0.0;
 
     if(workItem.has("PTD"))
     {
@@ -139,20 +147,27 @@ Event SNCuts::get_event_data(datatools::things& workItem)
                 }
             }
 
-            if (track.has_associated_calorimeter_hits()) // There isn't any time ordering to the vertices so check them all
+            if (track.has_associated_calorimeter_hits()) 
             {
+                int assCaloHitNo = 0;
                 for (const auto& iCaloHit : track.get_associated_calorimeter_hits())
                 {
                     particle->set_energy(iCaloHit.get().get_energy() / CLHEP::keV);  //energy in kev
+                    totEne += iCaloHit.get().get_energy() / CLHEP::keV;
+                    assCaloHitNo++;
                 }
+                particle->set_associated_calo_hits_number(assCaloHitNo);
             }
-            
             event.add_particle(*particle);
             delete particle;
         }
-
     }
-    else std::cout << "No PTD Bank!!!\n";
+    else 
+    {
+        std::cout << "No PTD Bank!!!\n";
+    }
+
+    event.set_event_total_energy(totEne);
     event.print();
     return event;
 }
