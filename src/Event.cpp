@@ -36,7 +36,7 @@ std::vector<Particle> Event::get_particles()
 
 void Event::set_event_total_energy(double _eventTotalEnergy)
 {
-    ventTotalEnergy = _eventTotalEnergy;
+    eventTotalEnergy = _eventTotalEnergy;
 }
 double Event::get_event_total_energy()
 {
@@ -51,7 +51,7 @@ void Event::print()
     for (int i = 0; i < particles.size(); i++)
     {
         cout << "-------------------------------------------------------------------------------------------------" << endl;
-        cout << "Particle: "                                << i  << "/"<<  particles.size()                        << endl;
+        cout << "Particle: "                                << i+1<< "/"<<  particles.size()                        << endl;
         cout << "Particle number of associated caloHits: "  << particles.at(i).get_associated_calo_hits_number()    << endl;
         
         cout << "Particle Charge: "                         << particles.at(i).get_charge()                         << endl;

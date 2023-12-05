@@ -33,7 +33,7 @@ class Event: public TObject
 
 
 	private:
-		int 	ventNumber;
+		int 	eventNumber;
 		double 	eventTotalEnergy; 
 
 		std::vector<Particle> particles;

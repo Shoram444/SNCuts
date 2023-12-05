@@ -56,7 +56,7 @@ void        Particle::set_associated_calo_hits_number(int _associatedCaloHitsNo)
     associatedCaloHitsNo = _associatedCaloHitsNo;
 }
 
-double 		Particle::get_associated_calo_hits_number()
+int 		Particle::get_associated_calo_hits_number()
 {
     return associatedCaloHitsNo;
 }

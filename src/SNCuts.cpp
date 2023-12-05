@@ -43,9 +43,7 @@ dpp::base_module::process_status SNCuts::process(datatools::things& workItem)
     filtersList.push_back(&Filters::event_has_two_foil_vertices);
     filtersList.push_back(&Filters::event_has_two_calo_hits);
     filtersList.push_back(&Filters::event_has_two_associated_calo_hits);
-    filtersList.push_back(&Filters::event_has_sum_energy_above);
-    filtersList.push_back(&Filters::event_has_sum_energy_below);
-
+        
     eventFilter.add_filters(filtersList);                                   // construct Filters instance which holds the filters
 
 

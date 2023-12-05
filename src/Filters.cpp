@@ -56,15 +56,9 @@ bool Filters::event_has_two_particles(Event& _event)
     return false;
 }
 
-bool Filters::event_has_sum_energy_above(Event& _event)
+bool Filters::event_has_sum_energy_above(Event& _event, double _minEnergy)
 {
-    if( minEnergy == 0 &&  maxEnergy == 0 )
-    {
-        std::cout << "ENERGY FILTER WAS NOT INITIALZED! PLEASE INITIALIZE EMIN AND EMAX!" << std:endl;
-        return true;
-    }
-
-    if( _event.get_event_total_energy() >  minEnergy)
+    if( _event.get_event_total_energy() >  _minEnergy)
     {
         return true;
     }
@@ -73,15 +67,9 @@ bool Filters::event_has_sum_energy_above(Event& _event)
         return false;
     }
 }
-bool Filters::event_has_sum_energy_below(Event& _event)
+bool Filters::event_has_sum_energy_below(Event& _event, double _maxEnergy)
 {
-    if( minEnergy == 0 &&  maxEnergy == 0 )
-    {
-        std::cout << "ENERGY FILTER WAS NOT INITIALZED! PLEASE INITIALIZE EMIN AND EMAX!" << std:endl;
-        return true;
-    }
-
-    if( _event.get_event_total_energy() <  maxEnergy)
+    if( _event.get_event_total_energy() <  _maxEnergy)
     {
         return true;
     }
@@ -145,6 +133,15 @@ void Filters::set_min_energy_filter(double _minEnergy)
 void Filters::set_max_energy_filter(double _maxEnergy)
 {
     maxEnergy = _maxEnergy;
+}
+
+double Filters::get_min_energy_filter()
+{
+    return minEnergy;
+}
+double Filters::get_max_energy_filter()
+{
+    return minEnergy;
 }
 
 bool Filters::event_passed_filters(Event& _event) {
