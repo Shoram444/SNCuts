@@ -112,7 +112,7 @@ bool Filters::event_has_two_associated_calo_hits(Event& _event)
     {
         for (auto& particle : _event.get_particles())
         {
-            if ( particle.get_associated_calo_hits_number() > 1 )  // if there are multiple calohits associated with single PTD entry: fail
+            if ( particle.get_associated_calo_hits_number() != 1 )  // if there are multiple calohits associated with single PTD entry: fail
             {
                 return false;
             }

@@ -46,8 +46,8 @@ private:
     int eventNo;
     Event event;
 
-    std::vector<Filters::FilterFunction>        filtersList;            // container of filter functions to be applied to the event
-    Filters eventFilter;                                                // construct Filters instance which holds the filters
+    std::vector<Filters::FilterFunction> filtersList;            // container of filter functions to be applied to the event
+    Filters                              eventFilter;            // construct Filters instance which holds the filters
 
     DPP_MODULE_REGISTRATION_INTERFACE(SNCuts);
 };

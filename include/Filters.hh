@@ -16,7 +16,7 @@ using namespace std;
 class Filters: public TObject
 {
     public: 
-        using FilterFunction        = std::function<bool(Event&)>;    // create a holder for filter functions
+        using FilterFunction = std::function<bool(Event&)>;    // create a holder for filter functions
 
         //! constructor
 		Filters();  
