@@ -19,36 +19,39 @@ class Filters: public TObject
         using FilterFunction = std::function<bool(Event&)>;    // create a holder for filter functions
 
         //! constructor
-		Filters();  
+		Filters(std::vector<std::string>& _filtersToBeUsed);  
 
 		//! desctructor
 		~Filters();
 
-        void add_filters(const std::vector<FilterFunction>& _filters);
+        // void add_filters(const std::vector<FilterFunction>& _filters);
         
-        static bool event_has_two_negative_particles        (Event& _event);
-        static bool event_has_two_particles                 (Event& _event);
-        static bool event_has_particles                     (Event& _event);
-        static bool event_has_sum_energy_above              (Event& _event, double _minEnergy);
-        static bool event_has_sum_energy_below              (Event& _event, double _maxEnergy);
-        static bool event_has_two_tracks                    (Event& _event);       //this is equivalend to event_has_two_particles
-        static bool event_has_two_foil_vertices             (Event& _event);
-        static bool event_has_two_calo_hits                 (Event& _event);
-        static bool event_has_two_associated_calo_hits      (Event& _event);
+        bool event_has_two_negative_particles        (Event& _event);
+        bool event_has_two_particles                 (Event& _event);
+        bool event_has_particles                     (Event& _event);
+        bool event_has_sum_energy_above              (Event& _event, double _minEnergy);
+        bool event_has_sum_energy_below              (Event& _event, double _maxEnergy);    
+        bool event_has_two_tracks                    (Event& _event);                       //this is equivalend to event_has_two_particles
+        bool event_has_two_foil_vertices             (Event& _event);
+        bool event_has_two_calo_hits                 (Event& _event);
+        bool event_has_two_associated_calo_hits      (Event& _event);
 
-        void set_min_energy_filter(double _minEnergy);
-        void set_max_energy_filter(double _maxEnergy);
+        void set_min_sum_energy(double _minSumEnergy);
+        void set_max_sum_energy(double _maxSumEnergy);
 
-        double get_min_energy_filter();
-        double get_max_energy_filter();
+        double get_min_sum_energy();
+        double get_max_sum_energy();
 
         bool event_passed_filters(Event& _event);
 
     private:
-        std::vector<FilterFunction> filters;
+        // std::vector<FilterFunction> filters;
 
-        double minEnergy;
-        double maxEnergy;
+        bool useEventHasTwoNegativeParticles = false; 
+        bool useEventHasSumEnergyAbove = false; 
+
+        double minSumEnergy;
+        double maxSumEnergy;
     
 	ClassDef(Filters,1);
 };

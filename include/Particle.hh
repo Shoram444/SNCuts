@@ -36,8 +36,8 @@ class Particle: public TObject
 
 	private:
 		int     charge;
-		int 	associatedCaloHitsNo;
-		double  energy;
+		int 	associatedCaloHitsNo = 0;
+		double  energy = 0;
 
 		bool hasFoilVertex = false;
 		bool hasCaloVertex = false;

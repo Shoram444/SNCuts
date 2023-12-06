@@ -29,25 +29,44 @@ void SNCuts::initialize(
         ) 
 {
     this->_set_initialized(true);
+    std::cout << " -----------------------------" << std::endl;
+    std::cout << " Using the following filters: " << std::endl;
+    try 
+    {
+        myConfig.fetch("useEventHasTwoNegativeParticles", this->_useEventHasTwoNegativeParticles_);
+        if(_useEventHasTwoNegativeParticles_)
+        {
+            std::cout << "EventHasTwoNegativeParticles" << std::endl;
+            _filtersToBeUsed.push_back("useEventHasTwoNegativeParticles");
+        }
+    } 
+    catch (std::logic_error& e) 
+    {
+    }
+
+    try 
+    {
+        myConfig.fetch("useEventHasSumEnergyAbove", this->_useEventHasSumEnergyAbove_);
+        if(_useEventHasSumEnergyAbove_)
+        {
+            _filtersToBeUsed.push_back("useEventHasSumEnergyAbove");
+        }
+        myConfig.fetch("minSumEnergy", this->_minSumEnergy_);
+        std::cout << "EventHasSumEnergyAbove " << _minSumEnergy_ << " keV" << std::endl;
+    } 
+    catch (std::logic_error& e) 
+    {
+    }
 }
 
 dpp::base_module::process_status SNCuts::process(datatools::things& workItem) 
 {
+    Filters*  eventFilter = new Filters(_filtersToBeUsed);            // construct Filters instance which holds the filters
+    eventFilter->set_min_sum_energy(_minSumEnergy_);                  // if not set in config file, value of -10000 is used. 
+
     event = get_event_data(workItem);
 
-    eventFilter.set_min_energy_filter(0.0);
-    eventFilter.set_max_energy_filter(35000.0);
-
-    filtersList.push_back(&Filters::event_has_two_particles);
-    filtersList.push_back(&Filters::event_has_two_negative_particles);
-    filtersList.push_back(&Filters::event_has_two_foil_vertices);
-    // filtersList.push_back(&Filters::event_has_two_calo_hits);
-    filtersList.push_back(&Filters::event_has_two_associated_calo_hits);
-        
-    eventFilter.add_filters(filtersList);                                   // construct Filters instance which holds the filters
-
-
-    if( eventFilter.event_passed_filters(event) )
+    if( eventFilter->event_passed_filters(event) )
     {
         std::cout << "Event: " << eventNo << " Passed! "  <<std::endl;
 
@@ -55,7 +74,7 @@ dpp::base_module::process_status SNCuts::process(datatools::things& workItem)
         return falaise::processing::status::PROCESS_OK;
 
     }
-    else if (!eventFilter.event_passed_filters(event))
+    else if (!eventFilter->event_passed_filters(event))
     {
         std::cout << "Event: " << eventNo << " Failed! "  <<std::endl;
 
@@ -88,7 +107,7 @@ Event SNCuts::get_event_data(datatools::things& workItem)
     {
         using namespace snemo::datamodel;
 
-        snemo::datamodel::particle_track_data    PTDbank = workItem.get<particle_track_data>("PTD");
+        snemo::datamodel::particle_track_data               PTDbank = workItem.get<particle_track_data>("PTD");
         const snemo::datamodel::ParticleHdlCollection& PTDparticles = PTDbank.particles();
 
         for (auto& iParticle : PTDparticles)

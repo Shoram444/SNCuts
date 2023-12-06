@@ -45,9 +45,16 @@ public:
 private:
     int eventNo;
     Event event;
+    std::vector<std::string> _filtersToBeUsed;                 // This string is filled from the config file and determins which filters are to be enabled
 
-    std::vector<Filters::FilterFunction> filtersList;            // container of filter functions to be applied to the event
-    Filters                              eventFilter;            // construct Filters instance which holds the filters
+
+    // configurable data members
+    bool _useEventHasTwoNegativeParticles_ = false; 
+
+
+    
+    bool _useEventHasSumEnergyAbove_       = false;
+    double _minSumEnergy_                  = -10000.0;           // default value, this will be changed at construction of Filters
 
     DPP_MODULE_REGISTRATION_INTERFACE(SNCuts);
 };
