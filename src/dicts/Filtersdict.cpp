@@ -42,8 +42,6 @@ namespace std {} using namespace std;
 // Header files passed via #pragma extra_include
 
 namespace ROOT {
-   static void *new_Filters(void *p = 0);
-   static void *newArray_Filters(Long_t size, void *p);
    static void delete_Filters(void *p);
    static void deleteArray_Filters(void *p);
    static void destruct_Filters(void *p);
@@ -58,8 +56,6 @@ namespace ROOT {
                   typeid(::Filters), ::ROOT::Internal::DefineBehavior(ptr, ptr),
                   &::Filters::Dictionary, isa_proxy, 4,
                   sizeof(::Filters) );
-      instance.SetNew(&new_Filters);
-      instance.SetNewArray(&newArray_Filters);
       instance.SetDelete(&delete_Filters);
       instance.SetDeleteArray(&deleteArray_Filters);
       instance.SetDestructor(&destruct_Filters);
@@ -121,13 +117,6 @@ void Filters::Streamer(TBuffer &R__b)
 }
 
 namespace ROOT {
-   // Wrappers around operator new
-   static void *new_Filters(void *p) {
-      return  p ? new(p) ::Filters : new ::Filters;
-   }
-   static void *newArray_Filters(Long_t nElements, void *p) {
-      return p ? new(p) ::Filters[nElements] : new ::Filters[nElements];
-   }
    // Wrapper around operator delete
    static void delete_Filters(void *p) {
       delete ((::Filters*)p);
@@ -140,69 +129,6 @@ namespace ROOT {
       ((current_t*)p)->~current_t();
    }
 } // end of namespace ROOT for class ::Filters
-
-namespace ROOT {
-   static TClass *vectorlEfunctionlEbooloPEventaNcPgRsPgR_Dictionary();
-   static void vectorlEfunctionlEbooloPEventaNcPgRsPgR_TClassManip(TClass*);
-   static void *new_vectorlEfunctionlEbooloPEventaNcPgRsPgR(void *p = 0);
-   static void *newArray_vectorlEfunctionlEbooloPEventaNcPgRsPgR(Long_t size, void *p);
-   static void delete_vectorlEfunctionlEbooloPEventaNcPgRsPgR(void *p);
-   static void deleteArray_vectorlEfunctionlEbooloPEventaNcPgRsPgR(void *p);
-   static void destruct_vectorlEfunctionlEbooloPEventaNcPgRsPgR(void *p);
-
-   // Function generating the singleton type initializer
-   static TGenericClassInfo *GenerateInitInstanceLocal(const vector<function<bool(Event&)> >*)
-   {
-      vector<function<bool(Event&)> > *ptr = 0;
-      static ::TVirtualIsAProxy* isa_proxy = new ::TIsAProxy(typeid(vector<function<bool(Event&)> >));
-      static ::ROOT::TGenericClassInfo 
-         instance("vector<function<bool(Event&)> >", -2, "vector", 216,
-                  typeid(vector<function<bool(Event&)> >), ::ROOT::Internal::DefineBehavior(ptr, ptr),
-                  &vectorlEfunctionlEbooloPEventaNcPgRsPgR_Dictionary, isa_proxy, 0,
-                  sizeof(vector<function<bool(Event&)> >) );
-      instance.SetNew(&new_vectorlEfunctionlEbooloPEventaNcPgRsPgR);
-      instance.SetNewArray(&newArray_vectorlEfunctionlEbooloPEventaNcPgRsPgR);
-      instance.SetDelete(&delete_vectorlEfunctionlEbooloPEventaNcPgRsPgR);
-      instance.SetDeleteArray(&deleteArray_vectorlEfunctionlEbooloPEventaNcPgRsPgR);
-      instance.SetDestructor(&destruct_vectorlEfunctionlEbooloPEventaNcPgRsPgR);
-      instance.AdoptCollectionProxyInfo(TCollectionProxyInfo::Generate(TCollectionProxyInfo::Pushback< vector<function<bool(Event&)> > >()));
-      return &instance;
-   }
-   // Static variable to force the class initialization
-   static ::ROOT::TGenericClassInfo *_R__UNIQUE_DICT_(Init) = GenerateInitInstanceLocal((const vector<function<bool(Event&)> >*)0x0); R__UseDummy(_R__UNIQUE_DICT_(Init));
-
-   // Dictionary for non-ClassDef classes
-   static TClass *vectorlEfunctionlEbooloPEventaNcPgRsPgR_Dictionary() {
-      TClass* theClass =::ROOT::GenerateInitInstanceLocal((const vector<function<bool(Event&)> >*)0x0)->GetClass();
-      vectorlEfunctionlEbooloPEventaNcPgRsPgR_TClassManip(theClass);
-   return theClass;
-   }
-
-   static void vectorlEfunctionlEbooloPEventaNcPgRsPgR_TClassManip(TClass* ){
-   }
-
-} // end of namespace ROOT
-
-namespace ROOT {
-   // Wrappers around operator new
-   static void *new_vectorlEfunctionlEbooloPEventaNcPgRsPgR(void *p) {
-      return  p ? ::new((::ROOT::Internal::TOperatorNewHelper*)p) vector<function<bool(Event&)> > : new vector<function<bool(Event&)> >;
-   }
-   static void *newArray_vectorlEfunctionlEbooloPEventaNcPgRsPgR(Long_t nElements, void *p) {
-      return p ? ::new((::ROOT::Internal::TOperatorNewHelper*)p) vector<function<bool(Event&)> >[nElements] : new vector<function<bool(Event&)> >[nElements];
-   }
-   // Wrapper around operator delete
-   static void delete_vectorlEfunctionlEbooloPEventaNcPgRsPgR(void *p) {
-      delete ((vector<function<bool(Event&)> >*)p);
-   }
-   static void deleteArray_vectorlEfunctionlEbooloPEventaNcPgRsPgR(void *p) {
-      delete [] ((vector<function<bool(Event&)> >*)p);
-   }
-   static void destruct_vectorlEfunctionlEbooloPEventaNcPgRsPgR(void *p) {
-      typedef vector<function<bool(Event&)> > current_t;
-      ((current_t*)p)->~current_t();
-   }
-} // end of namespace ROOT for class vector<function<bool(Event&)> >
 
 namespace {
   void TriggerDictionaryInitialization_Filtersdict_Impl() {

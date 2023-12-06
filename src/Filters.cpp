@@ -4,21 +4,25 @@
 ClassImp(Filters);
 
 
-Filters::Filters() 
+Filters::Filters(std::vector<std::string>& _filtersToBeUsed) 
 {
+    for( auto& filter : _filtersToBeUsed)
+    {
+        if (filter == "useEventHasTwoNegativeParticles")
+        {
+            useEventHasTwoNegativeParticles = true;
+        }
+        if (filter == "useEventHasSumEnergyAbove")
+        {
+            useEventHasSumEnergyAbove = true;
+        }
+    }
 }
 
 Filters::~Filters()
 {
 }
 
-void Filters::add_filters(const std::vector<FilterFunction>& _filters)
-{
-    for (const auto& filter : _filters)
-    {
-        filters.push_back(filter);
-    }
-}
 
 bool Filters::event_has_two_negative_particles(Event& _event)
 {
@@ -56,9 +60,9 @@ bool Filters::event_has_two_particles(Event& _event)
     return false;
 }
 
-bool Filters::event_has_sum_energy_above(Event& _event, double _minEnergy)
+bool Filters::event_has_sum_energy_above(Event& _event, double _minSumEnergy)
 {
-    if( _event.get_event_total_energy() >  _minEnergy)
+    if( _event.get_event_total_energy() >  _minSumEnergy)
     {
         return true;
     }
@@ -67,9 +71,9 @@ bool Filters::event_has_sum_energy_above(Event& _event, double _minEnergy)
         return false;
     }
 }
-bool Filters::event_has_sum_energy_below(Event& _event, double _maxEnergy)
+bool Filters::event_has_sum_energy_below(Event& _event, double _maxSumEnergy)
 {
-    if( _event.get_event_total_energy() <  _maxEnergy)
+    if( _event.get_event_total_energy() <  _maxSumEnergy)
     {
         return true;
     }
@@ -125,32 +129,33 @@ bool Filters::event_has_two_associated_calo_hits(Event& _event)
     }
 }
 
-void Filters::set_min_energy_filter(double _minEnergy)
+void Filters::set_min_sum_energy(double _minSumEnergy)
 {
-    minEnergy = _minEnergy;
+    minSumEnergy = _minSumEnergy;
 }
 
-void Filters::set_max_energy_filter(double _maxEnergy)
+void Filters::set_max_sum_energy(double _maxSumEnergy)
 {
-    maxEnergy = _maxEnergy;
+    maxSumEnergy = _maxSumEnergy;
 }
 
-double Filters::get_min_energy_filter()
+double Filters::get_min_sum_energy()
 {
-    return minEnergy;
+    return minSumEnergy;
 }
-double Filters::get_max_energy_filter()
+double Filters::get_max_sum_energy()
 {
-    return minEnergy;
+    return maxSumEnergy;
 }
 
 bool Filters::event_passed_filters(Event& _event) {
-    for (auto& filter_passed : filters) 
+    if ( useEventHasTwoNegativeParticles && !event_has_two_negative_particles(_event) )         // event doesn't pass filter if filter should be used AND is not fulilled!
     {
-        if (!filter_passed(_event)) 
-        {
-            return false;
-        }
+        return false;
+    }
+    if ( useEventHasSumEnergyAbove && !event_has_sum_energy_above(_event, minSumEnergy) )         // event doesn't pass filter if filter should be used AND is not fulilled!
+    {
+        return false;
     }
     return true;
 }
