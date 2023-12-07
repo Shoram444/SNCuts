@@ -11,11 +11,10 @@
 
 [name="pipeline" type="SNCuts"]
 useEventHasTwoNegativeParticles : boolean = true
-useEventHasTwoParticles 		: boolean = true
 useEventHasParticles 			: boolean = true
 useEventHasTwoTracks 			: boolean = true
 useEventHasTwoFoilVertices 	    : boolean = true
-# useEventHasTwoCaloHits 			: boolean = true
+useEventHasTwoCaloHits 			: boolean = true
 useEventHasTwoAssociatedCaloHits: boolean = true
 useEventHasSumEnergyAbove 		: boolean = true
 minSumEnergy 					: real    = 0.0

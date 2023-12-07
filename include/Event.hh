@@ -5,6 +5,7 @@
 #include "TObject.h"
 
 #include "Particle.hh"
+#include "CDBank.hh"
 
 // Standard headers
 #include "iostream"
@@ -22,11 +23,15 @@ class Event: public TObject
 
 		void set_event_number(int _eventNumber);
 		void set_event_total_energy(double _eventTotalEnergy);
+
 		void add_particle(Particle &_newParticle); // add a particle into the event
+		void add_cd_bank(CDBank &_cdBank);		   // add CD bank into the event
+
 		void reset(); 							   // resets the values of the Event
 		void print();	
 
 		std::vector<Particle> get_particles();     
+		CDBank 	get_cd_bank();     
 
 		int 	get_event_number(); 
 		double 	get_event_total_energy();
@@ -36,7 +41,8 @@ class Event: public TObject
 		int 	eventNumber;
 		double 	eventTotalEnergy; 
 
-		std::vector<Particle> particles;
+		std::vector<Particle> particles; 			// Info from PTD bank
+		CDBank cdBank;
     
     
 	ClassDef(Event,1);

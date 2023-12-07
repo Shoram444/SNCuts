@@ -148,7 +148,11 @@ bool Filters::event_has_two_foil_vertices(Event& _event)
 
 bool Filters::event_has_two_calo_hits(Event& _event)
 {
-    return true; // FIX THIS! 
+    if( _event.get_cd_bank().get_number_of_calo_hits() == 2 )
+    {
+        return true;
+    }
+    return false; 
 }
 
 bool Filters::event_has_two_associated_calo_hits(Event& _event)

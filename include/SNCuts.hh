@@ -8,11 +8,15 @@
 #include "falaise/snemo/processing/module.h"
 #include "falaise/snemo/datamodels/particle_track_data.h"
 #include "falaise/snemo/datamodels/tracker_clustering_solution.h"
+#include "falaise/snemo/datamodels/calibrated_data.h"
+
 
 
 #include "Event.hh"
 #include "Particle.hh"
 #include "Filters.hh"
+#include "CDBank.hh"
+#include "CDHit.hh"
 
 
 

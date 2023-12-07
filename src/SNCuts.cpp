@@ -31,13 +31,13 @@ void SNCuts::initialize(
     this->_set_initialized(true);
     std::cout << " -----------------------------" << std::endl;
     std::cout << " Using the following filters: " << std::endl;
-    try 
-    {
+    try                                                             // myConfig.fetch(configKeyword, classVariable) looks for the config keyword 
+    {                                                               // in the pipeline.conf file and sets the corresponding value of the classVariable
         myConfig.fetch("useEventHasTwoNegativeParticles", this->_useEventHasTwoNegativeParticles_);
-        if(_useEventHasTwoNegativeParticles_)
-        {
+        if(_useEventHasTwoNegativeParticles_)                       // if in the config file, the useCut is flagged true,
+        {                                                           // it will be added to the list of all filters to be used
             std::cout << "EventHasTwoNegativeParticles" << std::endl;
-            _filtersToBeUsed.push_back("useEventHasTwoNegativeParticles");
+            _filtersToBeUsed.push_back("useEventHasTwoNegativeParticles");  
         }
     } 
     catch (std::logic_error& e) 
@@ -279,7 +279,31 @@ Event SNCuts::get_event_data(datatools::things& workItem)
     {
         std::cout << "No PTD Bank!!!\n";
     }
-
     event.set_event_total_energy(totEne);
+
+
+    if(workItem.has("CD"))
+    {
+        using namespace snemo::datamodel;
+
+        snemo::datamodel::calibrated_data falaiseCDbank = workItem.get<calibrated_data>("CD");
+
+        CDBank* SNCCDBank = new CDBank();                                                       //SNCuts CD bank
+
+        for ( auto &calohit : falaiseCDbank.calorimeter_hits() )
+        {
+            CDHit* cdhit = new CDHit();
+
+            cdhit->set_energy( calohit.get().get_energy() / CLHEP::keV );
+            SNCCDBank->add_calohit(*cdhit);
+
+            delete cdhit;
+        }
+
+        event.add_cd_bank(*SNCCDBank);
+
+        delete SNCCDBank;
+    }
+
     return event;
 }

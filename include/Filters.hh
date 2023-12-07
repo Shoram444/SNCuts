@@ -6,6 +6,7 @@
 
 #include "Particle.hh"
 #include "Event.hh"
+#include "CDBank.hh"
 
 // Standard headers
 #include "iostream"
@@ -16,16 +17,12 @@ using namespace std;
 class Filters: public TObject
 {
     public: 
-        using FilterFunction = std::function<bool(Event&)>;    // create a holder for filter functions
-
         //! constructor
 		Filters(std::vector<std::string>& _filtersToBeUsed);  
 
 		//! desctructor
 		~Filters();
 
-        // void add_filters(const std::vector<FilterFunction>& _filters);
-        
         bool event_has_two_negative_particles        (Event& _event);
         bool event_has_two_particles                 (Event& _event);
         bool event_has_particles                     (Event& _event);

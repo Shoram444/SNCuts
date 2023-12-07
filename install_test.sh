@@ -1,8 +1,8 @@
 
-echo "                                          "
-echo "Please enter the full path to *FALAISE* include files:"
-read FAL_INC
-echo "                                          "
+# echo "                                          "
+# echo "Please enter the full path to *FALAISE* include files:"
+# read FAL_INC
+# echo "                                          "
 
 
 rm -rf build lib ./src/dicts/ CDFiltered.brio 
@@ -20,6 +20,10 @@ echo "rootcint: ./include/Particle.hh         -> ./lib/Particledict_rdict.pcm   
       	      rootcint -f ../lib/Particledict.cpp          Particle.hh+
 echo "rootcint: ./include/Filters.hh         -> ./lib/Filtersdict_rdict.pcm         + ./src/dicts/Filtersdict.cpp"
       	      rootcint -f ../lib/Filtersdict.cpp          Filters.hh+
+echo "rootcint: ./include/CDBank.hh         -> ./lib/CDBankdict_rdict.pcm         + ./src/dicts/CDBankdict.cpp"
+      	      rootcint -f ../lib/CDBankdict.cpp          CDBank.hh+
+echo "rootcint: ./include/CDHit.hh         -> ./lib/CDHitdict_rdict.pcm         + ./src/dicts/CDHitdict.cpp"
+      	      rootcint -f ../lib/CDHitdict.cpp          CDHit.hh+
 
 echo " "
 echo "Dictionaries generated!"

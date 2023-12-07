@@ -52,7 +52,7 @@ namespace ROOT {
       ::Filters *ptr = 0;
       static ::TVirtualIsAProxy* isa_proxy = new ::TInstrumentedIsAProxy< ::Filters >(0);
       static ::ROOT::TGenericClassInfo 
-         instance("Filters", ::Filters::Class_Version(), "Filters.hh", 16,
+         instance("Filters", ::Filters::Class_Version(), "Filters.hh", 17,
                   typeid(::Filters), ::ROOT::Internal::DefineBehavior(ptr, ptr),
                   &::Filters::Dictionary, isa_proxy, 4,
                   sizeof(::Filters) );
