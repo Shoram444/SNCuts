@@ -2,5 +2,10 @@
 *.brio
 
 test/*.brio
+test/*.cpp
+test/*.root
+
 lib/
 build/
+
+.vscode

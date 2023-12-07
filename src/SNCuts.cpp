@@ -57,6 +57,9 @@ void SNCuts::initialize(
     catch (std::logic_error& e) 
     {
     }
+
+    std::cout << " -----------------------------" << std::endl;
+
 }
 
 dpp::base_module::process_status SNCuts::process(datatools::things& workItem) 
