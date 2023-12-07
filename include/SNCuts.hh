@@ -49,12 +49,20 @@ private:
 
 
     // configurable data members
-    bool _useEventHasTwoNegativeParticles_ = false; 
+    bool _useEventHasTwoNegativeParticles_      = false; 
+    bool _useEventHasTwoParticles_              = false; 
+    bool _useEventHasParticles_                 = false; 
+    bool _useEventHasTwoTracks_                 = false; 
+    bool _useEventHasTwoFoilVertices_           = false; 
+    bool _useEventHasTwoCaloHits_               = false; 
+    bool _useEventHasTwoAssociatedCaloHits_     = false; 
 
 
-    
+
     bool _useEventHasSumEnergyAbove_       = false;
     double _minSumEnergy_                  = -10000.0;           // default value, this will be changed at construction of Filters
+    bool _useEventHasSumEnergyBelow_       = false;
+    double _maxSumEnergy_                  = 1000000.0;           // default value, this will be changed at construction of Filters
 
     DPP_MODULE_REGISTRATION_INTERFACE(SNCuts);
 };

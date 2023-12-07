@@ -16,11 +16,52 @@ Filters::Filters(std::vector<std::string>& _filtersToBeUsed)
         {
             useEventHasSumEnergyAbove = true;
         }
+        if (filter == "useEventHasSumEnergyBelow")
+        {
+            useEventHasSumEnergyBelow = true;
+        }
+        if (filter == "useEventHasTwoParticles")
+        {
+            useEventHasTwoParticles = true;
+        }
+        if (filter == "useEventHasParticles")
+        {
+            useEventHasParticles = true;
+        }
+        if (filter == "useEventHasTwoTracks")
+        {
+            useEventHasTwoTracks = true;
+        }
+        if (filter == "useEventHasTwoFoilVertices")
+        {
+            useEventHasTwoFoilVertices = true;
+        }
+        if (filter == "useEventHasTwoCaloHits")
+        {
+            useEventHasTwoCaloHits = true;
+        }
+        if (filter == "useEventHasTwoAssociatedCaloHits")
+        {
+            useEventHasTwoAssociatedCaloHits = true;
+        }
     }
 }
 
 Filters::~Filters()
 {
+        useEventHasTwoNegativeParticles    = false; 
+        useEventHasTwoParticles            = false; 
+        useEventHasParticles               = false; 
+        useEventHasTwoTracks               = false; 
+        useEventHasTwoFoilVertices         = false; 
+        useEventHasTwoCaloHits             = false; 
+        useEventHasTwoAssociatedCaloHits   = false; 
+
+        useEventHasSumEnergyAbove          = false; 
+        minSumEnergy                       = -10000;
+
+        useEventHasSumEnergyBelow          = false; 
+        maxSumEnergy                       = 100000;
 }
 
 
@@ -153,7 +194,35 @@ bool Filters::event_passed_filters(Event& _event) {
     {
         return false;
     }
-    if ( useEventHasSumEnergyAbove && !event_has_sum_energy_above(_event, minSumEnergy) )         // event doesn't pass filter if filter should be used AND is not fulilled!
+    if ( useEventHasTwoParticles && !event_has_two_particles(_event) )                          
+    {
+        return false;
+    }
+    if ( useEventHasParticles && !event_has_particles(_event) )                          
+    {
+        return false;
+    }
+    if ( useEventHasTwoTracks && !event_has_two_tracks(_event) )                          
+    {
+        return false;
+    }
+    if ( useEventHasTwoFoilVertices && !event_has_two_foil_vertices(_event) )                          
+    {
+        return false;
+    }
+    if ( useEventHasTwoCaloHits && !event_has_two_calo_hits(_event) )                          
+    {
+        return false;
+    }
+    if ( useEventHasTwoAssociatedCaloHits && !event_has_two_associated_calo_hits(_event) )                          
+    {
+        return false;
+    }
+    if ( useEventHasSumEnergyAbove && !event_has_sum_energy_above(_event, minSumEnergy) )       
+    {
+        return false;
+    }
+    if ( useEventHasSumEnergyBelow && !event_has_sum_energy_below(_event, maxSumEnergy) )       
     {
         return false;
     }

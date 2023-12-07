@@ -46,6 +46,84 @@ void SNCuts::initialize(
 
     try 
     {
+        myConfig.fetch("useEventHasTwoParticles", this->_useEventHasTwoParticles_);
+        if(_useEventHasTwoParticles_)
+        {
+            std::cout << "EventHasTwoParticles" << std::endl;
+            _filtersToBeUsed.push_back("useEventHasTwoParticles");
+        }
+    } 
+    catch (std::logic_error& e) 
+    {
+    }
+
+    try 
+    {
+        myConfig.fetch("useEventHasParticles", this->_useEventHasParticles_);
+        if(_useEventHasParticles_)
+        {
+            std::cout << "EventHasParticles" << std::endl;
+            _filtersToBeUsed.push_back("useEventHasParticles");
+        }
+    } 
+    catch (std::logic_error& e) 
+    {
+    }
+
+    try 
+    {
+        myConfig.fetch("useEventHasTwoTracks", this->_useEventHasTwoTracks_);
+        if(_useEventHasTwoTracks_)
+        {
+            std::cout << "EventHasTwoTracks" << std::endl;
+            _filtersToBeUsed.push_back("useEventHasTwoTracks");
+        }
+    } 
+    catch (std::logic_error& e) 
+    {
+    }
+
+    try 
+    {
+        myConfig.fetch("useEventHasTwoFoilVertices", this->_useEventHasTwoFoilVertices_);
+        if(_useEventHasTwoFoilVertices_)
+        {
+            std::cout << "EventHasTwoFoilVertices" << std::endl;
+            _filtersToBeUsed.push_back("useEventHasTwoFoilVertices");
+        }
+    } 
+    catch (std::logic_error& e) 
+    {
+    }
+
+    try 
+    {
+        myConfig.fetch("useEventHasTwoCaloHits", this->_useEventHasTwoCaloHits_);
+        if(_useEventHasTwoCaloHits_)
+        {
+            std::cout << "EventHasTwoCaloHits" << std::endl;
+            _filtersToBeUsed.push_back("useEventHasTwoCaloHits");
+        }
+    } 
+    catch (std::logic_error& e) 
+    {
+    }
+
+    try 
+    {
+        myConfig.fetch("useEventHasTwoAssociatedCaloHits", this->_useEventHasTwoAssociatedCaloHits_);
+        if(_useEventHasTwoAssociatedCaloHits_)
+        {
+            std::cout << "EventHasTwoAssociatedCaloHits" << std::endl;
+            _filtersToBeUsed.push_back("useEventHasTwoAssociatedCaloHits");
+        }
+    } 
+    catch (std::logic_error& e) 
+    {
+    }
+
+    try 
+    {
         myConfig.fetch("useEventHasSumEnergyAbove", this->_useEventHasSumEnergyAbove_);
         if(_useEventHasSumEnergyAbove_)
         {
@@ -57,6 +135,20 @@ void SNCuts::initialize(
     catch (std::logic_error& e) 
     {
     }
+    try 
+    {
+        myConfig.fetch("useEventHasSumEnergyBelow", this->_useEventHasSumEnergyBelow_);
+        if(_useEventHasSumEnergyBelow_)
+        {
+            _filtersToBeUsed.push_back("useEventHasSumEnergyBelow");
+        }
+        myConfig.fetch("maxSumEnergy", this->_maxSumEnergy_);
+        std::cout << "EventHasSumEnergyBelow " << _maxSumEnergy_ << " keV" << std::endl;
+    } 
+    catch (std::logic_error& e) 
+    {
+    }
+
 
     std::cout << " -----------------------------" << std::endl;
 
@@ -66,6 +158,7 @@ dpp::base_module::process_status SNCuts::process(datatools::things& workItem)
 {
     Filters*  eventFilter = new Filters(_filtersToBeUsed);            // construct Filters instance which holds the filters
     eventFilter->set_min_sum_energy(_minSumEnergy_);                  // if not set in config file, value of -10000 is used. 
+    eventFilter->set_max_sum_energy(_maxSumEnergy_);                  // if not set in config file, value of 1000000 is used. 
 
     event = get_event_data(workItem);
 
@@ -188,6 +281,5 @@ Event SNCuts::get_event_data(datatools::things& workItem)
     }
 
     event.set_event_total_energy(totEne);
-    event.print();
     return event;
 }

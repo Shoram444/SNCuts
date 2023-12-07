@@ -24,6 +24,11 @@ void Event::set_event_number(int _eventNumber)
     eventNumber = _eventNumber;
 }
 
+int Event::get_event_number()
+{
+    return eventNumber;
+}
+
 void Event::add_particle(Particle &_newParticle)
 {
     particles.push_back(_newParticle);
@@ -38,6 +43,7 @@ void Event::set_event_total_energy(double _eventTotalEnergy)
 {
     eventTotalEnergy = _eventTotalEnergy;
 }
+
 double Event::get_event_total_energy()
 {
     return eventTotalEnergy;
