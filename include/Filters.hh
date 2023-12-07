@@ -52,6 +52,8 @@ class Filters: public TObject
         bool useEventHasTwoCaloHits             = false; 
         bool useEventHasTwoAssociatedCaloHits   = false; 
 
+        bool useSDBDRC                          = false; 
+
         bool useEventHasSumEnergyAbove          = false; 
         double minSumEnergy;
 

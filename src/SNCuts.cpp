@@ -124,6 +124,19 @@ void SNCuts::initialize(
 
     try 
     {
+        myConfig.fetch("useSDBDRC", this->_useSDBDRC_);
+        if(_useSDBDRC_)
+        {
+            std::cout << "SDBDRC" << std::endl;
+            _filtersToBeUsed.push_back("useSDBDRC");
+        }
+    } 
+    catch (std::logic_error& e) 
+    {
+    }
+
+    try 
+    {
         myConfig.fetch("useEventHasSumEnergyAbove", this->_useEventHasSumEnergyAbove_);
         if(_useEventHasSumEnergyAbove_)
         {

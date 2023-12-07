@@ -62,6 +62,7 @@ private:
     bool _useEventHasTwoAssociatedCaloHits_     = false; 
 
 
+    bool _useSDBDRC_                            = false;        // SDDBDRC includes: _useEventHasTwoNegativeParticles_, _useEventHasTwoTracks_, _useEventHasTwoFoilVertices_, _useEventHasTwoCaloHits_, _useEventHasTwoAssociatedCaloHits_ 
 
     bool _useEventHasSumEnergyAbove_       = false;
     double _minSumEnergy_                  = -10000.0;           // default value, this will be changed at construction of Filters

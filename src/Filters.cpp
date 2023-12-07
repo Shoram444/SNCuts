@@ -12,14 +12,7 @@ Filters::Filters(std::vector<std::string>& _filtersToBeUsed)
         {
             useEventHasTwoNegativeParticles = true;
         }
-        if (filter == "useEventHasSumEnergyAbove")
-        {
-            useEventHasSumEnergyAbove = true;
-        }
-        if (filter == "useEventHasSumEnergyBelow")
-        {
-            useEventHasSumEnergyBelow = true;
-        }
+
         if (filter == "useEventHasTwoParticles")
         {
             useEventHasTwoParticles = true;
@@ -43,6 +36,24 @@ Filters::Filters(std::vector<std::string>& _filtersToBeUsed)
         if (filter == "useEventHasTwoAssociatedCaloHits")
         {
             useEventHasTwoAssociatedCaloHits = true;
+        }
+        if (filter == "useSDBDRC")
+        {
+            useEventHasTwoNegativeParticles = true;
+            useEventHasTwoTracks            = true;
+            useEventHasTwoFoilVertices      = true;
+            useEventHasTwoCaloHits          = true;
+            useEventHasTwoAssociatedCaloHits= true;
+            useEventHasSumEnergyAbove       = true;
+            useEventHasSumEnergyBelow       = true;
+        }
+        if (filter == "useEventHasSumEnergyAbove")
+        {
+            useEventHasSumEnergyAbove = true;
+        }
+        if (filter == "useEventHasSumEnergyBelow")
+        {
+            useEventHasSumEnergyBelow = true;
         }
     }
 }
