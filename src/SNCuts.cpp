@@ -164,7 +164,7 @@ dpp::base_module::process_status SNCuts::process(datatools::things& workItem)
 
     if( eventFilter->event_passed_filters(event) )
     {
-        std::cout << "Event: " << eventNo << " Passed! "  <<std::endl;
+        std::cout << "Event: " << eventNo << " ++PASSED++! "  <<std::endl;
 
         eventNo++;
         return falaise::processing::status::PROCESS_OK;

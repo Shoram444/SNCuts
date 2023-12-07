@@ -7,7 +7,7 @@
 # - Module load section
 [name="flreconstruct.plugins" type="flreconstruct::section"]
 	plugins : string[1] = "SNCuts"
-	SNCuts.directory : string = "build/"
+	SNCuts.directory : string = "@PROJECT_BINARY_DIR@/"
 
 [name="pipeline" type="SNCuts"]
 useEventHasTwoNegativeParticles : boolean = true
