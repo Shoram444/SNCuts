@@ -17,7 +17,7 @@ To install the module:
 ===========
 The idea of this module is to provide a **repository of cuts**. There are a number of standard cuts/filters already implemented (with more to come) in the `Filters.hh` class. The `Filters` work in such a way that an `Event` is passed as an argument and a `bool` is returned, either event `passed` or `failed` given set of cuts. 
 From the implemented filters, the user can simply *chose* whichever ones are relevant. I have tried to implement the idea of _"flicking a switch"_ to turn on a series of cuts. The event must pass all the cuts that are **turned on**, while ignoring those that are off. 
-#### One example speaks for all, see the example below. 
+#### One example speaks for all, see the [example](https://github.com/Shoram444/SNCuts#example-usage) below. 
 
 **EXAMPLE USAGE**
 ===========
@@ -80,7 +80,7 @@ flrecontruct -i CD.brio -p SNCutsPipeline.conf -o CDCut.brio
 - `bool event_has_sum_energy_above(Event& _event, double _minEnergy)`: returns true if the sum of the event energy (from `PTD` bank) is above the limit given by `_minEnergy`. `_minEnergy` is set by `event.set_min_energy(double _minEnergy)`
 - `bool event_has_sum_energy_below(Event& _event, double _maxEnergy)`: returns true if the sum of the event energy (from `PTD` bank) is below the limit given by `_maxEnergy`. `_maxEnergy` is set by `event.set_max_energy(double _maxEnergy)`
 
-#### To turn on any of the filters, the filter must be set to `true` in the `SNCutsPipeline.config` file. Each cut is turned on with the keyword `useFiltersName` (note the CamelCase font use). Check out the example above. 
+#### To turn on any of the filters, the filter must be set to `true` in the `SNCutsPipeline.config` file. Each cut is turned on with the keyword `useFiltersName` (note the CamelCase font use). Check out the [example](https://github.com/Shoram444/SNCuts#example-usage) above. 
 
 **ADDING FILTERS**
 ==========
