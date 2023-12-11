@@ -29,6 +29,7 @@ class Filters: public TObject
         bool event_has_two_tracks                    (Event& _event);                       //this is equivalend to event_has_two_particles
         bool event_has_two_foil_vertices             (Event& _event);
         bool event_has_two_calo_hits                 (Event& _event);
+        bool event_has_one_calo_hit                  (Event& _event);
         bool event_has_two_associated_calo_hits      (Event& _event);
 
         bool event_has_sum_energy_above              (Event& _event, double _minEnergy);
@@ -50,6 +51,7 @@ class Filters: public TObject
         bool useEventHasTwoTracks               = false; 
         bool useEventHasTwoFoilVertices         = false; 
         bool useEventHasTwoCaloHits             = false; 
+        bool useEventHasOneCaloHit              = false; 
         bool useEventHasTwoAssociatedCaloHits   = false; 
 
         bool useSDBDRC                          = false; 

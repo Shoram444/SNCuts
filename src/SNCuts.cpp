@@ -5,7 +5,6 @@
 #include "Filters.hh"
 
 
-
 DPP_MODULE_REGISTRATION_IMPLEMENT(SNCuts, "SNCuts")
 
 SNCuts::SNCuts() : dpp::base_module() 
@@ -111,6 +110,19 @@ void SNCuts::initialize(
 
     try 
     {
+        myConfig.fetch("useEventHasOneCaloHit", this->_useEventHasOneCaloHit_);
+        if(_useEventHasOneCaloHit_)
+        {
+            std::cout << "EventHasOneCaloHit" << std::endl;
+            _filtersToBeUsed.push_back("useEventHasOneCaloHit");
+        }
+    } 
+    catch (std::logic_error& e) 
+    {
+    }
+
+    try 
+    {
         myConfig.fetch("useEventHasTwoAssociatedCaloHits", this->_useEventHasTwoAssociatedCaloHits_);
         if(_useEventHasTwoAssociatedCaloHits_)
         {
@@ -185,7 +197,7 @@ dpp::base_module::process_status SNCuts::process(datatools::things& workItem)
     }
     else if (!eventFilter->event_passed_filters(event))
     {
-        std::cout << "Event: " << eventNo << " Failed! "  <<std::endl;
+        // std::cout << "Event: " << eventNo << " Failed! "  <<std::endl;
 
         eventNo++;
         return dpp::base_module::PROCESS_STOP;

@@ -59,6 +59,7 @@ private:
     bool _useEventHasTwoTracks_                 = false; 
     bool _useEventHasTwoFoilVertices_           = false; 
     bool _useEventHasTwoCaloHits_               = false; 
+    bool _useEventHasOneCaloHit_                = false; 
     bool _useEventHasTwoAssociatedCaloHits_     = false; 
 
 
