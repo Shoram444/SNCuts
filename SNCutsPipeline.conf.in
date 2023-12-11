@@ -7,17 +7,18 @@
 # - Module load section
 [name="flreconstruct.plugins" type="flreconstruct::section"]
 	plugins : string[1] = "SNCuts"
-	SNCuts.directory : string = "build/"
+	SNCuts.directory : string = "@PROJECT_BINARY_DIR@/"
 
 [name="pipeline" type="SNCuts"]
 useEventHasTwoNegativeParticles : boolean = true
-useEventHasTwoParticles 		: boolean = true
 useEventHasParticles 			: boolean = true
 useEventHasTwoTracks 			: boolean = true
 useEventHasTwoFoilVertices 	    : boolean = true
 # useEventHasTwoCaloHits 			: boolean = true
+useEventHasOneCaloHit 			: boolean = true
 useEventHasTwoAssociatedCaloHits: boolean = true
 useEventHasSumEnergyAbove 		: boolean = true
+# useSDBDRC 						: boolean = true
 minSumEnergy 					: real    = 0.0
 useEventHasSumEnergyBelow 		: boolean = true
 maxSumEnergy 					: real    = 3500.0

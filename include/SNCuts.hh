@@ -8,11 +8,15 @@
 #include "falaise/snemo/processing/module.h"
 #include "falaise/snemo/datamodels/particle_track_data.h"
 #include "falaise/snemo/datamodels/tracker_clustering_solution.h"
+#include "falaise/snemo/datamodels/calibrated_data.h"
+
 
 
 #include "Event.hh"
 #include "Particle.hh"
 #include "Filters.hh"
+#include "CDBank.hh"
+#include "CDHit.hh"
 
 
 
@@ -55,9 +59,11 @@ private:
     bool _useEventHasTwoTracks_                 = false; 
     bool _useEventHasTwoFoilVertices_           = false; 
     bool _useEventHasTwoCaloHits_               = false; 
+    bool _useEventHasOneCaloHit_                = false; 
     bool _useEventHasTwoAssociatedCaloHits_     = false; 
 
 
+    bool _useSDBDRC_                            = false;        // SDDBDRC includes: _useEventHasTwoNegativeParticles_, _useEventHasTwoTracks_, _useEventHasTwoFoilVertices_, _useEventHasTwoCaloHits_, _useEventHasTwoAssociatedCaloHits_ 
 
     bool _useEventHasSumEnergyAbove_       = false;
     double _minSumEnergy_                  = -10000.0;           // default value, this will be changed at construction of Filters

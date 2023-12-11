@@ -34,10 +34,21 @@ void Event::add_particle(Particle &_newParticle)
     particles.push_back(_newParticle);
 }
 
+
 std::vector<Particle> Event::get_particles()
 {
     return particles;
 }
+
+void Event::add_cd_bank(CDBank &_cdBank)
+{
+    cdBank = _cdBank;
+}		   
+
+CDBank 	Event::get_cd_bank()
+{
+    return cdBank;
+}     
 
 void Event::set_event_total_energy(double _eventTotalEnergy)
 {

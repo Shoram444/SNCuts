@@ -12,14 +12,7 @@ Filters::Filters(std::vector<std::string>& _filtersToBeUsed)
         {
             useEventHasTwoNegativeParticles = true;
         }
-        if (filter == "useEventHasSumEnergyAbove")
-        {
-            useEventHasSumEnergyAbove = true;
-        }
-        if (filter == "useEventHasSumEnergyBelow")
-        {
-            useEventHasSumEnergyBelow = true;
-        }
+
         if (filter == "useEventHasTwoParticles")
         {
             useEventHasTwoParticles = true;
@@ -40,9 +33,31 @@ Filters::Filters(std::vector<std::string>& _filtersToBeUsed)
         {
             useEventHasTwoCaloHits = true;
         }
+        if (filter == "useEventHasOneCaloHit")
+        {
+            useEventHasOneCaloHit = true;
+        }
         if (filter == "useEventHasTwoAssociatedCaloHits")
         {
             useEventHasTwoAssociatedCaloHits = true;
+        }
+        if (filter == "useSDBDRC")
+        {
+            useEventHasTwoNegativeParticles = true;
+            useEventHasTwoTracks            = true;
+            useEventHasTwoFoilVertices      = true;
+            useEventHasTwoCaloHits          = true;
+            useEventHasTwoAssociatedCaloHits= true;
+            useEventHasSumEnergyAbove       = true;
+            useEventHasSumEnergyBelow       = true;
+        }
+        if (filter == "useEventHasSumEnergyAbove")
+        {
+            useEventHasSumEnergyAbove = true;
+        }
+        if (filter == "useEventHasSumEnergyBelow")
+        {
+            useEventHasSumEnergyBelow = true;
         }
     }
 }
@@ -55,6 +70,7 @@ Filters::~Filters()
         useEventHasTwoTracks               = false; 
         useEventHasTwoFoilVertices         = false; 
         useEventHasTwoCaloHits             = false; 
+        useEventHasOneCaloHit              = false; 
         useEventHasTwoAssociatedCaloHits   = false; 
 
         useEventHasSumEnergyAbove          = false; 
@@ -148,7 +164,20 @@ bool Filters::event_has_two_foil_vertices(Event& _event)
 
 bool Filters::event_has_two_calo_hits(Event& _event)
 {
-    return true; // FIX THIS! 
+    if( _event.get_cd_bank().get_number_of_calo_hits() == 2 )
+    {
+        return true;
+    }
+    return false; 
+}
+
+bool Filters::event_has_one_calo_hit(Event& _event)
+{
+    if( _event.get_cd_bank().get_number_of_calo_hits() == 1 )
+    {
+        return true;
+    }
+    return false;
 }
 
 bool Filters::event_has_two_associated_calo_hits(Event& _event)
@@ -194,27 +223,31 @@ bool Filters::event_passed_filters(Event& _event) {
     {
         return false;
     }
-    if ( useEventHasTwoParticles && !event_has_two_particles(_event) )                          
+    if ( useEventHasTwoParticles && !event_has_two_particles(_event) )
     {
         return false;
     }
-    if ( useEventHasParticles && !event_has_particles(_event) )                          
+    if ( useEventHasParticles && !event_has_particles(_event) ) 
     {
         return false;
     }
-    if ( useEventHasTwoTracks && !event_has_two_tracks(_event) )                          
+    if ( useEventHasTwoTracks && !event_has_two_tracks(_event) ) 
     {
         return false;
     }
-    if ( useEventHasTwoFoilVertices && !event_has_two_foil_vertices(_event) )                          
+    if ( useEventHasTwoFoilVertices && !event_has_two_foil_vertices(_event) ) 
     {
         return false;
     }
-    if ( useEventHasTwoCaloHits && !event_has_two_calo_hits(_event) )                          
+    if ( useEventHasTwoCaloHits && !event_has_two_calo_hits(_event) ) 
     {
         return false;
     }
-    if ( useEventHasTwoAssociatedCaloHits && !event_has_two_associated_calo_hits(_event) )                          
+    if ( useEventHasOneCaloHit && !event_has_one_calo_hit(_event) ) 
+    {
+        return false;
+    }
+    if ( useEventHasTwoAssociatedCaloHits && !event_has_two_associated_calo_hits(_event) ) 
     {
         return false;
     }

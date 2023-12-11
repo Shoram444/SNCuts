@@ -5,7 +5,6 @@
 #include "Filters.hh"
 
 
-
 DPP_MODULE_REGISTRATION_IMPLEMENT(SNCuts, "SNCuts")
 
 SNCuts::SNCuts() : dpp::base_module() 
@@ -31,13 +30,13 @@ void SNCuts::initialize(
     this->_set_initialized(true);
     std::cout << " -----------------------------" << std::endl;
     std::cout << " Using the following filters: " << std::endl;
-    try 
-    {
+    try                                                             // myConfig.fetch(configKeyword, classVariable) looks for the config keyword 
+    {                                                               // in the pipeline.conf file and sets the corresponding value of the classVariable
         myConfig.fetch("useEventHasTwoNegativeParticles", this->_useEventHasTwoNegativeParticles_);
-        if(_useEventHasTwoNegativeParticles_)
-        {
+        if(_useEventHasTwoNegativeParticles_)                       // if in the config file, the useCut is flagged true,
+        {                                                           // it will be added to the list of all filters to be used
             std::cout << "EventHasTwoNegativeParticles" << std::endl;
-            _filtersToBeUsed.push_back("useEventHasTwoNegativeParticles");
+            _filtersToBeUsed.push_back("useEventHasTwoNegativeParticles");  
         }
     } 
     catch (std::logic_error& e) 
@@ -111,11 +110,37 @@ void SNCuts::initialize(
 
     try 
     {
+        myConfig.fetch("useEventHasOneCaloHit", this->_useEventHasOneCaloHit_);
+        if(_useEventHasOneCaloHit_)
+        {
+            std::cout << "EventHasOneCaloHit" << std::endl;
+            _filtersToBeUsed.push_back("useEventHasOneCaloHit");
+        }
+    } 
+    catch (std::logic_error& e) 
+    {
+    }
+
+    try 
+    {
         myConfig.fetch("useEventHasTwoAssociatedCaloHits", this->_useEventHasTwoAssociatedCaloHits_);
         if(_useEventHasTwoAssociatedCaloHits_)
         {
             std::cout << "EventHasTwoAssociatedCaloHits" << std::endl;
             _filtersToBeUsed.push_back("useEventHasTwoAssociatedCaloHits");
+        }
+    } 
+    catch (std::logic_error& e) 
+    {
+    }
+
+    try 
+    {
+        myConfig.fetch("useSDBDRC", this->_useSDBDRC_);
+        if(_useSDBDRC_)
+        {
+            std::cout << "SDBDRC" << std::endl;
+            _filtersToBeUsed.push_back("useSDBDRC");
         }
     } 
     catch (std::logic_error& e) 
@@ -164,7 +189,7 @@ dpp::base_module::process_status SNCuts::process(datatools::things& workItem)
 
     if( eventFilter->event_passed_filters(event) )
     {
-        std::cout << "Event: " << eventNo << " Passed! "  <<std::endl;
+        std::cout << "Event: " << eventNo << " ++PASSED++! "  <<std::endl;
 
         eventNo++;
         return falaise::processing::status::PROCESS_OK;
@@ -172,7 +197,7 @@ dpp::base_module::process_status SNCuts::process(datatools::things& workItem)
     }
     else if (!eventFilter->event_passed_filters(event))
     {
-        std::cout << "Event: " << eventNo << " Failed! "  <<std::endl;
+        // std::cout << "Event: " << eventNo << " Failed! "  <<std::endl;
 
         eventNo++;
         return dpp::base_module::PROCESS_STOP;
@@ -279,7 +304,31 @@ Event SNCuts::get_event_data(datatools::things& workItem)
     {
         std::cout << "No PTD Bank!!!\n";
     }
-
     event.set_event_total_energy(totEne);
+
+
+    if(workItem.has("CD"))
+    {
+        using namespace snemo::datamodel;
+
+        snemo::datamodel::calibrated_data falaiseCDbank = workItem.get<calibrated_data>("CD");
+
+        CDBank* SNCCDBank = new CDBank();                                                       //SNCuts CD bank
+
+        for ( auto &calohit : falaiseCDbank.calorimeter_hits() )
+        {
+            CDHit* cdhit = new CDHit();
+
+            cdhit->set_energy( calohit.get().get_energy() / CLHEP::keV );
+            SNCCDBank->add_calohit(*cdhit);
+
+            delete cdhit;
+        }
+
+        event.add_cd_bank(*SNCCDBank);
+
+        delete SNCCDBank;
+    }
+
     return event;
 }
