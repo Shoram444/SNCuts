@@ -35,15 +35,15 @@ From the implemented filters, the user can simply *chose* whichever ones are rel
 	SNCuts.directory : string = "@PROJECT_BINARY_DIR@/"
 
 [name="pipeline" type="SNCuts"]
-useEventHasTwoNegativeParticles  : boolean = true
-useEventHasTwoTracks 			       : boolean = true
-useEventHasTwoFoilVertices 	     : boolean = true
-useEventHasTwoCaloHits 			     : boolean = true
+useEventHasTwoNegativeParticles : boolean = true
+useEventHasTwoTracks : boolean = true
+useEventHasTwoFoilVertices : boolean = true
+useEventHasTwoCaloHits : boolean = true
 useEventHasTwoAssociatedCaloHits : boolean = true
-useEventHasSumEnergyAbove 		   : boolean = true
-minSumEnergy 					           : real    = 0.0
-useEventHasSumEnergyBelow 		   : boolean = true
-maxSumEnergy 					           : real    = 3500.0
+useEventHasSumEnergyAbove : boolean = true
+minSumEnergy : real = 0.0
+useEventHasSumEnergyBelow : boolean = true
+maxSumEnergy : real = 3500.0
 ```
 > or more simply, for convenience the `SDBDRC` batch of cuts can be turned on by:
 ```
@@ -53,9 +53,9 @@ maxSumEnergy 					           : real    = 3500.0
 	SNCuts.directory : string = "@PROJECT_BINARY_DIR@/"
 
 [name="pipeline" type="SNCuts"]
-useSDBDRC 						: boolean = true
-minSumEnergy 					: real    = 0.0
-maxSumEnergy 					: real    = 3500.0
+useSDBDRC : boolean = true
+minSumEnergy : real = 0.0
+maxSumEnergy : real = 3500.0
 ```
 > Note that the energy must be set explicitly.
 
