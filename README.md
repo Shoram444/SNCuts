@@ -67,7 +67,7 @@ flrecontruct -i CD.brio -p SNCutsPipeline.conf -o CDCut.brio
 
 **CURRENTLY IMPLEMENTED FILTERS**
 ===========
-
+### Basic bool cuts
 - `bool event_has_two_negative_particles(Event& _event)`: returns true if there are exactly 2 particles in the `PTD` bank and **both** are negative. *Requires PTD bank
 - `bool event_has_two_particles(Event& _event)`: returns true if there are exactly 2 particles in the `PTD` bank. *Requires PTD bank
 - `bool event_has_particles(Event& _event)`: returns true if there is _at least_ one particle in `PTD` bank. *Requires PTD bank
@@ -77,8 +77,12 @@ flrecontruct -i CD.brio -p SNCutsPipeline.conf -o CDCut.brio
 - `bool event_has_one_calo_hit(Event& _event)`: returns true if there is _at least_ 1 calorimeter hit in the `CD` bank. *Requires CD bank
 - `bool event_has_two_associated_calo_hits(Event& _event)`: returns true if there are exactly 2 particles in the `PTD` bank and both have exactly 1 calorimeter hit. *Requires PTD bank
 
+### Energy cuts 
 - `bool event_has_sum_energy_above(Event& _event, double _minEnergy)`: returns true if the sum of the event energy (from `PTD` bank) is above the limit given by `_minEnergy`. `_minEnergy` is set by `event.set_min_energy(double _minEnergy)`
 - `bool event_has_sum_energy_below(Event& _event, double _maxEnergy)`: returns true if the sum of the event energy (from `PTD` bank) is below the limit given by `_maxEnergy`. `_maxEnergy` is set by `event.set_max_energy(double _maxEnergy)`
+
+### Vertex distance cuts
+- `bool event_has_foil_vertex_distance_below(Event& _event, double _maxFoilVertexDistance)`: returns true if two vertices are are less than defined distance: `_maxFoilVertexDistance`. Needs to be used in conjuction with `void set_max_foil_vertex_distance(double _maxFoilVertexDistance)`
 
 #### To turn on any of the filters, the filter must be set to `true` in the `SNCutsPipeline.config` file. Each cut is turned on with the keyword `useFiltersName` (note the CamelCase font use). Check out the [example](https://github.com/Shoram444/SNCuts#example-usage) above. 
 
