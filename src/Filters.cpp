@@ -59,6 +59,10 @@ Filters::Filters(std::vector<std::string>& _filtersToBeUsed)
         {
             useEventHasSumEnergyBelow = true;
         }
+        if (filter == "useEventHasFoilVertexDistanceBelow")
+        {
+            useEventHasFoilVertexDistanceBelow = true;
+        }
     }
 }
 
@@ -74,10 +78,13 @@ Filters::~Filters()
         useEventHasTwoAssociatedCaloHits   = false; 
 
         useEventHasSumEnergyAbove          = false; 
-        minSumEnergy                       = -10000;
+        minSumEnergy                       = -10000.0;
 
         useEventHasSumEnergyBelow          = false; 
-        maxSumEnergy                       = 100000;
+        maxSumEnergy                       = 100000.0;
+
+        useEventHasFoilVertexDistanceBelow = false; 
+        maxFoilVertexDistance              = 100000.0;
 }
 
 
@@ -218,6 +225,34 @@ double Filters::get_max_sum_energy()
     return maxSumEnergy;
 }
 
+void Filters::set_max_foil_vertex_distance(double _maxFoilVertexDistance)
+{
+    maxFoilVertexDistance = _maxFoilVertexDistance;
+}
+
+bool Filters::event_has_foil_vertex_distance_below(Event& _event, double _maxFoilVertexDistance) // is it better if vertex distance is calculated here, or is part of Event?
+{
+    double foilVertexDistance = 1000000.0;
+    if( event_has_two_foil_vertices(_event) && event_has_two_tracks(_event))  // Calculate foil vertex distance only if there are 2 foil vertices!
+    {
+        double dy = _event.get_particles().at(0).get_foil_vertex_position().Y() - _event.get_particles().at(1).get_foil_vertex_position().Y(); 
+        double dz = _event.get_particles().at(0).get_foil_vertex_position().Z() - _event.get_particles().at(1).get_foil_vertex_position().Z();
+
+        foilVertexDistance =  sqrt(  // I'm omitting X-component since this doesn't really make sense to use
+                pow( dy , 2) + 
+                pow( dz , 2) 
+            );
+    }
+
+    if( foilVertexDistance < _maxFoilVertexDistance )
+    {
+        return true;
+    }
+
+    return false;
+}
+
+
 bool Filters::event_passed_filters(Event& _event) {
     if ( useEventHasTwoNegativeParticles && !event_has_two_negative_particles(_event) )         // event doesn't pass filter if filter should be used AND is not fulilled!
     {
@@ -256,6 +291,10 @@ bool Filters::event_passed_filters(Event& _event) {
         return false;
     }
     if ( useEventHasSumEnergyBelow && !event_has_sum_energy_below(_event, maxSumEnergy) )       
+    {
+        return false;
+    }
+    if ( useEventHasFoilVertexDistanceBelow && !event_has_foil_vertex_distance_below(_event, maxFoilVertexDistance) )       
     {
         return false;
     }

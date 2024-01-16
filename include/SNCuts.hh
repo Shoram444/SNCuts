@@ -65,10 +65,13 @@ private:
 
     bool _useSDBDRC_                            = false;        // SDDBDRC includes: _useEventHasTwoNegativeParticles_, _useEventHasTwoTracks_, _useEventHasTwoFoilVertices_, _useEventHasTwoCaloHits_, _useEventHasTwoAssociatedCaloHits_ 
 
-    bool _useEventHasSumEnergyAbove_       = false;
-    double _minSumEnergy_                  = -10000.0;           // default value, this will be changed at construction of Filters
-    bool _useEventHasSumEnergyBelow_       = false;
-    double _maxSumEnergy_                  = 1000000.0;           // default value, this will be changed at construction of Filters
+    bool _useEventHasSumEnergyAbove_            = false;
+    double _minSumEnergy_                       = -10000.0;           // default value, this will be changed at construction of Filters
+    bool _useEventHasSumEnergyBelow_            = false;
+    double _maxSumEnergy_                       = 1000000.0;           // default value, this will be changed at construction of Filters
+
+    bool _useEventHasFoilVertexDistanceBelow_   = false;
+    double _maxFoilVertexDistance_              = 10000.0;           // default value, this will be changed at construction of Filters
 
     DPP_MODULE_REGISTRATION_INTERFACE(SNCuts);
 };

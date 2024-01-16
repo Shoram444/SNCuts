@@ -23,6 +23,7 @@ class Event: public TObject
 
 		void set_event_number(int _eventNumber);
 		void set_event_total_energy(double _eventTotalEnergy);
+		void set_event_foil_vertex_distance(double _eventFoilVertexDistance);
 
 		void add_particle(Particle &_newParticle); // add a particle into the event
 		void add_cd_bank(CDBank &_cdBank);		   // add CD bank into the event

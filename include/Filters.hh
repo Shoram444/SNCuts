@@ -37,6 +37,10 @@ class Filters: public TObject
         void set_min_sum_energy(double _minSumEnergy);
         void set_max_sum_energy(double _maxSumEnergy);
 
+        bool event_has_foil_vertex_distance_below    (Event& _event, double _maxFoilVertexDistance); 
+        void set_max_foil_vertex_distance(double _maxFoilVertexDistance);
+
+
         double get_min_sum_energy();
         double get_max_sum_energy();
 
@@ -61,6 +65,9 @@ class Filters: public TObject
 
         bool useEventHasSumEnergyBelow          = false; 
         double maxSumEnergy;
+
+        bool useEventHasFoilVertexDistanceBelow = false; 
+        double maxFoilVertexDistance;
     
 	ClassDef(Filters,1);
 };

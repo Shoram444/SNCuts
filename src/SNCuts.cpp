@@ -160,6 +160,7 @@ void SNCuts::initialize(
     catch (std::logic_error& e) 
     {
     }
+    
     try 
     {
         myConfig.fetch("useEventHasSumEnergyBelow", this->_useEventHasSumEnergyBelow_);
@@ -174,6 +175,20 @@ void SNCuts::initialize(
     {
     }
 
+    try 
+    {
+        myConfig.fetch("useEventHasFoilVertexDistanceBelow", this->_useEventHasFoilVertexDistanceBelow_);
+        if(_useEventHasFoilVertexDistanceBelow_)
+        {
+            _filtersToBeUsed.push_back("useEventHasFoilVertexDistanceBelow");
+        }
+        myConfig.fetch("maxFoilVertexDistance", this->_maxFoilVertexDistance_);
+        std::cout << "EventHasFoilVertexDistanceBelow " << _maxFoilVertexDistance_ << " mm" << std::endl;
+    } 
+    catch (std::logic_error& e) 
+    {
+    }
+
 
     std::cout << " -----------------------------" << std::endl;
 
@@ -181,9 +196,10 @@ void SNCuts::initialize(
 
 dpp::base_module::process_status SNCuts::process(datatools::things& workItem) 
 {
-    Filters*  eventFilter = new Filters(_filtersToBeUsed);            // construct Filters instance which holds the filters
-    eventFilter->set_min_sum_energy(_minSumEnergy_);                  // if not set in config file, value of -10000 is used. 
-    eventFilter->set_max_sum_energy(_maxSumEnergy_);                  // if not set in config file, value of 1000000 is used. 
+    Filters*  eventFilter = new Filters(_filtersToBeUsed);              // construct Filters instance which holds the filters
+    eventFilter->set_min_sum_energy(_minSumEnergy_);                    // if not set in config file, value of -10000 is used. 
+    eventFilter->set_max_sum_energy(_maxSumEnergy_);                    // if not set in config file, value of 1000000 is used. 
+    eventFilter->set_max_foil_vertex_distance(_maxFoilVertexDistance_); // if not set in config file, value of 1000000 is used. 
 
     event = get_event_data(workItem);
 
@@ -304,8 +320,8 @@ Event SNCuts::get_event_data(datatools::things& workItem)
     {
         std::cout << "No PTD Bank!!!\n";
     }
-    event.set_event_total_energy(totEne);
 
+    event.set_event_total_energy(totEne);
 
     if(workItem.has("CD"))
     {
