@@ -10,7 +10,7 @@
 
 // Standard headers
 #include "iostream"
-#include <functional>
+// #include <functional>
 
 using namespace std;
 

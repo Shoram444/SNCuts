@@ -73,7 +73,8 @@ void Event::print()
         cout << "Particle number of associated caloHits: "  << particles.at(i).get_associated_calo_hits_number()    << endl;
         
         cout << "Particle Charge: "                         << particles.at(i).get_charge()                         << endl;
-        cout << "Particle Energy: "                         << particles.at(i).get_energy()                         << endl;
+        cout << "Particle Energy: "                         << particles.at(i).get_energy() << " keV"               << endl;
+        // cout << "Particle Energy: "                         << particles.at(i).get_energy() /1000 << " MeV"  << endl;
         cout << "Particle has foil vertex: "                << particles.at(i).has_foil_vertex()                    << endl;
         cout << "Foil Vertex Position: (" 
                 <<          particles.at(i).get_foil_vertex_position().X()

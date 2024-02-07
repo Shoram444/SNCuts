@@ -203,6 +203,8 @@ dpp::base_module::process_status SNCuts::process(datatools::things& workItem)
 
     event = get_event_data(workItem);
 
+    event.print();
+
     if( eventFilter->event_passed_filters(event) )
     {
         std::cout << "Event: " << eventNo << " ++PASSED++! "  <<std::endl;
