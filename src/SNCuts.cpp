@@ -189,6 +189,19 @@ void SNCuts::initialize(
     {
     }
 
+    try 
+    {
+        myConfig.fetch("useEventHasPintAbove", this->_useEventHasPintAbove_);
+        if(_useEventHasPintAbove_)
+        {
+            _filtersToBeUsed.push_back("useEventHasPintAbove");
+        }
+        myConfig.fetch("minPint", this->_minPint_);
+        std::cout << "EventHasPintAbove " << _minPint_ << std::endl;
+    } 
+    catch (std::logic_error& e) 
+    {
+    }
 
     std::cout << " -----------------------------" << std::endl;
 
@@ -200,14 +213,15 @@ dpp::base_module::process_status SNCuts::process(datatools::things& workItem)
     eventFilter->set_min_sum_energy(_minSumEnergy_);                    // if not set in config file, value of -10000 is used. 
     eventFilter->set_max_sum_energy(_maxSumEnergy_);                    // if not set in config file, value of 1000000 is used. 
     eventFilter->set_max_foil_vertex_distance(_maxFoilVertexDistance_); // if not set in config file, value of 1000000 is used. 
+    eventFilter->set_min_Pint(_minPint_);                               // if not set in config file, value of 0 is used. 
 
     event = get_event_data(workItem);
 
-    // event.print();
 
     if( eventFilter->event_passed_filters(event) )
     {
         std::cout << "Event: " << eventNo << " ++PASSED++! "  <<std::endl;
+        event.print();
 
         eventNo++;
         return falaise::processing::status::PROCESS_OK;
@@ -308,11 +322,13 @@ Event SNCuts::get_event_data(datatools::things& workItem)
                 int assCaloHitNo = 0;
                 for (const auto& iCaloHit : track.get_associated_calorimeter_hits())
                 {
-                    particle->set_energy(iCaloHit.get().get_energy() / CLHEP::keV);  //energy in kev
+                    particle->set_energy            (iCaloHit.get().get_energy()        / CLHEP::keV);  //energy in keV
+                    particle->set_energy_sigma_MeV  (iCaloHit.get().get_sigma_energy()  / CLHEP::MeV);  //energy sigma in MeV
+                    particle->set_time              (iCaloHit.get().get_time()          / CLHEP::ns);   //calohit time in ns
+                    particle->set_time_sigma        (iCaloHit.get().get_sigma_time()    / CLHEP::ns);   //calohit time sigma in ns
+
                     totEne += iCaloHit.get().get_energy() / CLHEP::keV;
                     assCaloHitNo++;
-
-                    cout << " time cd Hit : " << iCaloHit.get().get_time() << endl;
                 }
 
                 particle->set_associated_calo_hits_number(assCaloHitNo);

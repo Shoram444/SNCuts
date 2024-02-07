@@ -74,6 +74,9 @@ private:
     bool _useEventHasFoilVertexDistanceBelow_   = false;
     double _maxFoilVertexDistance_              = 10000.0;           // default value, this will be changed at construction of Filters
 
+    bool _useEventHasPintAbove_                 = false;
+    double _minPint_                            = 1.0;           // default value, this will be changed at construction of Filters
+
     DPP_MODULE_REGISTRATION_INTERFACE(SNCuts);
 };
 

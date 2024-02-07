@@ -25,3 +25,6 @@ useSDBDRC : boolean = true
 
 useEventHasFoilVertexDistanceBelow : boolean = true
 maxFoilVertexDistance : real = 100.0
+
+useEventHasPintAbove : boolean = true
+minPint : real = 0.04
