@@ -29,6 +29,23 @@ double      Particle::get_energy()
     return energy;
 }
 
+double 		Particle::get_energy_MeV()
+{
+    return energy / 1000; // originally energy is stored in keV in ::Particle
+}
+
+double 		Particle::get_track_length()
+{
+    return trackLength;
+}
+
+
+void    Particle::set_track_length(double _trackLength)
+{
+    trackLength = _trackLength;
+}
+
+
 
 void        Particle::set_foil_vertex_position(double _X, double _Y, double _Z)
 {

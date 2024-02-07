@@ -24,6 +24,8 @@ echo "rootcint: ./include/CDBank.hh         -> ./lib/CDBankdict_rdict.pcm       
       	      rootcint -f ../lib/CDBankdict.cpp          CDBank.hh+
 echo "rootcint: ./include/CDHit.hh         -> ./lib/CDHitdict_rdict.pcm         + ./src/dicts/CDHitdict.cpp"
       	      rootcint -f ../lib/CDHitdict.cpp          CDHit.hh+
+echo "rootcint: ./include/Constants.hh         -> ./lib/Constantsdict_rdict.pcm"
+			  rootcint -f ../lib/Constantsdict.cpp          Constants.hh+
 
 echo " "
 echo "Dictionaries generated!"

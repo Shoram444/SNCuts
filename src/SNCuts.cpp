@@ -203,7 +203,7 @@ dpp::base_module::process_status SNCuts::process(datatools::things& workItem)
 
     event = get_event_data(workItem);
 
-    event.print();
+    // event.print();
 
     if( eventFilter->event_passed_filters(event) )
     {
@@ -311,9 +311,21 @@ Event SNCuts::get_event_data(datatools::things& workItem)
                     particle->set_energy(iCaloHit.get().get_energy() / CLHEP::keV);  //energy in kev
                     totEne += iCaloHit.get().get_energy() / CLHEP::keV;
                     assCaloHitNo++;
+
+                    cout << " time cd Hit : " << iCaloHit.get().get_time() << endl;
                 }
+
                 particle->set_associated_calo_hits_number(assCaloHitNo);
             }
+
+            if( track.has_trajectory())
+            {
+                const snemo::datamodel::tracker_trajectory & trajectory = track.get_trajectory();
+
+                particle->set_track_length(trajectory.get_pattern().get_shape().get_length());
+            }
+
+
             event.add_particle(*particle);
             delete particle;
         }

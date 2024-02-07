@@ -63,6 +63,8 @@ double Event::get_event_total_energy()
 
 void Event::print()
 {
+    cout << "me = " << Constants::ELECTRON_MASS_MEV << endl;
+    cout << "c = " << Constants::LIGHT_SPEED << endl;
     cout << "Event Number: "        << eventNumber         << endl;
     cout << "Event Total Energy: "  << eventTotalEnergy    << endl;
 
@@ -74,7 +76,7 @@ void Event::print()
         
         cout << "Particle Charge: "                         << particles.at(i).get_charge()                         << endl;
         cout << "Particle Energy: "                         << particles.at(i).get_energy() << " keV"               << endl;
-        // cout << "Particle Energy: "                         << particles.at(i).get_energy() /1000 << " MeV"  << endl;
+        cout << "Particle Energy: "                         << particles.at(i).get_energy_MeV() << " MeV"           << endl;
         cout << "Particle has foil vertex: "                << particles.at(i).has_foil_vertex()                    << endl;
         cout << "Foil Vertex Position: (" 
                 <<          particles.at(i).get_foil_vertex_position().X()
@@ -88,6 +90,7 @@ void Event::print()
                 << ", " <<  particles.at(i).get_calo_vertex_position().Y()
                 << ", " <<  particles.at(i).get_calo_vertex_position().Z() 
             << ")" << endl;
+        cout << "Particle track length: "                   << particles.at(i).get_track_length() << " mm"          << endl;
         cout << "-------------------------------------------------------------------------------------------------" << endl;
     }
 }
