@@ -67,6 +67,10 @@ Filters::Filters(std::vector<std::string>& _filtersToBeUsed)
         {
             useEventHasPintAbove = true;
         }
+        if (filter == "useEventHasPextBelow")
+        {
+            useEventHasPextBelow = true;
+        }
     }
 }
 
@@ -92,6 +96,9 @@ Filters::~Filters()
 
         useEventHasPintAbove               = false;
         minPint                            = 1.0;
+
+        useEventHasPextBelow               = false;
+        maxPext                            = 0.0;
 }
 
 
@@ -262,7 +269,6 @@ bool Filters::event_has_foil_vertex_distance_below(Event& _event, double _maxFoi
 
 bool Filters::event_has_Pint_above    (Event& _event, double _minPint)
 {
-    cout << "ENo = " <<  _event.get_event_number() << endl;
     if ( _event.get_particles().size() != 2.0 )
     {
         return false;
@@ -288,17 +294,16 @@ bool Filters::event_has_Pint_above    (Event& _event, double _minPint)
         tExp[i]         = particle.get_time();
         tExpSigma[i]    = particle.get_time_sigma();
 
-        beta[i]         = get_beta(E[i]);             // sqrt(_E * (_E + 2 * Constants::ELECTRON_MASS_MEV)) / (_E + Constants::ELECTRON_MASS_MEV);
+        beta[i]         = get_beta(E[i]);             // sqrt(_E * (_E + 2 * m_e)) / (_E + m_e)
         tTOF[i]         = get_tTOF(l[i], beta[i]);    // _l / (_beta * Constants::LIGHT_SPEED)
         sigmaTot[i]     = get_sigmaTot(tTOF[i], tExpSigma[i], E[i], ESigma[i]);
 
         i++;
     }
 
-    double chi2 = get_chi2_int(tExp, l, beta, sigmaTot) ; // ( (tExp2 - l2/(beta2 * c )) - (tExp1 - l1/(beta1 * c )) )^2 / ( sigmaTot1^2 + sigmaTot2^2 )
+    double chi2 = get_chi2_int(tExp, l, beta, sigmaTot) ; // ( (tExp2 - l2/(beta2 * c )) - (tExp1 - l1/(beta1 * c )) )^2 / ( sigmaTot1 + sigmaTot2 )
     double Pint = TMath::Prob(chi2, 1); // returns 1 - P(a,x)
 
-    cout << "Pint = " << Pint << endl;
     if ( Pint >  _minPint)
     {
         return true;
@@ -310,6 +315,56 @@ bool Filters::event_has_Pint_above    (Event& _event, double _minPint)
 void Filters::set_min_Pint(double _minPint)
 {
     minPint = _minPint;
+}
+
+bool Filters::event_has_Pext_below    (Event& _event, double _maxPext)
+{
+    if ( _event.get_particles().size() != 2.0 )
+    {
+        return false;
+    }
+
+
+    double E[2];           // storage for particle energies [MeV]
+    double ESigma[2];      // storage for particle energy sigmas [MeV]    
+    double l[2];           // storage for particle track lengths [mm]
+    double tExp[2];        // storage for particles calo hit times (experimental) [ns]
+    double tExpSigma[2];   // storage for particles calo hit time sigmas [ns]
+
+    double beta[2]; // get_beta()
+    double tTOF[2]; // get_tTOF()
+    double sigmaTot[2]; // get_sigmaTot()
+
+    int i = 0;
+    for ( auto& particle : _event.get_particles() )
+    {
+        E[i]            = particle.get_energy_MeV();
+        ESigma[i]       = particle.get_energy_sigma_MeV();
+        l[i]            = particle.get_track_length();
+        tExp[i]         = particle.get_time();
+        tExpSigma[i]    = particle.get_time_sigma();
+
+        beta[i]         = get_beta(E[i]);             // sqrt(_E * (_E + 2 * m_e)) / (_E + m_e)
+        tTOF[i]         = get_tTOF(l[i], beta[i]);    // _l / (_beta * Constants::LIGHT_SPEED)
+        sigmaTot[i]     = get_sigmaTot(tTOF[i], tExpSigma[i], E[i], ESigma[i]);
+
+        i++;
+    }
+
+    double chi2 = get_chi2_ext(tExp, l, beta, sigmaTot) ; // ( (tExp2 - l2/(beta2 * c )) - (tExp1 - l1/(beta1 * c )) )^2 / ( sigmaTot1 + sigmaTot2 )
+    double Pext = TMath::Prob(chi2, 1); // returns 1 - P(a,x)
+
+    if ( Pext <  _maxPext)
+    {
+        return true;
+    }
+    
+    return false;
+} 
+
+void Filters::set_max_Pext(double _maxPext)
+{
+    maxPext = _maxPext;
 }
 
 
@@ -362,8 +417,14 @@ bool Filters::event_passed_filters(Event& _event) {
     {
         return false;
     }
+    if ( useEventHasPextBelow && !event_has_Pext_below(_event, maxPext) )       
+    {
+        return false;
+    }
     return true;
 }
+
+
 
 double Filters::get_beta(double _E)
 {
@@ -377,10 +438,13 @@ double Filters::get_tTOF(double _l, double _beta)
 
 double Filters::get_sigmaTot(double _tTOF, double _tExpSigma, double _E, double _ESigma)
 {
-    double m = Constants::ELECTRON_MASS_MEV;
+    double m            = Constants::ELECTRON_MASS_MEV;
+
     double tExpSigma2   = _tExpSigma * _tExpSigma;
-    double dfdb         =   pow(_tTOF * _tTOF * m * m, 2) / 
-                            pow(_E * (_E + m) * (_E + 2 * m), 2);
+
+    double dfdb         = pow(_tTOF * _tTOF * m * m, 2) / 
+                          pow(_E * (_E + m) * (_E + 2 * m), 2);  // this factor equals to (d(tTOF)/d(beta))^2 from propagating uncertainties of tTOF
+
     double ESigma2      = _ESigma * _ESigma;
 
     return tExpSigma2 + dfdb * ESigma2;
@@ -388,8 +452,18 @@ double Filters::get_sigmaTot(double _tTOF, double _tExpSigma, double _E, double 
 
 double Filters::get_chi2_int(double _tExp[2], double _l[2], double _beta[2], double _sigmaTot[2]) 
 {
-    double numerator = pow((_tExp[1] - _l[1] / (_beta[1] * Constants::LIGHT_SPEED)) - (_tExp[0] - _l[0] / (_beta[0] * Constants::LIGHT_SPEED)), 2);
-    double denominator = _sigmaTot[0] + _sigmaTot[1];
+    double c            = Constants::LIGHT_SPEED;
+    double numerator    = pow((_tExp[1] - _l[1] / (_beta[1] * c)) - (_tExp[0] - _l[0] / (_beta[0] * c)), 2);
+    double denominator  = _sigmaTot[0] + _sigmaTot[1];
+
+    return numerator / denominator;
+}
+
+double Filters::get_chi2_ext(double _tExp[2], double _l[2], double _beta[2], double _sigmaTot[2]) 
+{
+    double c            = Constants::LIGHT_SPEED;
+    double numerator    = pow(TMath::Abs(_tExp[1] - _tExp[0])  - (_l[1] / (_beta[1] * c)  + _l[0] / (_beta[0] * c)), 2);
+    double denominator  = _sigmaTot[0] + _sigmaTot[1];
 
     return numerator / denominator;
 }

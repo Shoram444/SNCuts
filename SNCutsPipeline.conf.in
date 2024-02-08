@@ -28,3 +28,6 @@ maxFoilVertexDistance : real = 100.0
 
 useEventHasPintAbove : boolean = true
 minPint : real = 0.04
+
+useEventHasPextBelow : boolean = true
+maxPext : real = 0.01

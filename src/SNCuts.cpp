@@ -203,6 +203,20 @@ void SNCuts::initialize(
     {
     }
 
+    try 
+    {
+        myConfig.fetch("useEventHasPextBelow", this->_useEventHasPextBelow_);
+        if(_useEventHasPextBelow_)
+        {
+            _filtersToBeUsed.push_back("useEventHasPextBelow");
+        }
+        myConfig.fetch("maxPext", this->_maxPext_);
+        std::cout << "EventHasPextBelow " << _maxPext_ << std::endl;
+    } 
+    catch (std::logic_error& e) 
+    {
+    }
+
     std::cout << " -----------------------------" << std::endl;
 
 }
@@ -214,6 +228,7 @@ dpp::base_module::process_status SNCuts::process(datatools::things& workItem)
     eventFilter->set_max_sum_energy(_maxSumEnergy_);                    // if not set in config file, value of 1000000 is used. 
     eventFilter->set_max_foil_vertex_distance(_maxFoilVertexDistance_); // if not set in config file, value of 1000000 is used. 
     eventFilter->set_min_Pint(_minPint_);                               // if not set in config file, value of 0 is used. 
+    eventFilter->set_max_Pext(_maxPext_);                               // if not set in config file, value of 0 is used. 
 
     event = get_event_data(workItem);
 

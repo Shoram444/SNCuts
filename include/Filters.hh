@@ -45,6 +45,9 @@ class Filters: public TObject
         bool event_has_Pint_above    (Event& _event, double _minPint); 
         void set_min_Pint(double _minPint);
 
+        bool event_has_Pext_below    (Event& _event, double _maxPext);
+        void set_max_Pext(double _maxPext);
+
         double get_min_sum_energy();
         double get_max_sum_energy();
 
@@ -76,16 +79,16 @@ class Filters: public TObject
         bool useEventHasPintAbove = false; 
         double minPint;
 
+        bool useEventHasPextBelow = false; 
+        double maxPext;
 
 
         double get_beta(double _E);
         double get_tTOF(double _l, double _beta);
         double get_sigmaTot(double _tTOF, double _tExpSigma, double _E, double _ESigma);
         double get_chi2_int(double _tExp[2], double _l[2], double _beta[2], double _sigmaTot[2]);
+        double get_chi2_ext(double _tExp[2], double _l[2], double _beta[2], double _sigmaTot[2]);       
 
-
-        // double get_chi2_int(double _tExp[2], double _l[2], double _beta[2], double _sigmaTot[2]);
-    
 	ClassDef(Filters,1);
 };
 
