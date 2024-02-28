@@ -137,7 +137,7 @@ namespace {
 0
     };
     static const char* includePaths[] = {
-"/sps/nemo/sw/BxCppDev/opt/root-6.16.00/include/root",
+"/sps/nemo/sw/snsw/opt/root-6.16.00/include/root",
 "/sps/nemo/scratch/mpetro/Projects/TestFalaiseModule/SNCuts/include/",
 0
     };

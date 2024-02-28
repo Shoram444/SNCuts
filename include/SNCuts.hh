@@ -4,11 +4,15 @@
 // Interface from Falaise
 #include "bayeux/dpp/base_module.h"
 #include "bayeux/mctools/simulated_data.h"
+#include "bayeux/geomtools/manager.h"
 
 #include "falaise/snemo/processing/module.h"
 #include "falaise/snemo/datamodels/particle_track_data.h"
+#include "falaise/snemo/datamodels/particle_track.h"
+#include "falaise/snemo/datamodels/vertex_utils.h"
 #include "falaise/snemo/datamodels/tracker_clustering_solution.h"
 #include "falaise/snemo/datamodels/calibrated_data.h"
+// #include "falaise/snemo/datamodels/vertex_utils.h"
 
 
 

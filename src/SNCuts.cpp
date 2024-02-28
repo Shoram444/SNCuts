@@ -306,31 +306,47 @@ Event SNCuts::get_event_data(datatools::things& workItem)
 
             if (track.has_vertices()) // There isn't any time ordering to the vertices so check them all
             {
-                for (const auto& iVertex : track.get_vertices())
+
+                const std::vector<datatools::handle<snemo::datamodel::vertex>> & particle_vertices = iParticle->get_vertices();
+
+                for (
+                    VertexHdlCollection::const_iterator iVertex =  particle_vertices.begin();
+                    iVertex!= iParticle->get_vertices().end();
+                    ++iVertex
+                )
                 {
-                    if (particle_track::vertex_is_on_source_foil(iVertex.get()))
+                    vertex vtx = vertex();
+
+                    if (vtx.is_on_source_foil())
                     {
                         particle->set_foil_vertex_position(
-                            iVertex.get().get_position().x(),
-                            iVertex.get().get_position().y(),
-                            iVertex.get().get_position().z()
+                            vtx.get_spot().get_position().x(),
+                            vtx.get_spot().get_position().y(),
+                            vtx.get_spot().get_position().z()
                             );
                     }
                     
                     else if (
-                        particle_track::vertex_is_on_main_calorimeter(iVertex.get()) || 
-                        particle_track::vertex_is_on_x_calorimeter   (iVertex.get()) ||
-                        particle_track::vertex_is_on_gamma_veto      (iVertex.get()) 
+                        vtx.is_on_main_calorimeter() || 
+                        vtx.is_on_x_calorimeter   () ||
+                        vtx.is_on_gamma_veto      () 
                     )
                     {
                         particle->set_calo_vertex_position(
-                            iVertex.get().get_position().x(),
-                            iVertex.get().get_position().y(),
-                            iVertex.get().get_position().z()
+                                vtx.get_spot().get_position().x(),
+                                vtx.get_spot().get_position().y(),
+                                vtx.get_spot().get_position().z()
                             );
                     }
+                                            
+                    vtx.get_spot().set_position(  geomtools::vector_3d(3. * CLHEP::mm, 5. * CLHEP::mm, 7. * CLHEP::mm) );
+                    cout << "PTD vertex : ( "
+                         <<  vtx.get_spot().get_position().x() << ", "
+                         <<  vtx.get_spot().get_position().y() << ", "
+                         <<  vtx.get_spot().get_position().z() << ")" << endl;
                 }
             }
+                
 
             if (track.has_associated_calorimeter_hits()) 
             {

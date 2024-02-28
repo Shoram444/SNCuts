@@ -44,10 +44,11 @@ echo " "
 cd build
 
 	# cmake -DCMAKE_PREFIX_PATH=$FAL_INC ..
-	cmake -DCMAKE_PREFIX_PATH=/sps/nemo/sw/Falaise/tests/install_244/include/ ..
+	cmake -DCMAKE_PREFIX_PATH=/sps/nemo/sw/snsw/2023/opt/falaise-5.1.0/include/ ..
+	# cmake -DCMAKE_PREFIX_PATH=/sps/nemo/sw/Falaise/tests/install_244/include/ ..
 	make
 
 cd ../
 	
-	flreconstruct -i CD.brio -p build/SNCutsPipeline.conf -o CDFiltered.brio
+	flreconstruct -i ../CDFal5.brio -p build/SNCutsPipeline.conf -o CDFiltered.brio
 
