@@ -230,9 +230,10 @@ dpp::base_module::process_status SNCuts::process(datatools::things& workItem)
     eventFilter->set_min_Pint(_minPint_);                               // if not set in config file, value of 0 is used. 
     eventFilter->set_max_Pext(_maxPext_);                               // if not set in config file, value of 0 is used. 
 
+    //// Main method that fills event data from CD, PTD, etc. 
     event = get_event_data(workItem);
 
-
+    //// If event passes all configured filters it is kept in the brio file, it is removed otherwise
     if( eventFilter->event_passed_filters(event) )
     {
         std::cout << "Event: " << eventNo << " ++PASSED++! "  <<std::endl;
@@ -276,7 +277,7 @@ Event SNCuts::get_event_data(datatools::things& workItem)
         using namespace snemo::datamodel;
 
         snemo::datamodel::particle_track_data               PTDbank = workItem.get<particle_track_data>("PTD");
-        const snemo::datamodel::ParticleHdlCollection& PTDparticles = PTDbank.particles();
+        snemo::datamodel::ParticleHdlCollection             PTDparticles = PTDbank.particles();
 
         for (auto& iParticle : PTDparticles)
         {
@@ -310,12 +311,10 @@ Event SNCuts::get_event_data(datatools::things& workItem)
                 const std::vector<datatools::handle<snemo::datamodel::vertex>> & particle_vertices = iParticle->get_vertices();
 
                 for (
-                    VertexHdlCollection::const_iterator iVertex =  particle_vertices.begin();
-                    iVertex!= iParticle->get_vertices().end();
-                    ++iVertex
+                    datatools::handle<vertex> iVertex : particle_vertices
                 )
                 {
-                    vertex vtx = vertex();
+                    snemo::datamodel::vertex vtx = iVertex.get(); // get the vertex
 
                     if (vtx.is_on_source_foil())
                     {
@@ -338,27 +337,28 @@ Event SNCuts::get_event_data(datatools::things& workItem)
                                 vtx.get_spot().get_position().z()
                             );
                     }
-                                            
-                    vtx.get_spot().set_position(  geomtools::vector_3d(3. * CLHEP::mm, 5. * CLHEP::mm, 7. * CLHEP::mm) );
-                    cout << "PTD vertex : ( "
-                         <<  vtx.get_spot().get_position().x() << ", "
-                         <<  vtx.get_spot().get_position().y() << ", "
-                         <<  vtx.get_spot().get_position().z() << ")" << endl;
                 }
             }
                 
 
             if (track.has_associated_calorimeter_hits()) 
             {
-                int assCaloHitNo = 0;
-                for (const auto& iCaloHit : track.get_associated_calorimeter_hits())
-                {
-                    particle->set_energy            (iCaloHit.get().get_energy()        / CLHEP::keV);  //energy in keV
-                    particle->set_energy_sigma_MeV  (iCaloHit.get().get_sigma_energy()  / CLHEP::MeV);  //energy sigma in MeV
-                    particle->set_time              (iCaloHit.get().get_time()          / CLHEP::ns);   //calohit time in ns
-                    particle->set_time_sigma        (iCaloHit.get().get_sigma_time()    / CLHEP::ns);   //calohit time sigma in ns
 
-                    totEne += iCaloHit.get().get_energy() / CLHEP::keV;
+                int assCaloHitNo = 0;
+
+                const std::vector<datatools::handle<snemo::datamodel::calibrated_calorimeter_hit>> & assCaloHits = track.get_associated_calorimeter_hits(); 
+                for (
+                    datatools::handle<snemo::datamodel::calibrated_calorimeter_hit> iCaloHit : track.get_associated_calorimeter_hits()
+                    )
+                {
+                    snemo::datamodel::calibrated_calorimeter_hit cch = iCaloHit.get();
+
+                    particle->set_energy            (cch.get_energy()        / CLHEP::keV);  //energy in keV
+                    particle->set_energy_sigma_MeV  (cch.get_sigma_energy()  / CLHEP::MeV);  //energy sigma in MeV
+                    particle->set_time              (cch.get_time()          / CLHEP::ns);   //calohit time in ns
+                    particle->set_time_sigma        (cch.get_sigma_time()    / CLHEP::ns);   //calohit time sigma in ns
+
+                    totEne += cch.get_energy() / CLHEP::keV;
                     assCaloHitNo++;
                 }
 
@@ -392,7 +392,11 @@ Event SNCuts::get_event_data(datatools::things& workItem)
 
         CDBank* SNCCDBank = new CDBank();                                                       //SNCuts CD bank
 
-        for ( auto &calohit : falaiseCDbank.calorimeter_hits() )
+        const std::vector<datatools::handle<snemo::datamodel::calibrated_calorimeter_hit>> & caloHits = falaiseCDbank.calorimeter_hits();
+
+        for (
+            const datatools::handle<snemo::datamodel::calibrated_calorimeter_hit> & calohit : caloHits 
+            )
         {
             CDHit* cdhit = new CDHit();
 
