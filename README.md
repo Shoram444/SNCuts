@@ -1,5 +1,6 @@
 ## BREAKING
-*I Have changed the module to work with Falaise 5.x version. The affecting change from Falaise 4.x to 5.x was the change in architecture of how vertices are stored/read. This is now working. *
+
+**I Have changed the module to work with Falaise 5.x version. The affecting change from Falaise 4.x to 5.x was the change in architecture of how vertices are stored/read. This is now working.**
 
 ### REMEMBER TO USE BRIO FILES GENERATED WITH FALAISE 5.x
 
