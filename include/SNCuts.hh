@@ -47,14 +47,15 @@ public:
 
     // Process event
     virtual dpp::base_module::process_status process(datatools::things &workItem);
-    ////////////////////////////////////////////////
     // Everything else is optional for your usecase
+    ////////////////////////////////////////////////
+
     Event get_event_data(datatools::things &workItem);
 
 private:
-    int eventNo;
-    Event event;
-    std::vector<std::string> _filtersToBeUsed;                 // This string is filled from the config file and determins which filters are to be enabled
+    int                         eventNo;
+    Event                       event;
+    std::vector<std::string>    _filtersToBeUsed;                 // This string is filled from the config file and determines which filters are to be enabled
 
 
     // configurable data members
@@ -67,16 +68,24 @@ private:
     bool _useEventHasOneCaloHit_                = false; 
     bool _useEventHasTwoAssociatedCaloHits_     = false; 
 
-
-    bool _useSDBDRC_                            = false;        // SDDBDRC includes: _useEventHasTwoNegativeParticles_, _useEventHasTwoTracks_, _useEventHasTwoFoilVertices_, _useEventHasTwoCaloHits_, _useEventHasTwoAssociatedCaloHits_ 
-
     bool _useEventHasSumEnergyAbove_            = false;
     double _minSumEnergy_                       = -10000.0;           // default value, this will be changed at construction of Filters
     bool _useEventHasSumEnergyBelow_            = false;
     double _maxSumEnergy_                       = 1000000.0;           // default value, this will be changed at construction of Filters
 
+    // SDDBDRC includes: 
+    // _useEventHasTwoNegativeParticles_
+    // _useEventHasTwoTracks_       
+    // _useEventHasTwoFoilVertices_     
+    // _useEventHasTwoCaloHits_     
+    // _useEventHasTwoAssociatedCaloHits_ 
+    // _useEventHasSumEnergyAbove_: requires setting _minSumEnergy_     
+    // _useEventHasSumEnergyBelow_: requires setting _maxSumEnergy_
+    bool _useSDBDRC_                            = false;        
+
+
     bool _useEventHasFoilVertexDistanceBelow_   = false;
-    double _maxFoilVertexDistance_              = 10000.0;           // default value, this will be changed at construction of Filters
+    double _maxFoilVertexDistance_              = 10000.0;       // default value, this will be changed at construction of Filters
 
     bool _useEventHasPintAbove_                 = false;
     double _minPint_                            = 1.0;           // default value, this will be changed at construction of Filters
