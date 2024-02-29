@@ -4,6 +4,8 @@
 
 ### REMEMBER TO USE BRIO FILES GENERATED WITH FALAISE 5.x
 
+# INTRODUCTION
+
 This is a repository which implements a simple data-cuts Falaise module for the SUperNEMO experiment.
 
 The module's main goal is to input a `.brio` file and *cut* data through a series of filters (for now I'm only implementing simple double beta decay topology filters, this may change in the future depending on collaboration's needs). The goal is to provide a *pure* `.brio` file with **only** the desired events inside!
