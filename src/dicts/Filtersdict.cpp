@@ -138,7 +138,7 @@ namespace {
     };
     static const char* includePaths[] = {
 "/sps/nemo/sw/snsw/opt/root-6.16.00/include/root",
-"/sps/nemo/scratch/mpetro/Projects/TestFalaiseModule/SNCuts/include/",
+"/sps/nemo/scratch/mpetro/Projects/FalaiseModules/SNCuts/include/",
 0
     };
     static const char* fwdDeclCode = R"DICTFWDDCLS(

@@ -237,10 +237,9 @@ dpp::base_module::process_status SNCuts::process(datatools::things& workItem)
     if( eventFilter->event_passed_filters(event) )
     {
         std::cout << "Event: " << eventNo << " ++PASSED++! "  <<std::endl;
-        event.print();
 
         eventNo++;
-        return falaise::processing::status::PROCESS_OK;
+        return falaise::processing::status::PROCESS_SUCCESS;
 
     }
     else if (!eventFilter->event_passed_filters(event))
@@ -254,9 +253,10 @@ dpp::base_module::process_status SNCuts::process(datatools::things& workItem)
     {
         std:cout << "Event: " << eventNo << " Neither passed nor failed, wtf?! "  <<std::endl;
         eventNo++;
+        return dpp::base_module::PROCESS_STOP;
+
     }
 
-    return falaise::processing::status::PROCESS_OK;
 }
 
 void SNCuts::reset() 
@@ -305,7 +305,7 @@ Event SNCuts::get_event_data(datatools::things& workItem)
                 particle->set_charge(1001); //something fishy
             }
 
-            if (track.has_vertices()) // There isn't any time ordering to the vertices so check them all
+            if (track.has_vertices()) // check vertices
             {
 
                 const std::vector<datatools::handle<snemo::datamodel::vertex>> & particle_vertices = iParticle->get_vertices();
@@ -315,6 +315,7 @@ Event SNCuts::get_event_data(datatools::things& workItem)
                 )
                 {
                     snemo::datamodel::vertex vtx = iVertex.get(); // get the vertex
+                    cout << "vertex category: " << snemo::datamodel::to_string(vtx.get_category()) << endl;
 
                     if (vtx.is_on_source_foil())
                     {
@@ -371,7 +372,6 @@ Event SNCuts::get_event_data(datatools::things& workItem)
 
                 particle->set_track_length(trajectory.get_pattern().get_shape().get_length());
             }
-
 
             event.add_particle(*particle);
             delete particle;

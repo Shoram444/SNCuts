@@ -10,14 +10,15 @@
 	SNCuts.directory : string = "@PROJECT_BINARY_DIR@/"
 
 [name="pipeline" type="SNCuts"]
-useEventHasTwoNegativeParticles : boolean = true
+#useEventHasTwoNegativeParticles : boolean = true
 #useEventHasParticles : boolean = true
-#useEventHasTwoTracks : boolean = true
+useEventHasTwoTracks : boolean = true
 #useEventHasTwoFoilVertices : boolean = true
-useEventHasTwoCaloHits : boolean = true
+#useEventHasTwoCaloHits : boolean = true
 #useEventHasOneCaloHit : boolean = true
 #useEventHasTwoAssociatedCaloHits: boolean = true
 #useEventHasSumEnergyAbove : boolean = true
+
 #useSDBDRC : boolean = true
 #minSumEnergy : real = 0.0
 #useEventHasSumEnergyBelow : boolean = true
