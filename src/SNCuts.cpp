@@ -237,7 +237,7 @@ dpp::base_module::process_status SNCuts::process(datatools::things& workItem)
     if( eventFilter->event_passed_filters(event) )
     {
         std::cout << "Event: " << eventNo << " ++PASSED++! "  <<std::endl;
-
+        
         eventNo++;
         return falaise::processing::status::PROCESS_SUCCESS;
 
@@ -307,22 +307,20 @@ Event SNCuts::get_event_data(datatools::things& workItem)
 
             if (track.has_vertices()) // check vertices
             {
-
-                const std::vector<datatools::handle<snemo::datamodel::vertex>> & particle_vertices = iParticle->get_vertices();
+                const std::vector<datatools::handle<snemo::datamodel::vertex>> & particle_vertices = track.get_vertices();
 
                 for (
                     datatools::handle<vertex> iVertex : particle_vertices
                 )
                 {
                     snemo::datamodel::vertex vtx = iVertex.get(); // get the vertex
-                    cout << "vertex category: " << snemo::datamodel::to_string(vtx.get_category()) << endl;
 
                     if (vtx.is_on_source_foil())
                     {
                         particle->set_foil_vertex_position(
-                            vtx.get_spot().get_position().x(),
-                            vtx.get_spot().get_position().y(),
-                            vtx.get_spot().get_position().z()
+                                vtx.get_spot().get_position().x(),
+                                vtx.get_spot().get_position().y(),
+                                vtx.get_spot().get_position().z()
                             );
                     }
                     

@@ -1,8 +1,8 @@
 
-# echo "                                          "
-# echo "Please enter the full path to *FALAISE* include files:"
-# read FAL_INC
-# echo "                                          "
+echo "                                          "
+echo "Please enter the full path to *FALAISE* include files:"
+read FAL_INC
+echo "                                          "
 
 
 rm -rf build lib ./src/dicts/ CDFiltered.brio 
@@ -43,11 +43,11 @@ echo " "
 
 cd build
 
-	# cmake -DCMAKE_PREFIX_PATH=$FAL_INC ..
-	cmake -DCMAKE_PREFIX_PATH=/sps/nemo/sw/snsw/2023/opt/falaise-5.1.0/include/ ..
+	cmake -DCMAKE_PREFIX_PATH=$FAL_INC ..
+	# cmake -DCMAKE_PREFIX_PATH=/sps/nemo/sw/snsw/2024/opt/falaise-5.1.2/include/ ..
 	# cmake -DCMAKE_PREFIX_PATH=/sps/nemo/sw/Falaise/tests/install_244/include/ ..
 	make
 
 cd ../
 	
-	flreconstruct -i CDSNSR.brio -p build/SNCutsPipeline.conf -o CDFiltered.brio
+	flreconstruct -i new_5.1.2_PTD.brio -p build/SNCutsPipeline.conf -o CDFiltered.brio

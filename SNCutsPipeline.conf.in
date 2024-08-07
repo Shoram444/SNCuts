@@ -13,7 +13,7 @@
 #useEventHasTwoNegativeParticles : boolean = true
 #useEventHasParticles : boolean = true
 useEventHasTwoTracks : boolean = true
-#useEventHasTwoFoilVertices : boolean = true
+useEventHasTwoFoilVertices : boolean = true
 #useEventHasTwoCaloHits : boolean = true
 #useEventHasOneCaloHit : boolean = true
 #useEventHasTwoAssociatedCaloHits: boolean = true
