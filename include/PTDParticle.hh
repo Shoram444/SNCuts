@@ -1,5 +1,5 @@
-#ifndef PARTICLE_HH
-#define PARTICLE_HH
+#ifndef PTDPARTICLE_HH
+#define PTDPARTICLE_HH
 
 // ROOT headers
 #include "TObject.h"
@@ -11,14 +11,14 @@
 using namespace std;
 
 
-class Particle: public TObject
+class PTDParticle: public TObject
 {
     public: 
         //! constructor
-		Particle();
+		PTDParticle();
 
 		//! desctructor
-		~Particle();
+		~PTDParticle();
 
 		void    set_charge(int _charge);
 		void    set_associated_calo_hits_number(int _associatedCaloHitsNo);
@@ -60,7 +60,7 @@ class Particle: public TObject
 		TVector3 caloVertexPosition;
     
     
-	ClassDef(Particle,1);
+	ClassDef(PTDParticle,1);
 };
 
-#endif // PARTICLE_HH
+#endif // PTDPARTICLE_HH

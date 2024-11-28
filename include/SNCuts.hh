@@ -19,7 +19,7 @@
 
 
 #include "Event.hh"
-#include "Particle.hh"
+#include "PTDParticle.hh"
 #include "Filters.hh"
 #include "CDBank.hh"
 #include "CDHit.hh"

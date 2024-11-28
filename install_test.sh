@@ -16,8 +16,8 @@ echo " "
 cd include
 echo "rootcint: ./include/Event.hh         -> ./lib/Eventdict_rdict.pcm         + ./src/dicts/Eventdict.cpp"
       	      rootcint -f ../lib/Eventdict.cpp          Event.hh+
-echo "rootcint: ./include/Particle.hh         -> ./lib/Particledict_rdict.pcm         + ./src/dicts/Particledict.cpp"
-      	      rootcint -f ../lib/Particledict.cpp          Particle.hh+
+echo "rootcint: ./include/PTDParticle.hh         -> ./lib/PTDParticledict_rdict.pcm         + ./src/dicts/PTDParticledict.cpp"
+      	      rootcint -f ../lib/PTDParticledict.cpp          PTDParticle.hh+
 echo "rootcint: ./include/Filters.hh         -> ./lib/Filtersdict_rdict.pcm         + ./src/dicts/Filtersdict.cpp"
       	      rootcint -f ../lib/Filtersdict.cpp          Filters.hh+
 echo "rootcint: ./include/CDBank.hh         -> ./lib/CDBankdict_rdict.pcm         + ./src/dicts/CDBankdict.cpp"

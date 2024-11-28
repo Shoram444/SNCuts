@@ -5,7 +5,7 @@
 #include "TObject.h"
 #include "TMath.h"
 
-#include "Particle.hh"
+#include "PTDParticle.hh"
 #include "Constants.hh"
 #include "Event.hh"
 #include "CDBank.hh"

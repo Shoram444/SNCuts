@@ -1,7 +1,7 @@
 // Interface from Falaise
 #include "SNCuts.hh"
 #include "Event.hh"
-#include "Particle.hh"
+#include "PTDParticle.hh"
 #include "Filters.hh"
 
 
@@ -281,28 +281,28 @@ Event SNCuts::get_event_data(datatools::things& workItem)
 
         for (auto& iParticle : PTDparticles)
         {
-            ::Particle* particle = new ::Particle(); //explicitly creates instance of Particle class from this Cuts module, as there is a name clash with Bayeux
+            PTDParticle* ptdparticle = new PTDParticle(); //explicitly creates instance of Particle class from this Cuts module, as there is a name clash with Bayeux
 
             const snemo::datamodel::particle_track& track = iParticle.get();
             if      (particle_has_negative_charge (track)) 
             {               
-                particle->set_charge(-1);
+                ptdparticle->set_charge(-1);
             }           
             else if (particle_has_neutral_charge  (track)) 
             {           
-                particle->set_charge(0);
+                ptdparticle->set_charge(0);
             }                   
             else if (particle_has_positive_charge (track)) 
             {       
-                particle->set_charge(1);
+                ptdparticle->set_charge(1);
             }               
             else if (particle_has_undefined_charge(track)) 
             {       
-                particle->set_charge(1000);
+                ptdparticle->set_charge(1000);
             }           
             else 
             {
-                particle->set_charge(1001); //something fishy
+                ptdparticle->set_charge(1001); //something fishy
             }
 
             if (track.has_vertices()) // check vertices
@@ -317,7 +317,7 @@ Event SNCuts::get_event_data(datatools::things& workItem)
 
                     if (vtx.is_on_source_foil())
                     {
-                        particle->set_foil_vertex_position(
+                        ptdparticle->set_foil_vertex_position(
                                 vtx.get_spot().get_position().x(),
                                 vtx.get_spot().get_position().y(),
                                 vtx.get_spot().get_position().z()
@@ -330,7 +330,7 @@ Event SNCuts::get_event_data(datatools::things& workItem)
                         vtx.is_on_gamma_veto      () 
                     )
                     {
-                        particle->set_calo_vertex_position(
+                        ptdparticle->set_calo_vertex_position(
                                 vtx.get_spot().get_position().x(),
                                 vtx.get_spot().get_position().y(),
                                 vtx.get_spot().get_position().z()
@@ -352,23 +352,23 @@ Event SNCuts::get_event_data(datatools::things& workItem)
                 {
                     snemo::datamodel::calibrated_calorimeter_hit cch = iCaloHit.get();
 
-                    particle->set_energy            (cch.get_energy()        / CLHEP::keV);  //energy in keV
-                    particle->set_energy_sigma_MeV  (cch.get_sigma_energy()  / CLHEP::MeV);  //energy sigma in MeV
-                    particle->set_time              (cch.get_time()          / CLHEP::ns);   //calohit time in ns
-                    particle->set_time_sigma        (cch.get_sigma_time()    / CLHEP::ns);   //calohit time sigma in ns
+                    ptdparticle->set_energy            (cch.get_energy()        / CLHEP::keV);  //energy in keV
+                    ptdparticle->set_energy_sigma_MeV  (cch.get_sigma_energy()  / CLHEP::MeV);  //energy sigma in MeV
+                    ptdparticle->set_time              (cch.get_time()          / CLHEP::ns);   //calohit time in ns
+                    ptdparticle->set_time_sigma        (cch.get_sigma_time()    / CLHEP::ns);   //calohit time sigma in ns
 
                     totEne += cch.get_energy() / CLHEP::keV;
                     assCaloHitNo++;
                 }
 
-                particle->set_associated_calo_hits_number(assCaloHitNo);
+                ptdparticle->set_associated_calo_hits_number(assCaloHitNo);
             }
 
             if( track.has_trajectory())
             {
                 const snemo::datamodel::tracker_trajectory & trajectory = track.get_trajectory();
 
-                particle->set_track_length(trajectory.get_pattern().get_shape().get_length());
+                ptdparticle->set_track_length(trajectory.get_pattern().get_shape().get_length());
 
                 if( TMath::Abs(trajectory.get_pattern().get_first().x()) <= trajectory.get_pattern().get_last().x() )
                 {
@@ -383,8 +383,8 @@ Event SNCuts::get_event_data(datatools::things& workItem)
 
             }
 
-            event.add_particle(*particle);
-            delete particle;
+            event.add_particle(*ptdparticle);
+            delete ptdparticle;
         }
     }
     else 

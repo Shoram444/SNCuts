@@ -16,7 +16,7 @@ Event::~Event()
 void Event::reset()
 {
     eventTotalEnergy = -1.0; 
-    particles.clear();
+    ptdparticles.clear();
 }
 
 void Event::set_event_number(int _eventNumber)
@@ -29,15 +29,15 @@ int Event::get_event_number()
     return eventNumber;
 }
 
-void Event::add_particle(Particle &_newParticle)
+void Event::add_particle(PTDParticle &_newPTDParticle)
 {
-    particles.push_back(_newParticle);
+    ptdparticles.push_back(_newPTDParticle);
 }
 
 
-std::vector<Particle> Event::get_particles()
+std::vector<PTDParticle> Event::get_particles()
 {
-    return particles;
+    return ptdparticles;
 }
 
 void Event::add_cd_bank(CDBank &_cdBank)
@@ -66,35 +66,35 @@ void Event::print()
     cout << "Event Number: "        << eventNumber         << endl;
     cout << "Event Total Energy: "  << eventTotalEnergy    << endl;
 
-    for (int i = 0; i < particles.size(); i++)
+    for (int i = 0; i < ptdparticles.size(); i++)
     {
         cout << "-------------------------------------------------------------------------------------------------" << endl;
-        cout << "Particle: "                                << i+1<< "/"<<  particles.size()                        << endl;
-        cout << "Particle number of associated caloHits: "  << particles.at(i).get_associated_calo_hits_number()    << endl;
+        cout << "Particle: "                                << i+1<< "/"<<  ptdparticles.size()                        << endl;
+        cout << "Particle number of associated caloHits: "  << ptdparticles.at(i).get_associated_calo_hits_number()    << endl;
         
-        cout << "Particle Charge: "                         << particles.at(i).get_charge()                         << endl;
-        cout << "Particle Energy: "                         << particles.at(i).get_energy() << " keV"               << endl;
+        cout << "Particle Charge: "                         << ptdparticles.at(i).get_charge()                         << endl;
+        cout << "Particle Energy: "                         << ptdparticles.at(i).get_energy() << " keV"               << endl;
         cout << "Particle Energy: "
-                << particles.at(i).get_energy_MeV()                     
-                << " +- " <<  particles.at(i).get_energy_sigma_MeV()
+                << ptdparticles.at(i).get_energy_MeV()                     
+                << " +- " <<  ptdparticles.at(i).get_energy_sigma_MeV()
                 <<" MeV" << endl;
-        cout << "Particle has foil vertex: "                << particles.at(i).has_foil_vertex()                    << endl;
+        cout << "Particle has foil vertex: "                << ptdparticles.at(i).has_foil_vertex()                    << endl;
         cout << "Foil Vertex Position: (" 
-                <<          particles.at(i).get_foil_vertex_position().X()
-                << ", " <<  particles.at(i).get_foil_vertex_position().Y()
-                << ", " <<  particles.at(i).get_foil_vertex_position().Z() 
+                <<          ptdparticles.at(i).get_foil_vertex_position().X()
+                << ", " <<  ptdparticles.at(i).get_foil_vertex_position().Y()
+                << ", " <<  ptdparticles.at(i).get_foil_vertex_position().Z() 
                 << ")" << endl;
 
-        cout << "Particle has calo vertex: "                << particles.at(i).has_foil_vertex()                    << endl;
+        cout << "Particle has calo vertex: "                << ptdparticles.at(i).has_foil_vertex()                    << endl;
         cout << "Calo Vertex Position: (" 
-                <<          particles.at(i).get_calo_vertex_position().X()
-                << ", " <<  particles.at(i).get_calo_vertex_position().Y()
-                << ", " <<  particles.at(i).get_calo_vertex_position().Z() 
+                <<          ptdparticles.at(i).get_calo_vertex_position().X()
+                << ", " <<  ptdparticles.at(i).get_calo_vertex_position().Y()
+                << ", " <<  ptdparticles.at(i).get_calo_vertex_position().Z() 
                 << ")" << endl;
-        cout << "Particle track length: "                   << particles.at(i).get_track_length() << " mm"          << endl;
+        cout << "Particle track length: "                   << ptdparticles.at(i).get_track_length() << " mm"          << endl;
         cout << "Particle hit time: "
-                << particles.at(i).get_time() 
-                << " +- " << particles.at(i).get_time_sigma()
+                << ptdparticles.at(i).get_time() 
+                << " +- " << ptdparticles.at(i).get_time_sigma()
                 << " ns"  << endl;
         cout << "-------------------------------------------------------------------------------------------------" << endl;
     }

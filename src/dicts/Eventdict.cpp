@@ -143,69 +143,69 @@ namespace ROOT {
 } // end of namespace ROOT for class ::Event
 
 namespace ROOT {
-   static TClass *vectorlEParticlegR_Dictionary();
-   static void vectorlEParticlegR_TClassManip(TClass*);
-   static void *new_vectorlEParticlegR(void *p = nullptr);
-   static void *newArray_vectorlEParticlegR(Long_t size, void *p);
-   static void delete_vectorlEParticlegR(void *p);
-   static void deleteArray_vectorlEParticlegR(void *p);
-   static void destruct_vectorlEParticlegR(void *p);
+   static TClass *vectorlEPTDParticlegR_Dictionary();
+   static void vectorlEPTDParticlegR_TClassManip(TClass*);
+   static void *new_vectorlEPTDParticlegR(void *p = nullptr);
+   static void *newArray_vectorlEPTDParticlegR(Long_t size, void *p);
+   static void delete_vectorlEPTDParticlegR(void *p);
+   static void deleteArray_vectorlEPTDParticlegR(void *p);
+   static void destruct_vectorlEPTDParticlegR(void *p);
 
    // Function generating the singleton type initializer
-   static TGenericClassInfo *GenerateInitInstanceLocal(const vector<Particle>*)
+   static TGenericClassInfo *GenerateInitInstanceLocal(const vector<PTDParticle>*)
    {
-      vector<Particle> *ptr = nullptr;
-      static ::TVirtualIsAProxy* isa_proxy = new ::TIsAProxy(typeid(vector<Particle>));
+      vector<PTDParticle> *ptr = nullptr;
+      static ::TVirtualIsAProxy* isa_proxy = new ::TIsAProxy(typeid(vector<PTDParticle>));
       static ::ROOT::TGenericClassInfo 
-         instance("vector<Particle>", -2, "vector", 389,
-                  typeid(vector<Particle>), ::ROOT::Internal::DefineBehavior(ptr, ptr),
-                  &vectorlEParticlegR_Dictionary, isa_proxy, 0,
-                  sizeof(vector<Particle>) );
-      instance.SetNew(&new_vectorlEParticlegR);
-      instance.SetNewArray(&newArray_vectorlEParticlegR);
-      instance.SetDelete(&delete_vectorlEParticlegR);
-      instance.SetDeleteArray(&deleteArray_vectorlEParticlegR);
-      instance.SetDestructor(&destruct_vectorlEParticlegR);
-      instance.AdoptCollectionProxyInfo(TCollectionProxyInfo::Generate(TCollectionProxyInfo::Pushback< vector<Particle> >()));
+         instance("vector<PTDParticle>", -2, "vector", 389,
+                  typeid(vector<PTDParticle>), ::ROOT::Internal::DefineBehavior(ptr, ptr),
+                  &vectorlEPTDParticlegR_Dictionary, isa_proxy, 0,
+                  sizeof(vector<PTDParticle>) );
+      instance.SetNew(&new_vectorlEPTDParticlegR);
+      instance.SetNewArray(&newArray_vectorlEPTDParticlegR);
+      instance.SetDelete(&delete_vectorlEPTDParticlegR);
+      instance.SetDeleteArray(&deleteArray_vectorlEPTDParticlegR);
+      instance.SetDestructor(&destruct_vectorlEPTDParticlegR);
+      instance.AdoptCollectionProxyInfo(TCollectionProxyInfo::Generate(TCollectionProxyInfo::Pushback< vector<PTDParticle> >()));
 
-      ::ROOT::AddClassAlternate("vector<Particle>","std::vector<Particle, std::allocator<Particle> >");
+      ::ROOT::AddClassAlternate("vector<PTDParticle>","std::vector<PTDParticle, std::allocator<PTDParticle> >");
       return &instance;
    }
    // Static variable to force the class initialization
-   static ::ROOT::TGenericClassInfo *_R__UNIQUE_DICT_(Init) = GenerateInitInstanceLocal((const vector<Particle>*)nullptr); R__UseDummy(_R__UNIQUE_DICT_(Init));
+   static ::ROOT::TGenericClassInfo *_R__UNIQUE_DICT_(Init) = GenerateInitInstanceLocal((const vector<PTDParticle>*)nullptr); R__UseDummy(_R__UNIQUE_DICT_(Init));
 
    // Dictionary for non-ClassDef classes
-   static TClass *vectorlEParticlegR_Dictionary() {
-      TClass* theClass =::ROOT::GenerateInitInstanceLocal((const vector<Particle>*)nullptr)->GetClass();
-      vectorlEParticlegR_TClassManip(theClass);
+   static TClass *vectorlEPTDParticlegR_Dictionary() {
+      TClass* theClass =::ROOT::GenerateInitInstanceLocal((const vector<PTDParticle>*)nullptr)->GetClass();
+      vectorlEPTDParticlegR_TClassManip(theClass);
    return theClass;
    }
 
-   static void vectorlEParticlegR_TClassManip(TClass* ){
+   static void vectorlEPTDParticlegR_TClassManip(TClass* ){
    }
 
 } // end of namespace ROOT
 
 namespace ROOT {
    // Wrappers around operator new
-   static void *new_vectorlEParticlegR(void *p) {
-      return  p ? ::new((::ROOT::Internal::TOperatorNewHelper*)p) vector<Particle> : new vector<Particle>;
+   static void *new_vectorlEPTDParticlegR(void *p) {
+      return  p ? ::new((::ROOT::Internal::TOperatorNewHelper*)p) vector<PTDParticle> : new vector<PTDParticle>;
    }
-   static void *newArray_vectorlEParticlegR(Long_t nElements, void *p) {
-      return p ? ::new((::ROOT::Internal::TOperatorNewHelper*)p) vector<Particle>[nElements] : new vector<Particle>[nElements];
+   static void *newArray_vectorlEPTDParticlegR(Long_t nElements, void *p) {
+      return p ? ::new((::ROOT::Internal::TOperatorNewHelper*)p) vector<PTDParticle>[nElements] : new vector<PTDParticle>[nElements];
    }
    // Wrapper around operator delete
-   static void delete_vectorlEParticlegR(void *p) {
-      delete ((vector<Particle>*)p);
+   static void delete_vectorlEPTDParticlegR(void *p) {
+      delete ((vector<PTDParticle>*)p);
    }
-   static void deleteArray_vectorlEParticlegR(void *p) {
-      delete [] ((vector<Particle>*)p);
+   static void deleteArray_vectorlEPTDParticlegR(void *p) {
+      delete [] ((vector<PTDParticle>*)p);
    }
-   static void destruct_vectorlEParticlegR(void *p) {
-      typedef vector<Particle> current_t;
+   static void destruct_vectorlEPTDParticlegR(void *p) {
+      typedef vector<PTDParticle> current_t;
       ((current_t*)p)->~current_t();
    }
-} // end of namespace ROOT for class vector<Particle>
+} // end of namespace ROOT for class vector<PTDParticle>
 
 namespace {
   void TriggerDictionaryInitialization_Eventdict_Impl() {
