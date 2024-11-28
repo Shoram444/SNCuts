@@ -369,35 +369,16 @@ Event SNCuts::get_event_data(datatools::things& workItem)
                 const snemo::datamodel::tracker_trajectory & trajectory = track.get_trajectory();
 
                 particle->set_track_length(trajectory.get_pattern().get_shape().get_length());
-                cout<< "====== EVENT " << eventNo << " ======="   << endl;
-                cout<< "trajectory.get_pattern().get_pattern_id() : " << trajectory.get_pattern().get_pattern_id() << endl;
-                cout<< "trajectory.get_pattern().get_first() : (" << 
-                       trajectory.get_pattern().get_first().x()   << ", " <<
-                       trajectory.get_pattern().get_first().y()   << ", " <<
-                       trajectory.get_pattern().get_first().z()   << ") " << endl;
-                
-                cout<< "trajectory.get_pattern().get_last() : (" << 
-                       trajectory.get_pattern().get_last().x()   << ", " <<
-                       trajectory.get_pattern().get_last().y()   << ", " <<
-                       trajectory.get_pattern().get_last().z()   << ") " << endl;
 
                 if( TMath::Abs(trajectory.get_pattern().get_first().x()) <= trajectory.get_pattern().get_last().x() )
                 {
                     double mul = ( trajectory.get_pattern().get_first_direction().x() * trajectory.get_pattern().get_first().x() > 0 ) ? 1.0 : -1.0;
                     geomtools::vector_3d direction = trajectory.get_pattern().get_first_direction() * mul; 
-                    cout<< "direction : (" << 
-                       direction.x()   << ", " <<
-                       direction.y()   << ", " <<
-                       direction.z()   << ") " << endl;
                 }
                 else
                 {
                     double mul = ( trajectory.get_pattern().get_last_direction().x() * trajectory.get_pattern().get_last().x() > 0 ) ? 1.0 : -1.0;
                     geomtools::vector_3d direction = trajectory.get_pattern().get_last_direction() * mul; 
-                    cout<< "direction : (" << 
-                       direction.x()   << ", " <<
-                       direction.y()   << ", " <<
-                       direction.z()   << ") " << endl;
                 }
 
             }
