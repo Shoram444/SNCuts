@@ -62,8 +62,9 @@ private:
 
     // configurable data members
     bool _useEventHasTwoNegativeParticles_      = false; 
-    bool _useEventHasTwoParticles_              = false; 
+    bool _useEventHasOneParticle_               = false; 
     bool _useEventHasParticles_                 = false; 
+    bool _useEventHasTwoParticles_              = false; 
     bool _useEventHasTwoTracks_                 = false; 
     bool _useEventHasTwoFoilVertices_           = false; 
     bool _useEventHasTwoCaloHits_               = false; 
@@ -75,14 +76,16 @@ private:
     bool _useEventHasSumEnergyBelow_            = false;
     double _maxSumEnergy_                       = 1000000.0;           // default value, this will be changed at construction of Filters
 
-    // SDDBDRC includes: 
-    // _useEventHasTwoNegativeParticles_
-    // _useEventHasTwoTracks_       
-    // _useEventHasTwoFoilVertices_     
-    // _useEventHasTwoCaloHits_     
-    // _useEventHasTwoAssociatedCaloHits_ 
-    // _useEventHasSumEnergyAbove_: requires setting _minSumEnergy_     
-    // _useEventHasSumEnergyBelow_: requires setting _maxSumEnergy_
+    /* 
+    SDDBDRC includes: 
+      * _useEventHasTwoNegativeParticles_
+      * _useEventHasTwoTracks_       
+      * _useEventHasTwoFoilVertices_     
+      * _useEventHasTwoCaloHits_     
+      * _useEventHasTwoAssociatedCaloHits_ 
+      * _useEventHasSumEnergyAbove_: requires setting _minSumEnergy_     
+      * _useEventHasSumEnergyBelow_: requires setting _maxSumEnergy_ 
+    */
     bool _useSDBDRC_                            = false;        
 
 

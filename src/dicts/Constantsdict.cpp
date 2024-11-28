@@ -1,6 +1,7 @@
 // Do NOT change. Changes will be lost next time file is generated
 
 #define R__DICTIONARY_FILENAME dOdOdIlibdIConstantsdict
+#define R__NO_DEPRECATION
 
 /*******************************************************************/
 #include <stddef.h>
@@ -33,16 +34,16 @@
 
 #include "TDataMember.h"
 
-// Since CINT ignores the std namespace, we need to do so in this file.
-namespace std {} using namespace std;
-
 // Header files passed as explicit arguments
 #include "Constants.hh"
 
 // Header files passed via #pragma extra_include
 
+// The generated code does not explicitly qualify STL entities
+namespace std {} using namespace std;
+
 namespace Constants {
-   namespace ROOT {
+   namespace ROOTDict {
       inline ::ROOT::TGenericClassInfo *GenerateInitInstance();
       static TClass *Constants_Dictionary();
 
@@ -51,7 +52,7 @@ namespace Constants {
       {
          static ::ROOT::TGenericClassInfo 
             instance("Constants", 0 /*version*/, "Constants.hh", 4,
-                     ::ROOT::Internal::DefineBehavior((void*)0,(void*)0),
+                     ::ROOT::Internal::DefineBehavior((void*)nullptr,(void*)nullptr),
                      &Constants_Dictionary, 0);
          return &instance;
       }
@@ -72,40 +73,38 @@ namespace {
   void TriggerDictionaryInitialization_Constantsdict_Impl() {
     static const char* headers[] = {
 "Constants.hh",
-0
+nullptr
     };
     static const char* includePaths[] = {
-"/sps/nemo/sw/snsw/opt/root-6.16.00/include/root",
+"/sps/nemo/sw/redhat-9-x86_64/snsw/opt/root-6.26.06/include/root",
 "/sps/nemo/scratch/mpetro/Projects/FalaiseModules/SNCuts/include/",
-0
+nullptr
     };
     static const char* fwdDeclCode = R"DICTFWDDCLS(
 #line 1 "Constantsdict dictionary forward declarations' payload"
 #pragma clang diagnostic ignored "-Wkeyword-compat"
 #pragma clang diagnostic ignored "-Wignored-attributes"
 #pragma clang diagnostic ignored "-Wreturn-type-c-linkage"
-extern int __Cling_Autoloading_Map;
+extern int __Cling_AutoLoading_Map;
 )DICTFWDDCLS";
     static const char* payloadCode = R"DICTPAYLOAD(
 #line 1 "Constantsdict dictionary payload"
 
-#ifndef G__VECTOR_HAS_CLASS_ITERATOR
-  #define G__VECTOR_HAS_CLASS_ITERATOR 1
-#endif
 
 #define _BACKWARD_BACKWARD_WARNING_H
+// Inline headers
 #include "Constants.hh"
 
 #undef  _BACKWARD_BACKWARD_WARNING_H
 )DICTPAYLOAD";
-    static const char* classesHeaders[]={
-nullptr};
-
+    static const char* classesHeaders[] = {
+nullptr
+};
     static bool isInitialized = false;
     if (!isInitialized) {
       TROOT::RegisterModule("Constantsdict",
         headers, includePaths, payloadCode, fwdDeclCode,
-        TriggerDictionaryInitialization_Constantsdict_Impl, {}, classesHeaders, /*has no C++ module*/false);
+        TriggerDictionaryInitialization_Constantsdict_Impl, {}, classesHeaders, /*hasCxxModule*/false);
       isInitialized = true;
     }
   }

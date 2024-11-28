@@ -1,7 +1,7 @@
 
 echo "                                          "
 echo "Please enter the full path to *FALAISE* include files:"
-read FAL_INC
+# read FAL_INC
 echo "                                          "
 
 
@@ -26,7 +26,6 @@ echo "rootcint: ./include/CDHit.hh         -> ./lib/CDHitdict_rdict.pcm         
       	      rootcint -f ../lib/CDHitdict.cpp          CDHit.hh+
 echo "rootcint: ./include/Constants.hh         -> ./lib/Constantsdict_rdict.pcm"
 			  rootcint -f ../lib/Constantsdict.cpp          Constants.hh+
-
 echo " "
 echo "Dictionaries generated!"
 echo " "
@@ -43,11 +42,11 @@ echo " "
 
 cd build
 
-	cmake -DCMAKE_PREFIX_PATH=$FAL_INC ..
-	# cmake -DCMAKE_PREFIX_PATH=/sps/nemo/sw/snsw/2024/opt/falaise-5.1.2/include/ ..
+	# cmake -DCMAKE_PREFIX_PATH=$FAL_INC ..
+	cmake -DCMAKE_PREFIX_PATH=/sps/nemo/sw/redhat-9-x86_64/snsw/opt/falaise-5.1.2/include/ ..
 	# cmake -DCMAKE_PREFIX_PATH=/sps/nemo/sw/Falaise/tests/install_244/include/ ..
 	make
 
 cd ../
 	
-	flreconstruct -i new_5.1.2_PTD.brio -p build/SNCutsPipeline.conf -o CDFiltered.brio
+	flreconstruct -i CDCut_TIT.brio -p build/SNCutsPipeline.conf -o CDFiltered.brio
