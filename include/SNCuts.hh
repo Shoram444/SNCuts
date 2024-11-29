@@ -20,6 +20,7 @@
 
 #include "Event.hh"
 #include "PTDParticle.hh"
+#include "SDParticle.hh"
 #include "Filters.hh"
 #include "CDBank.hh"
 #include "CDHit.hh"
@@ -97,6 +98,10 @@ private:
 
     bool _useEventHasPextBelow_                 = false;
     double _maxPext_                            = 1.0;           // default value, this will be changed at construction of Filters
+
+    bool _useEventHasNEscapedParticles_         = false;
+    double _nEscapedParticles_                  = 0.0;           // default value, this will be changed at construction of Filters
+
 
     DPP_MODULE_REGISTRATION_INTERFACE(SNCuts);
 };

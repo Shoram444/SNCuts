@@ -5,6 +5,7 @@
 #include "TObject.h"
 
 #include "PTDParticle.hh"
+#include "SDParticle.hh"
 #include "Constants.hh"
 #include "CDBank.hh"
 #include "Constants.hh"
@@ -29,13 +30,15 @@ class Event: public TObject
 		void set_event_total_energy(double _eventTotalEnergy);
 		void set_event_foil_vertex_distance(double _eventFoilVertexDistance);
 
-		void add_particle(PTDParticle &_newPTDParticle); // add a particle into the event
+		void add_particle(PTDParticle &_newPTDParticle); // add a PTDparticle into the event
+		void add_sd_particle(SDParticle &_newSDParticle); // add an SDparticle into the event
 		void add_cd_bank(CDBank &_cdBank);		   // add CD bank into the event
 
 		void reset(); 							   // resets the values of the Event
 		void print();	
 
 		std::vector<PTDParticle> get_particles();     
+		std::vector<SDParticle> get_sd_particles();     
 		CDBank 	get_cd_bank();     
 
 		int 	get_event_number(); 
@@ -47,6 +50,7 @@ class Event: public TObject
 		double 	eventTotalEnergy; 
 
 		std::vector<PTDParticle> ptdparticles; 			// Info from PTD bank
+		std::vector<SDParticle> sdparticles; 			// Info from SD bank
 		CDBank cdBank;
     
     

@@ -1,6 +1,6 @@
 
 echo "                                          "
-echo "Please enter the full path to *FALAISE* include files:"
+# echo "Please enter the full path to *FALAISE* include files:"
 # read FAL_INC
 echo "                                          "
 
@@ -18,6 +18,8 @@ echo "rootcint: ./include/Event.hh         -> ./lib/Eventdict_rdict.pcm         
       	      rootcint -f ../lib/Eventdict.cpp          Event.hh+
 echo "rootcint: ./include/PTDParticle.hh         -> ./lib/PTDParticledict_rdict.pcm         + ./src/dicts/PTDParticledict.cpp"
       	      rootcint -f ../lib/PTDParticledict.cpp          PTDParticle.hh+
+echo "rootcint: ./include/SDParticle.hh         -> ./lib/SDParticledict_rdict.pcm         + ./src/dicts/SDParticledict.cpp"
+      	      rootcint -f ../lib/SDParticledict.cpp          SDParticle.hh+
 echo "rootcint: ./include/Filters.hh         -> ./lib/Filtersdict_rdict.pcm         + ./src/dicts/Filtersdict.cpp"
       	      rootcint -f ../lib/Filtersdict.cpp          Filters.hh+
 echo "rootcint: ./include/CDBank.hh         -> ./lib/CDBankdict_rdict.pcm         + ./src/dicts/CDBankdict.cpp"

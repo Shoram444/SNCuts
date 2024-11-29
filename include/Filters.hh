@@ -6,6 +6,7 @@
 #include "TMath.h"
 
 #include "PTDParticle.hh"
+#include "SDParticle.hh"
 #include "Constants.hh"
 #include "Event.hh"
 #include "CDBank.hh"
@@ -33,6 +34,9 @@ class Filters: public TObject
         bool event_has_two_calo_hits                 (Event& _event);
         bool event_has_one_calo_hit                  (Event& _event);
         bool event_has_two_associated_calo_hits      (Event& _event);
+
+        bool event_has_n_escaped_particles           (Event& _event);
+        void set_n_escaped_particles                 (int _nEscapeParticles);
 
         bool event_has_sum_energy_above              (Event& _event, double _minEnergy);
         bool event_has_sum_energy_below              (Event& _event, double _maxEnergy); 
@@ -81,6 +85,9 @@ class Filters: public TObject
 
         bool useEventHasPextBelow = false; 
         double maxPext;
+
+        bool useEventHasNEscapedParticles = false;
+        int nEscapedParticles;
 
 
         double get_beta(double _E);

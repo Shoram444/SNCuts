@@ -17,6 +17,7 @@ void Event::reset()
 {
     eventTotalEnergy = -1.0; 
     ptdparticles.clear();
+    sdparticles.clear();
 }
 
 void Event::set_event_number(int _eventNumber)
@@ -34,10 +35,20 @@ void Event::add_particle(PTDParticle &_newPTDParticle)
     ptdparticles.push_back(_newPTDParticle);
 }
 
+void Event::add_sd_particle(SDParticle &_newSDParticle)
+{
+    sdparticles.push_back(_newSDParticle);
+}
+
 
 std::vector<PTDParticle> Event::get_particles()
 {
     return ptdparticles;
+}
+
+std::vector<SDParticle> Event::get_sd_particles()
+{
+    return sdparticles;
 }
 
 void Event::add_cd_bank(CDBank &_cdBank)
@@ -96,6 +107,14 @@ void Event::print()
                 << ptdparticles.at(i).get_time() 
                 << " +- " << ptdparticles.at(i).get_time_sigma()
                 << " ns"  << endl;
+        cout << "-------------------------------------------------------------------------------------------------" << endl;
+    }
+
+    for (int i = 0; i < sdparticles.size(); i++)
+    {
+        cout << "-------------------------------------------------------------------------------------------------" << endl;
+        cout << "Particle: "                                << i+1<< "/"<<  sdparticles.size()                      << endl;
+        cout << "Particle escaped foil: "                   << sdparticles.at(i).has_escaped_foil()                 << endl;
         cout << "-------------------------------------------------------------------------------------------------" << endl;
     }
 }

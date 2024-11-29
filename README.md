@@ -92,6 +92,15 @@ flrecontruct -i CD.brio -p SNCutsPipeline.conf -o CDCut.brio
 ### Vertex distance cuts
 - `bool event_has_foil_vertex_distance_below(Event& _event, double _maxFoilVertexDistance)`: returns true if two vertices are are less than defined distance: `_maxFoilVertexDistance`. Needs to be used in conjuction with `void set_max_foil_vertex_distance(double _maxFoilVertexDistance)`
 
+### ToF Cuts
+- `bool event_has_Pint_above(Event& _event, double _minPint)`: returns true if the internal probability is above: `_minPint`. Needs to be used in conjuction with `void set_min_Pint(double _minPint);`
+- `bool event_has_Pext_below(Event& _event, double _maxPext)`: returns true if the external probability is below: `_maxPext`. Needs to be used in conjuction with `void set_max_Pext(double _maxPext);`
+
+### (EXPERIMENTAL) SD cuts
+- `bool event_has_n_escaped_particles(Event& _event)`: returns true if the event has exactly `nEscapedParticles`. This filter can only be used on simulated data with the `all_details` flag turned on in the `variant.profile`. To specify the number of escaped particles, set `nEscapedParticles` in the config file. 
+
+# Using filters:
+
 #### To turn on any of the filters, the filter must be set to `true` in the `SNCutsPipeline.config` file. Each cut is turned on with the keyword `useFiltersName` (note the CamelCase font use). Check out the [example](https://github.com/Shoram444/SNCuts#example-usage) above. 
 
 **ADDING FILTERS**

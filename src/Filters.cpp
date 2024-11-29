@@ -71,6 +71,10 @@ Filters::Filters(std::vector<std::string>& _filtersToBeUsed)
         {
             useEventHasPextBelow = true;
         }
+        if (filter == "useEventHasNEscapedParticles")
+        {
+            useEventHasNEscapedParticles = true;
+        }
     }
 }
 
@@ -99,6 +103,9 @@ Filters::~Filters()
 
         useEventHasPextBelow               = false;
         maxPext                            = 0.0;
+
+        useEventHasNEscapedParticles       = false;
+        nEscapedParticles                  = 0.0;
 }
 
 
@@ -367,6 +374,30 @@ void Filters::set_max_Pext(double _maxPext)
     maxPext = _maxPext;
 }
 
+bool Filters::event_has_n_escaped_particles(Event& _event)
+{
+    int eventNEscaped = 0;
+    for(int i = 0; i < _event.get_sd_particles().size(); i++ )
+    {
+        if(_event.get_sd_particles().at(i).has_escaped_foil() == true)
+        {
+            eventNEscaped++; 
+        }
+    }
+    if( eventNEscaped == nEscapedParticles)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+void Filters::set_n_escaped_particles(int _nEscapedParticles)
+{
+    nEscapedParticles = _nEscapedParticles;
+}
 
 bool Filters::event_passed_filters(Event& _event) {
     if ( useEventHasTwoNegativeParticles && !event_has_two_negative_particles(_event) )         // event doesn't pass filter if filter should be used AND is not fulilled!
@@ -418,6 +449,10 @@ bool Filters::event_passed_filters(Event& _event) {
         return false;
     }
     if ( useEventHasPextBelow && !event_has_Pext_below(_event, maxPext) )       
+    {
+        return false;
+    }
+    if ( useEventHasNEscapedParticles && !event_has_n_escaped_particles(_event) )
     {
         return false;
     }

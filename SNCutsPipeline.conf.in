@@ -12,8 +12,8 @@
 [name="pipeline" type="SNCuts"]
 #useEventHasTwoNegativeParticles : boolean = true
 #useEventHasParticles : boolean = true
-useEventHasTwoTracks : boolean = true
-useEventHasTwoFoilVertices : boolean = true
+#useEventHasTwoTracks : boolean = true
+#useEventHasTwoFoilVertices : boolean = true
 #useEventHasTwoCaloHits : boolean = true
 #useEventHasOneCaloHit : boolean = true
 #useEventHasTwoAssociatedCaloHits: boolean = true
@@ -32,3 +32,6 @@ useEventHasTwoFoilVertices : boolean = true
 
 #useEventHasPextBelow : boolean = true
 #maxPext : real = 0.01
+
+useEventHasNEscapedParticles : bool = true
+nEscapedParticles : real = 2
