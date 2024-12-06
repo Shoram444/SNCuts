@@ -97,7 +97,7 @@ flrecontruct -i CD.brio -p SNCutsPipeline.conf -o CDCut.brio
 - `bool event_has_Pext_below(Event& _event, double _maxPext)`: returns true if the external probability is below: `_maxPext`. Needs to be used in conjuction with `void set_max_Pext(double _maxPext);`
 
 ### (EXPERIMENTAL) SD cuts
-- `bool event_has_n_escaped_particles(Event& _event)`: returns true if the event has exactly `nEscapedParticles`. This filter can only be used on simulated data with the `all_details` flag turned on in the `variant.profile`. To specify the number of escaped particles, set `nEscapedParticles` in the config file. 
+- `bool event_has_n_escaped_particles(Event& _event)`: returns true if the event has exactly `n` primary particles that have escaped the source foil: `nEscapedParticles`. This filter can only be used on simulated data with the `all_details` flag turned on in the `variant.profile`. To specify the number of escaped particles, set `nEscapedParticles` in the config file. 
 
 # Using filters:
 
