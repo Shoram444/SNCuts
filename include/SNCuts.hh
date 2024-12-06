@@ -71,6 +71,7 @@ private:
     bool _useEventHasTwoCaloHits_               = false; 
     bool _useEventHasOneCaloHit_                = false; 
     bool _useEventHasTwoAssociatedCaloHits_     = false; 
+    bool _useEventHasAssociatedCaloHits_        = false; 
 
     bool _useEventHasSumEnergyAbove_            = false;
     double _minSumEnergy_                       = -10000.0;           // default value, this will be changed at construction of Filters

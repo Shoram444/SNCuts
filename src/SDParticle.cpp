@@ -5,6 +5,8 @@ ClassImp(SDParticle);
 
 SDParticle::SDParticle()
 {
+    hasFoilVertex = false;
+    hasEscapedFoil = false;
 }
 
 SDParticle::~SDParticle()
@@ -38,7 +40,6 @@ double 		SDParticle::get_energy_MeV()
 
 void        SDParticle::set_foil_vertex_position(double _X, double _Y, double _Z)
 {
-    hasFoilVertex = true;
     foilVertexPosition.SetXYZ(_X, _Y, _Z);
 }
 
@@ -56,11 +57,20 @@ TVector3    SDParticle::get_foil_vertex_position()
 
 void 	SDParticle::set_has_escaped_foil(bool _escaped)
 {
-    hasFoilVertex = true;
+    hasEscapedFoil = _escaped;
 }
 
 bool    SDParticle::has_escaped_foil()
 {
-    return hasFoilVertex;
+    return hasEscapedFoil;
 }
 
+void    SDParticle::set_trackID(int _trackID)
+{
+    trackID = _trackID;
+}
+
+int     SDParticle::get_trackID()
+{
+    return trackID;
+}

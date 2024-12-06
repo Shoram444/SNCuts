@@ -136,6 +136,19 @@ void SNCuts::initialize(
 
     try
     {
+        myConfig.fetch("useEventHasAssociatedCaloHits", this->_useEventHasAssociatedCaloHits_);
+        if (_useEventHasAssociatedCaloHits_)
+        {
+            std::cout << "EventHasAssociatedCaloHits" << std::endl;
+            _filtersToBeUsed.push_back("useEventHasAssociatedCaloHits");
+        }
+    }
+    catch (std::logic_error &e)
+    {
+    }
+
+    try
+    {
         myConfig.fetch("useSDBDRC", this->_useSDBDRC_);
         if (_useSDBDRC_)
         {
@@ -224,7 +237,7 @@ void SNCuts::initialize(
         {
             _filtersToBeUsed.push_back("useEventHasNEscapedParticles");
         }
-        myConfig.fetch("maxPext", this->_nEscapedParticles_);
+        myConfig.fetch("nEscapedParticles", this->_nEscapedParticles_);
         std::cout << "EventHasNEscapedParticles " << _nEscapedParticles_ << std::endl;
     }
     catch (std::logic_error &e)
@@ -246,7 +259,7 @@ dpp::base_module::process_status SNCuts::process(datatools::things &workItem)
 
     //// Main method that fills event data from CD, PTD, etc.
     event = get_event_data(workItem);
-    event.print();
+    // event.print();
 
     //// If event passes all configured filters it is kept in the brio file, it is removed otherwise
     if (eventFilter->event_passed_filters(event))
@@ -258,8 +271,7 @@ dpp::base_module::process_status SNCuts::process(datatools::things &workItem)
     }
     else if (!eventFilter->event_passed_filters(event))
     {
-        // std::cout << "Event: " << eventNo << " Failed! "  <<std::endl;
-
+        std::cout << "Event: " << eventNo << " Failed! "  <<std::endl;
         eventNo++;
         return dpp::base_module::PROCESS_STOP;
     }
@@ -391,18 +403,17 @@ Event SNCuts::get_event_data(datatools::things &workItem)
             event.add_particle(*ptdparticle);
             delete ptdparticle;
         }
+        event.set_event_total_energy(totEne);
     }
     else
     {
         std::cout << "No PTD Bank!!!\n";
+        event.set_event_total_energy(-1);
     }
 
     if (workItem.has("SD"))
     {
         using namespace snemo::datamodel;
-
-        snemo::datamodel::particle_track_data PTDbank = workItem.get<particle_track_data>("PTD");
-        snemo::datamodel::ParticleHdlCollection PTDparticles = PTDbank.particles();
 
         // Get the SD data
         mctools::simulated_data SD = workItem.get<mctools::simulated_data>("SD");
@@ -411,45 +422,54 @@ Event SNCuts::get_event_data(datatools::things &workItem)
         // Get the list with particle data into prcoll
         list<genbb::primary_particle> primary_particle = primary_event.get_particles();
 
+        std::vector<int> processedTrackIDs; 
+        int currentTrackID;
+        bool trackWasProcessed = false;
         for (auto &iPrimaryParticle : primary_particle)
         {
             SDParticle *sdparticle = new SDParticle();
 
             sdparticle->set_charge(iPrimaryParticle.get_charge());
             sdparticle->set_energy(iPrimaryParticle.get_kinetic_energy());
-            sdparticle->set_foil_vertex_position(
-                iPrimaryParticle.get_vertex().x(),
-                iPrimaryParticle.get_vertex().y(),
-                iPrimaryParticle.get_vertex().z()
-            );
-            cout << " sdparticle charge = " << iPrimaryParticle.get_charge() << endl;
 
-            if(SD.has_step_hits("__visu.tracks"))
+
+            bool hasEscapedFoil = false;
+
+            if (SD.has_step_hits("__visu.tracks")) 
             {
-                for (UInt_t ihit = 0; ihit < SD.get_number_of_step_hits("__visu.tracks"); ihit++)
+                for (UInt_t ihit = 0; ihit < SD.get_number_of_step_hits("__visu.tracks"); ihit++) 
                 {
-                    if ( SD.get_step_hit("__visu.tracks", ihit).has_material_name())
+                    auto stepHit = SD.get_step_hit("__visu.tracks", ihit); // Cache step hit
+                    currentTrackID = stepHit.get_track_id();
+
+                    // Check if this track ID has already been processed
+                    if (std::find(processedTrackIDs.begin(), processedTrackIDs.end(), currentTrackID) == processedTrackIDs.end()) 
                     {
-                        if(SD.get_step_hit("__visu.tracks", ihit).get_material_name() == "tracking_gas")
+                        sdparticle->set_trackID(currentTrackID);
+                        // Process new track ID
+                        if (    
+                                stepHit.get_parent_track_id() == 0    && // we only care about the initial particles
+                                stepHit.has_material_name()   == true && 
+                                stepHit.get_material_name()   == "tracking_gas"
+                            ) 
                         {
-                            sdparticle->set_has_escaped_foil(true);
-                            break;
+                            hasEscapedFoil = true;
+                            processedTrackIDs.push_back(currentTrackID); // Mark as processed
+                            break; // Exit loop for this track ID
                         }
-                    }
+                    } 
                 }
             }
+            sdparticle->set_has_escaped_foil(hasEscapedFoil);
             event.add_sd_particle(*sdparticle);
             delete sdparticle;
-
         }
-
     }
     else
     {
         std::cout << "No SD Bank!!!\n";
     }
 
-    event.set_event_total_energy(totEne);
 
     if (workItem.has("CD"))
     {
@@ -475,6 +495,10 @@ Event SNCuts::get_event_data(datatools::things &workItem)
         event.add_cd_bank(*SNCCDBank);
 
         delete SNCCDBank;
+    }
+    else
+    {
+        std::cout << "No CD Bank!!!\n";
     }
 
     return event;

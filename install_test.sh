@@ -1,7 +1,7 @@
 
 echo "                                          "
-# echo "Please enter the full path to *FALAISE* include files:"
-# read FAL_INC
+echo "Please enter the full path to *FALAISE* include files:"
+read FAL_INC
 echo "                                          "
 
 
@@ -44,11 +44,11 @@ echo " "
 
 cd build
 
-	# cmake -DCMAKE_PREFIX_PATH=$FAL_INC ..
-	cmake -DCMAKE_PREFIX_PATH=/sps/nemo/sw/redhat-9-x86_64/snsw/opt/falaise-5.1.2/include/ ..
+	cmake -DCMAKE_PREFIX_PATH=$FAL_INC ..
+	# cmake -DCMAKE_PREFIX_PATH=/sps/nemo/sw/redhat-9-x86_64/snsw/opt/falaise-5.1.2/include/ ..
 	# cmake -DCMAKE_PREFIX_PATH=/sps/nemo/sw/Falaise/tests/install_244/include/ ..
 	make
 
 cd ../
 	
-	flreconstruct -i CDCut_TIT.brio -p build/SNCutsPipeline.conf -o CDFiltered.brio
+	flreconstruct -i SD.brio -p build/SNCutsPipeline.conf -o SDFiltered.brio

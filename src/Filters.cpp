@@ -41,6 +41,10 @@ Filters::Filters(std::vector<std::string>& _filtersToBeUsed)
         {
             useEventHasTwoAssociatedCaloHits = true;
         }
+        if (filter == "useEventHasAssociatedCaloHits")
+        {
+            useEventHasAssociatedCaloHits = true;
+        }
         if (filter == "useSDBDRC")
         {
             useEventHasTwoNegativeParticles = true;
@@ -88,6 +92,7 @@ Filters::~Filters()
         useEventHasTwoCaloHits             = false; 
         useEventHasOneCaloHit              = false; 
         useEventHasTwoAssociatedCaloHits   = false; 
+        useEventHasAssociatedCaloHits      = false; 
 
         useEventHasSumEnergyAbove          = false; 
         minSumEnergy                       = -10000.0;
@@ -105,7 +110,7 @@ Filters::~Filters()
         maxPext                            = 0.0;
 
         useEventHasNEscapedParticles       = false;
-        nEscapedParticles                  = 0.0;
+        nEscapedParticles                  = -1.0;
 }
 
 
@@ -211,6 +216,25 @@ bool Filters::event_has_one_calo_hit(Event& _event)
 bool Filters::event_has_two_associated_calo_hits(Event& _event)
 {
     if ( event_has_two_particles(_event) )
+    {
+        for (auto& particle : _event.get_particles())
+        {
+            if ( particle.get_associated_calo_hits_number() != 1 )  // if there are multiple calohits associated with single PTD entry: fail
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool Filters::event_has_associated_calo_hits(Event& _event)
+{
+    if ( event_has_particles(_event) )
     {
         for (auto& particle : _event.get_particles())
         {
@@ -429,6 +453,10 @@ bool Filters::event_passed_filters(Event& _event) {
         return false;
     }
     if ( useEventHasTwoAssociatedCaloHits && !event_has_two_associated_calo_hits(_event) ) 
+    {
+        return false;
+    }
+    if ( useEventHasAssociatedCaloHits && !event_has_associated_calo_hits(_event) ) 
     {
         return false;
     }

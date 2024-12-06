@@ -26,36 +26,37 @@ class Filters: public TObject
 		//! desctructor
 		~Filters();
 
-        bool event_has_two_negative_particles        (Event& _event);
-        bool event_has_two_particles                 (Event& _event);
-        bool event_has_particles                     (Event& _event);
-        bool event_has_two_tracks                    (Event& _event);                       //this is equivalend to event_has_two_particles
-        bool event_has_two_foil_vertices             (Event& _event);
-        bool event_has_two_calo_hits                 (Event& _event);
-        bool event_has_one_calo_hit                  (Event& _event);
-        bool event_has_two_associated_calo_hits      (Event& _event);
+        bool event_has_two_negative_particles       (Event& _event);
+        bool event_has_two_particles                (Event& _event);
+        bool event_has_particles                    (Event& _event);
+        bool event_has_two_tracks                   (Event& _event);                       //this is equivalend to event_has_two_particles
+        bool event_has_two_foil_vertices            (Event& _event);
+        bool event_has_two_calo_hits                (Event& _event);
+        bool event_has_one_calo_hit                 (Event& _event);
+        bool event_has_two_associated_calo_hits     (Event& _event);
+        bool event_has_associated_calo_hits         (Event& _event);
 
-        bool event_has_n_escaped_particles           (Event& _event);
-        void set_n_escaped_particles                 (int _nEscapeParticles);
+        bool event_has_n_escaped_particles          (Event& _event);
+        void set_n_escaped_particles                (int _nEscapeParticles);
 
-        bool event_has_sum_energy_above              (Event& _event, double _minEnergy);
-        bool event_has_sum_energy_below              (Event& _event, double _maxEnergy); 
-        void set_min_sum_energy(double _minSumEnergy);
-        void set_max_sum_energy(double _maxSumEnergy);
+        bool event_has_sum_energy_above             (Event& _event, double _minEnergy);
+        bool event_has_sum_energy_below             (Event& _event, double _maxEnergy); 
+        void set_min_sum_energy                     (double _minSumEnergy);
+        void set_max_sum_energy                     (double _maxSumEnergy);
 
-        bool event_has_foil_vertex_distance_below    (Event& _event, double _maxFoilVertexDistance); 
-        void set_max_foil_vertex_distance(double _maxFoilVertexDistance);
+        bool event_has_foil_vertex_distance_below   (Event& _event, double _maxFoilVertexDistance); 
+        void set_max_foil_vertex_distance           (double _maxFoilVertexDistance);
 
-        bool event_has_Pint_above    (Event& _event, double _minPint); 
-        void set_min_Pint(double _minPint);
+        bool event_has_Pint_above                   (Event& _event, double _minPint); 
+        void set_min_Pint                           (double _minPint);
 
-        bool event_has_Pext_below    (Event& _event, double _maxPext);
-        void set_max_Pext(double _maxPext);
+        bool event_has_Pext_below                   (Event& _event, double _maxPext);
+        void set_max_Pext                           (double _maxPext);
 
-        double get_min_sum_energy();
-        double get_max_sum_energy();
+        double get_min_sum_energy                   ();
+        double get_max_sum_energy                   ();
 
-        bool event_passed_filters(Event& _event);
+        bool event_passed_filters                   (Event& _event);
 
     private:
         // std::vector<FilterFunction> filters;
@@ -68,6 +69,7 @@ class Filters: public TObject
         bool useEventHasTwoCaloHits             = false; 
         bool useEventHasOneCaloHit              = false; 
         bool useEventHasTwoAssociatedCaloHits   = false; 
+        bool useEventHasAssociatedCaloHits   = false; 
 
         bool useSDBDRC                          = false; 
 
