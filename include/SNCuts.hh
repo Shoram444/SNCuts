@@ -5,6 +5,7 @@
 #include "bayeux/dpp/base_module.h"
 #include "bayeux/mctools/simulated_data.h"
 #include "bayeux/geomtools/manager.h"
+#include "bayeux/geomtools/geom_id.h"
 
 #include "falaise/snemo/processing/module.h"
 #include "falaise/snemo/datamodels/particle_track_data.h"
@@ -14,6 +15,7 @@
 #include "falaise/snemo/datamodels/tracker_trajectory_data.h"
 #include "falaise/snemo/datamodels/tracker_trajectory_solution.h"
 #include "falaise/snemo/datamodels/calibrated_data.h"
+#include "falaise/snemo/datamodels/geomid_utils.h"
 // #include "falaise/snemo/datamodels/vertex_utils.h"
 
 
@@ -71,6 +73,7 @@ private:
     bool _useEventHasTwoCaloHits_               = false; 
     bool _useEventHasOneCaloHit_                = false; 
     bool _useEventHasTwoAssociatedCaloHits_     = false; 
+    bool _useEventHasTwoDistinctAssociatedCaloHits_     = false; 
     bool _useEventHasAssociatedCaloHits_        = false; 
 
     bool _useEventHasSumEnergyAbove_            = false;
@@ -84,7 +87,7 @@ private:
       * _useEventHasTwoTracks_       
       * _useEventHasTwoFoilVertices_     
       * _useEventHasTwoCaloHits_     
-      * _useEventHasTwoAssociatedCaloHits_ 
+      * _useEventHasTwoDistinctAssociatedCaloHits_ 
       * _useEventHasSumEnergyAbove_: requires setting _minSumEnergy_     
       * _useEventHasSumEnergyBelow_: requires setting _maxSumEnergy_ 
     */

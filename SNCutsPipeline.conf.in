@@ -12,3 +12,5 @@
 [name="pipeline" type="SNCuts"]
 useEventHasNEscapedParticles : boolean = true
 nEscapedParticles : real = 2
+
+useEventHasTwoDistinctAssociatedCaloHits : boolean = true

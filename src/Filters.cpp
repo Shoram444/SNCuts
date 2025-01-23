@@ -41,6 +41,10 @@ Filters::Filters(std::vector<std::string>& _filtersToBeUsed)
         {
             useEventHasTwoAssociatedCaloHits = true;
         }
+        if (filter == "useEventHasTwoDistinctAssociatedCaloHits")
+        {
+            useEventHasTwoDistinctAssociatedCaloHits = true;
+        }
         if (filter == "useEventHasAssociatedCaloHits")
         {
             useEventHasAssociatedCaloHits = true;
@@ -51,7 +55,7 @@ Filters::Filters(std::vector<std::string>& _filtersToBeUsed)
             useEventHasTwoTracks            = true;
             useEventHasTwoFoilVertices      = true;
             useEventHasTwoCaloHits          = true;
-            useEventHasTwoAssociatedCaloHits= true;
+            useEventHasTwoDistinctAssociatedCaloHits= true;
             useEventHasSumEnergyAbove       = true;
             useEventHasSumEnergyBelow       = true;
         }
@@ -232,6 +236,33 @@ bool Filters::event_has_two_associated_calo_hits(Event& _event)
     }
 }
 
+bool Filters::event_has_two_distinct_associated_calo_hits(Event& _event)
+{
+    if ( event_has_two_particles(_event) )
+    {
+        for (auto& particle : _event.get_particles())
+        {
+            if ( particle.get_associated_calo_hits_number() != 1 )  // if there are multiple calohits associated with single PTD entry: fail
+            {
+                return false;
+            }
+        }
+        if( _event.get_cd_bank().get_number_of_calo_hits() == 2 )
+        {
+            if (_event.get_cd_bank().get_calo_hit(0).get_gid() == _event.get_cd_bank().get_calo_hit(1).get_gid())
+            {
+                return false;
+            }
+            return true;
+        }
+    }
+    else
+    {
+        return false;
+    }
+    return false;
+}
+
 bool Filters::event_has_associated_calo_hits(Event& _event)
 {
     if ( event_has_particles(_event) )
@@ -242,6 +273,10 @@ bool Filters::event_has_associated_calo_hits(Event& _event)
             {
                 return false;
             }
+        }
+        if( _event.get_cd_bank().get_number_of_calo_hits() > 0 )
+        {
+            return true;
         }
         return true;
     }
@@ -453,6 +488,10 @@ bool Filters::event_passed_filters(Event& _event) {
         return false;
     }
     if ( useEventHasTwoAssociatedCaloHits && !event_has_two_associated_calo_hits(_event) ) 
+    {
+        return false;
+    }
+    if ( useEventHasTwoDistinctAssociatedCaloHits && !event_has_two_distinct_associated_calo_hits(_event) ) 
     {
         return false;
     }

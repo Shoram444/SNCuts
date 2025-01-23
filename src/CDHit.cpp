@@ -21,3 +21,12 @@ double 	CDHit::get_energy()
 {
     return energy;
 }    
+
+void    CDHit::set_om_gid(int _om_gid)
+{
+    om_gid = _om_gid;
+}
+int     CDHit::get_gid()
+{
+    return om_gid;
+}					

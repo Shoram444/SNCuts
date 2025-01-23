@@ -21,11 +21,14 @@ class CDHit: public TObject
 		~CDHit();
 
 		void    set_energy(double _energy);
+		void    set_om_gid(int _om_gid);
 
-        double 	get_energy();    					
+        double 	get_energy();    
+		int 	get_gid();					
 
 	private:
 		double energy = 0.0;
+		int     om_gid= 0;
 
     
 	ClassDef(CDHit,1);

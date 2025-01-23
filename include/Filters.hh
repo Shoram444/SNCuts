@@ -34,6 +34,7 @@ class Filters: public TObject
         bool event_has_two_calo_hits                (Event& _event);
         bool event_has_one_calo_hit                 (Event& _event);
         bool event_has_two_associated_calo_hits     (Event& _event);
+        bool event_has_two_distinct_associated_calo_hits     (Event& _event);
         bool event_has_associated_calo_hits         (Event& _event);
 
         bool event_has_n_escaped_particles          (Event& _event);
@@ -69,6 +70,7 @@ class Filters: public TObject
         bool useEventHasTwoCaloHits             = false; 
         bool useEventHasOneCaloHit              = false; 
         bool useEventHasTwoAssociatedCaloHits   = false; 
+        bool useEventHasTwoDistinctAssociatedCaloHits   = false; 
         bool useEventHasAssociatedCaloHits   = false; 
 
         bool useSDBDRC                          = false; 

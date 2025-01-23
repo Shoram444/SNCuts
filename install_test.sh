@@ -51,4 +51,4 @@ cd build
 
 cd ../
 	
-	flreconstruct -i SD.brio -p build/SNCutsPipeline.conf -o SDFiltered.brio
+	flreconstruct -i CD.brio -p build/SNCutsPipeline.conf -o CDFiltered.brio

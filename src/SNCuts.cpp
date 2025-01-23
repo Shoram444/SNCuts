@@ -136,6 +136,19 @@ void SNCuts::initialize(
 
     try
     {
+        myConfig.fetch("useEventHasTwoDistinctAssociatedCaloHits", this->_useEventHasTwoDistinctAssociatedCaloHits_);
+        if (_useEventHasTwoDistinctAssociatedCaloHits_)
+        {
+            std::cout << "EventHasTwoDistinctAssociatedCaloHits" << std::endl;
+            _filtersToBeUsed.push_back("useEventHasTwoDistinctAssociatedCaloHits");
+        }
+    }
+    catch (std::logic_error &e)
+    {
+    }
+
+    try
+    {
         myConfig.fetch("useEventHasAssociatedCaloHits", this->_useEventHasAssociatedCaloHits_);
         if (_useEventHasAssociatedCaloHits_)
         {
@@ -485,8 +498,10 @@ Event SNCuts::get_event_data(datatools::things &workItem)
             const datatools::handle<snemo::datamodel::calibrated_calorimeter_hit> &calohit : caloHits)
         {
             CDHit *cdhit = new CDHit();
-
+            int om_id = om_num(calohit.get().get_geom_id());
             cdhit->set_energy(calohit.get().get_energy() / CLHEP::keV);
+            cdhit->set_om_gid(om_id); 
+            cout << "id = " << om_id << endl;
             SNCCDBank->add_calohit(*cdhit);
 
             delete cdhit;
