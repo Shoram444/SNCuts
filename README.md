@@ -84,6 +84,7 @@ flrecontruct -i CD.brio -p SNCutsPipeline.conf -o CDCut.brio
 - `bool event_has_two_calo_hits(Event& _event)`: returns true if there are exactly 2 calorimeter hits in the `CD` bank. *Requires CD bank
 - `bool event_has_one_calo_hit(Event& _event)`: returns true if there is _at least_ 1 calorimeter hit in the `CD` bank. *Requires CD bank
 - `bool event_has_two_associated_calo_hits(Event& _event)`: returns true if there are exactly 2 particles in the `PTD` bank and both have exactly 1 calorimeter hit. *Requires PTD bank
+- `bool event_has_two_distinct_associated_calo_hits(Event& _event)`: returns true if there are exactly 2 particles in the `PTD` bank and both have exactly 1 calorimeter hit which is different from one another. *Requires PTD bank
 
 ### Energy cuts 
 - `bool event_has_sum_energy_above(Event& _event, double _minEnergy)`: returns true if the sum of the event energy (from `PTD` bank) is above the limit given by `_minEnergy`. `_minEnergy` is set by `event.set_min_energy(double _minEnergy)`
