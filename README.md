@@ -36,7 +36,7 @@ From the implemented filters, the user can simply *chose* whichever ones are rel
 > 4. Total energy within the range: 0 - 3500 keV
 > 5. 2 vertices on source foil
 > To use the **SNCuts** module, this is as simple as setting the following values in the `SNCutsPipeline.conf` file:
-```
+```bash
 # - Module load section
 [name="flreconstruct.plugins" type="flreconstruct::section"]
 	plugins : string[1] = "SNCuts"
@@ -54,7 +54,7 @@ useEventHasSumEnergyBelow : boolean = true
 maxSumEnergy : real = 3500.0
 ```
 > or more simply, for convenience the `SDBDRC` batch of cuts can be turned on by:
-```
+```bash
 # - Module load section
 [name="flreconstruct.plugins" type="flreconstruct::section"]
 	plugins : string[1] = "SNCuts"
@@ -68,7 +68,7 @@ maxSumEnergy : real = 3500.0
 > Note that the energy must be set explicitly.
 
 #### Now all that is needed is to run the following command and receive a _**clean**_ `CDCut.brio` file:
-```
+```bash
 flrecontruct -i CD.brio -p SNCutsPipeline.conf -o CDCut.brio
 ```
 
