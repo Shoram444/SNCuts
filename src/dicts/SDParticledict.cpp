@@ -149,7 +149,7 @@ namespace {
 nullptr
     };
     static const char* includePaths[] = {
-"/sps/nemo/sw/redhat-9-x86_64/snsw/opt/root-6.26.06/include/root",
+"/sps/nemo/sw/redhat-9-x86_64/snsw/opt2/root-6.26.06/include/root",
 "/sps/nemo/scratch/mpetro/Projects/FalaiseModules/SNCuts/include/",
 nullptr
     };

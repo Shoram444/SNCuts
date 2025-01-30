@@ -10,7 +10,7 @@ DPP_MODULE_REGISTRATION_IMPLEMENT(SNCuts, "SNCuts")
 SNCuts::SNCuts() : dpp::base_module()
 {
     eventNo = 0;
-    std::cout << "constructed!" << std::endl;
+    // std::cout << "constructed!" << std::endl;
 }
 
 SNCuts::~SNCuts()
@@ -28,14 +28,14 @@ void SNCuts::initialize(
 )
 {
     this->_set_initialized(true);
-    std::cout << " -----------------------------" << std::endl;
-    std::cout << " Using the following filters: " << std::endl;
+    // std::cout << " -----------------------------" << std::endl;
+    // std::cout << " Using the following filters: " << std::endl;
     try // myConfig.fetch(configKeyword, classVariable) looks for the config keyword
     {   // in the pipeline.conf file and sets the corresponding value of the classVariable
         myConfig.fetch("useEventHasTwoNegativeParticles", this->_useEventHasTwoNegativeParticles_);
         if (_useEventHasTwoNegativeParticles_) // if in the config file, the useCut is flagged true,
         {                                      // it will be added to the list of all filters to be used
-            std::cout << "EventHasTwoNegativeParticles" << std::endl;
+            // std::cout << "EventHasTwoNegativeParticles" << std::endl;
             _filtersToBeUsed.push_back("useEventHasTwoNegativeParticles");
         }
     }
@@ -48,7 +48,7 @@ void SNCuts::initialize(
         myConfig.fetch("useEventHasTwoParticles", this->_useEventHasTwoParticles_);
         if (_useEventHasTwoParticles_)
         {
-            std::cout << "EventHasTwoParticles" << std::endl;
+            // std::cout << "EventHasTwoParticles" << std::endl;
             _filtersToBeUsed.push_back("useEventHasTwoParticles");
         }
     }
@@ -61,7 +61,7 @@ void SNCuts::initialize(
         myConfig.fetch("useEventHasParticles", this->_useEventHasParticles_);
         if (_useEventHasParticles_)
         {
-            std::cout << "EventHasParticles" << std::endl;
+            // std::cout << "EventHasParticles" << std::endl;
             _filtersToBeUsed.push_back("useEventHasParticles");
         }
     }
@@ -74,7 +74,7 @@ void SNCuts::initialize(
         myConfig.fetch("useEventHasTwoTracks", this->_useEventHasTwoTracks_);
         if (_useEventHasTwoTracks_)
         {
-            std::cout << "EventHasTwoTracks" << std::endl;
+            // std::cout << "EventHasTwoTracks" << std::endl;
             _filtersToBeUsed.push_back("useEventHasTwoTracks");
         }
     }
@@ -87,7 +87,7 @@ void SNCuts::initialize(
         myConfig.fetch("useEventHasTwoFoilVertices", this->_useEventHasTwoFoilVertices_);
         if (_useEventHasTwoFoilVertices_)
         {
-            std::cout << "EventHasTwoFoilVertices" << std::endl;
+            // std::cout << "EventHasTwoFoilVertices" << std::endl;
             _filtersToBeUsed.push_back("useEventHasTwoFoilVertices");
         }
     }
@@ -100,7 +100,7 @@ void SNCuts::initialize(
         myConfig.fetch("useEventHasTwoCaloHits", this->_useEventHasTwoCaloHits_);
         if (_useEventHasTwoCaloHits_)
         {
-            std::cout << "EventHasTwoCaloHits" << std::endl;
+            // std::cout << "EventHasTwoCaloHits" << std::endl;
             _filtersToBeUsed.push_back("useEventHasTwoCaloHits");
         }
     }
@@ -113,7 +113,7 @@ void SNCuts::initialize(
         myConfig.fetch("useEventHasOneCaloHit", this->_useEventHasOneCaloHit_);
         if (_useEventHasOneCaloHit_)
         {
-            std::cout << "EventHasOneCaloHit" << std::endl;
+            // std::cout << "EventHasOneCaloHit" << std::endl;
             _filtersToBeUsed.push_back("useEventHasOneCaloHit");
         }
     }
@@ -126,7 +126,7 @@ void SNCuts::initialize(
         myConfig.fetch("useEventHasTwoAssociatedCaloHits", this->_useEventHasTwoAssociatedCaloHits_);
         if (_useEventHasTwoAssociatedCaloHits_)
         {
-            std::cout << "EventHasTwoAssociatedCaloHits" << std::endl;
+            // std::cout << "EventHasTwoAssociatedCaloHits" << std::endl;
             _filtersToBeUsed.push_back("useEventHasTwoAssociatedCaloHits");
         }
     }
@@ -139,7 +139,7 @@ void SNCuts::initialize(
         myConfig.fetch("useEventHasTwoDistinctAssociatedCaloHits", this->_useEventHasTwoDistinctAssociatedCaloHits_);
         if (_useEventHasTwoDistinctAssociatedCaloHits_)
         {
-            std::cout << "EventHasTwoDistinctAssociatedCaloHits" << std::endl;
+            // std::cout << "EventHasTwoDistinctAssociatedCaloHits" << std::endl;
             _filtersToBeUsed.push_back("useEventHasTwoDistinctAssociatedCaloHits");
         }
     }
@@ -152,7 +152,7 @@ void SNCuts::initialize(
         myConfig.fetch("useEventHasAssociatedCaloHits", this->_useEventHasAssociatedCaloHits_);
         if (_useEventHasAssociatedCaloHits_)
         {
-            std::cout << "EventHasAssociatedCaloHits" << std::endl;
+            // std::cout << "EventHasAssociatedCaloHits" << std::endl;
             _filtersToBeUsed.push_back("useEventHasAssociatedCaloHits");
         }
     }
@@ -165,7 +165,7 @@ void SNCuts::initialize(
         myConfig.fetch("useSDBDRC", this->_useSDBDRC_);
         if (_useSDBDRC_)
         {
-            std::cout << "SDBDRC" << std::endl;
+            // std::cout << "SDBDRC" << std::endl;
             _filtersToBeUsed.push_back("useSDBDRC");
         }
     }
@@ -181,7 +181,7 @@ void SNCuts::initialize(
             _filtersToBeUsed.push_back("useEventHasSumEnergyAbove");
         }
         myConfig.fetch("minSumEnergy", this->_minSumEnergy_);
-        std::cout << "EventHasSumEnergyAbove " << _minSumEnergy_ << " keV" << std::endl;
+        // std::cout << "EventHasSumEnergyAbove " << _minSumEnergy_ << " keV" << std::endl;
     }
     catch (std::logic_error &e)
     {
@@ -195,7 +195,7 @@ void SNCuts::initialize(
             _filtersToBeUsed.push_back("useEventHasSumEnergyBelow");
         }
         myConfig.fetch("maxSumEnergy", this->_maxSumEnergy_);
-        std::cout << "EventHasSumEnergyBelow " << _maxSumEnergy_ << " keV" << std::endl;
+        // std::cout << "EventHasSumEnergyBelow " << _maxSumEnergy_ << " keV" << std::endl;
     }
     catch (std::logic_error &e)
     {
@@ -209,7 +209,7 @@ void SNCuts::initialize(
             _filtersToBeUsed.push_back("useEventHasFoilVertexDistanceBelow");
         }
         myConfig.fetch("maxFoilVertexDistance", this->_maxFoilVertexDistance_);
-        std::cout << "EventHasFoilVertexDistanceBelow " << _maxFoilVertexDistance_ << " mm" << std::endl;
+        // std::cout << "EventHasFoilVertexDistanceBelow " << _maxFoilVertexDistance_ << " mm" << std::endl;
     }
     catch (std::logic_error &e)
     {
@@ -223,7 +223,7 @@ void SNCuts::initialize(
             _filtersToBeUsed.push_back("useEventHasPintAbove");
         }
         myConfig.fetch("minPint", this->_minPint_);
-        std::cout << "EventHasPintAbove " << _minPint_ << std::endl;
+        // std::cout << "EventHasPintAbove " << _minPint_ << std::endl;
     }
     catch (std::logic_error &e)
     {
@@ -237,7 +237,7 @@ void SNCuts::initialize(
             _filtersToBeUsed.push_back("useEventHasPextBelow");
         }
         myConfig.fetch("maxPext", this->_maxPext_);
-        std::cout << "EventHasPextBelow " << _maxPext_ << std::endl;
+        // std::cout << "EventHasPextBelow " << _maxPext_ << std::endl;
     }
     catch (std::logic_error &e)
     {
@@ -251,13 +251,13 @@ void SNCuts::initialize(
             _filtersToBeUsed.push_back("useEventHasNEscapedParticles");
         }
         myConfig.fetch("nEscapedParticles", this->_nEscapedParticles_);
-        std::cout << "EventHasNEscapedParticles " << _nEscapedParticles_ << std::endl;
+        // std::cout << "EventHasNEscapedParticles " << _nEscapedParticles_ << std::endl;
     }
     catch (std::logic_error &e)
     {
     }
 
-    std::cout << " -----------------------------" << std::endl;
+    // std::cout << " -----------------------------" << std::endl;
 }
 
 dpp::base_module::process_status SNCuts::process(datatools::things &workItem)
@@ -277,21 +277,20 @@ dpp::base_module::process_status SNCuts::process(datatools::things &workItem)
     //// If event passes all configured filters it is kept in the brio file, it is removed otherwise
     if (eventFilter->event_passed_filters(event))
     {
-        std::cout << "Event: " << eventNo << " ++PASSED++! " << std::endl;
+        // std::cout << "Event: " << eventNo << " ++PASSED++! " << std::endl;
 
         eventNo++;
         return falaise::processing::status::PROCESS_SUCCESS;
     }
     else if (!eventFilter->event_passed_filters(event))
     {
-        std::cout << "Event: " << eventNo << " Failed! "  <<std::endl;
+        // std::cout << "Event: " << eventNo << " Failed! "  <<std::endl;
         eventNo++;
         return dpp::base_module::PROCESS_STOP;
     }
     else
     {
-    std:
-        cout << "Event: " << eventNo << " Neither passed nor failed, wtf?! " << std::endl;
+    // std::cout << "Event: " << eventNo << " Neither passed nor failed, wtf?! " << std::endl;
         eventNo++;
         return dpp::base_module::PROCESS_STOP;
     }
@@ -420,7 +419,7 @@ Event SNCuts::get_event_data(datatools::things &workItem)
     }
     else
     {
-        std::cout << "No PTD Bank!!!\n";
+        // std::cout << "No PTD Bank!!!\n";
         event.set_event_total_energy(-1);
     }
 
@@ -480,7 +479,7 @@ Event SNCuts::get_event_data(datatools::things &workItem)
     }
     else
     {
-        std::cout << "No SD Bank!!!\n";
+        // std::cout << "No SD Bank!!!\n";
     }
 
 
@@ -501,7 +500,6 @@ Event SNCuts::get_event_data(datatools::things &workItem)
             int om_id = om_num(calohit.get().get_geom_id());
             cdhit->set_energy(calohit.get().get_energy() / CLHEP::keV);
             cdhit->set_om_gid(om_id); 
-            cout << "id = " << om_id << endl;
             SNCCDBank->add_calohit(*cdhit);
 
             delete cdhit;
@@ -513,7 +511,7 @@ Event SNCuts::get_event_data(datatools::things &workItem)
     }
     else
     {
-        std::cout << "No CD Bank!!!\n";
+        // std::cout << "No CD Bank!!!\n";
     }
 
     return event;

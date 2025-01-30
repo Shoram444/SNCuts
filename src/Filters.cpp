@@ -96,6 +96,7 @@ Filters::~Filters()
         useEventHasTwoCaloHits             = false; 
         useEventHasOneCaloHit              = false; 
         useEventHasTwoAssociatedCaloHits   = false; 
+        useEventHasTwoDistinctAssociatedCaloHits   = false; 
         useEventHasAssociatedCaloHits      = false; 
 
         useEventHasSumEnergyAbove          = false; 
