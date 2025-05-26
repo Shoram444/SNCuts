@@ -21,12 +21,16 @@ class Filters: public TObject
 {
     public: 
         //! constructor
+		Filters();  
 		Filters(std::vector<std::string>& _filtersToBeUsed);  
 
 		//! desctructor
 		~Filters();
 
+        void reset(); 							   // resets the values of the Filters
+
         bool event_has_two_negative_particles       (Event& _event);
+        bool event_has_two_charged_particles        (Event& _event);
         bool event_has_two_particles                (Event& _event);
         bool event_has_particles                    (Event& _event);
         bool event_has_two_tracks                   (Event& _event);                       //this is equivalend to event_has_two_particles
@@ -63,6 +67,7 @@ class Filters: public TObject
         // std::vector<FilterFunction> filters;
 
         bool useEventHasTwoNegativeParticles    = false; 
+        bool useEventHasTwoChargedParticles     = false; 
         bool useEventHasTwoParticles            = false; 
         bool useEventHasParticles               = false; 
         bool useEventHasTwoTracks               = false; 

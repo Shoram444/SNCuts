@@ -43,6 +43,8 @@
 namespace std {} using namespace std;
 
 namespace ROOT {
+   static void *new_Filters(void *p = nullptr);
+   static void *newArray_Filters(Long_t size, void *p);
    static void delete_Filters(void *p);
    static void deleteArray_Filters(void *p);
    static void destruct_Filters(void *p);
@@ -57,6 +59,8 @@ namespace ROOT {
                   typeid(::Filters), ::ROOT::Internal::DefineBehavior(ptr, ptr),
                   &::Filters::Dictionary, isa_proxy, 4,
                   sizeof(::Filters) );
+      instance.SetNew(&new_Filters);
+      instance.SetNewArray(&newArray_Filters);
       instance.SetDelete(&delete_Filters);
       instance.SetDeleteArray(&deleteArray_Filters);
       instance.SetDestructor(&destruct_Filters);
@@ -118,6 +122,13 @@ void Filters::Streamer(TBuffer &R__b)
 }
 
 namespace ROOT {
+   // Wrappers around operator new
+   static void *new_Filters(void *p) {
+      return  p ? new(p) ::Filters : new ::Filters;
+   }
+   static void *newArray_Filters(Long_t nElements, void *p) {
+      return p ? new(p) ::Filters[nElements] : new ::Filters[nElements];
+   }
    // Wrapper around operator delete
    static void delete_Filters(void *p) {
       delete ((::Filters*)p);

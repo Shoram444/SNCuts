@@ -3,6 +3,9 @@
 
 ClassImp(Filters);
 
+Filters::Filters() 
+{
+}
 
 Filters::Filters(std::vector<std::string>& _filtersToBeUsed) 
 {
@@ -11,6 +14,11 @@ Filters::Filters(std::vector<std::string>& _filtersToBeUsed)
         if (filter == "useEventHasTwoNegativeParticles")
         {
             useEventHasTwoNegativeParticles = true;
+        }
+
+        if (filter == "useEventHasTwoChargedParticles")
+        {
+            useEventHasTwoChargedParticles = true;
         }
 
         if (filter == "useEventHasTwoParticles")
@@ -88,34 +96,41 @@ Filters::Filters(std::vector<std::string>& _filtersToBeUsed)
 
 Filters::~Filters()
 {
-        useEventHasTwoNegativeParticles    = false; 
-        useEventHasTwoParticles            = false; 
-        useEventHasParticles               = false; 
-        useEventHasTwoTracks               = false; 
-        useEventHasTwoFoilVertices         = false; 
-        useEventHasTwoCaloHits             = false; 
-        useEventHasOneCaloHit              = false; 
-        useEventHasTwoAssociatedCaloHits   = false; 
-        useEventHasTwoDistinctAssociatedCaloHits   = false; 
-        useEventHasAssociatedCaloHits      = false; 
+    useEventHasTwoNegativeParticles    = false; 
+    useEventHasTwoChargedParticles     = false; 
+    useEventHasTwoParticles            = false; 
+    useEventHasParticles               = false; 
+    useEventHasTwoTracks               = false; 
+    useEventHasTwoFoilVertices         = false; 
+    useEventHasTwoCaloHits             = false; 
+    useEventHasOneCaloHit              = false; 
+    useEventHasTwoAssociatedCaloHits   = false; 
+    useEventHasTwoDistinctAssociatedCaloHits   = false; 
+    useEventHasAssociatedCaloHits      = false; 
 
-        useEventHasSumEnergyAbove          = false; 
-        minSumEnergy                       = -10000.0;
+    useEventHasSumEnergyAbove          = false; 
+    minSumEnergy                       = -10000.0;
 
-        useEventHasSumEnergyBelow          = false; 
-        maxSumEnergy                       = 100000.0;
+    useEventHasSumEnergyBelow          = false; 
+    maxSumEnergy                       = 100000.0;
 
-        useEventHasFoilVertexDistanceBelow = false; 
-        maxFoilVertexDistance              = 100000.0;
+    useEventHasFoilVertexDistanceBelow = false; 
+    maxFoilVertexDistance              = 100000.0;
 
-        useEventHasPintAbove               = false;
-        minPint                            = 1.0;
+    useEventHasPintAbove               = false;
+    minPint                            = 1.0;
 
-        useEventHasPextBelow               = false;
-        maxPext                            = 0.0;
+    useEventHasPextBelow               = false;
+    maxPext                            = 0.0;
 
-        useEventHasNEscapedParticles       = false;
-        nEscapedParticles                  = -1.0;
+    useEventHasNEscapedParticles       = false;
+    nEscapedParticles                  = -1.0;
+
+}
+
+void Filters::reset()
+{
+     
 }
 
 
@@ -129,6 +144,23 @@ bool Filters::event_has_two_negative_particles(Event& _event)
     for (auto& particle : _event.get_particles())
     {
         if( particle.get_charge() != -1)
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool Filters::event_has_two_charged_particles(Event& _event)
+{
+    if (_event.get_particles().size() != 2)
+    {
+        return false;
+    }
+
+    for (auto& particle : _event.get_particles())
+    {
+        if( particle.get_charge() == 0)
         {
             return false;
         }
@@ -375,6 +407,8 @@ bool Filters::event_has_Pint_above    (Event& _event, double _minPint)
     {
         return true;
     }
+
+
     
     return false;
 } 
@@ -461,6 +495,10 @@ void Filters::set_n_escaped_particles(int _nEscapedParticles)
 
 bool Filters::event_passed_filters(Event& _event) {
     if ( useEventHasTwoNegativeParticles && !event_has_two_negative_particles(_event) )         // event doesn't pass filter if filter should be used AND is not fulilled!
+    {
+        return false;
+    }
+    if ( useEventHasTwoChargedParticles && !event_has_two_charged_particles(_event) )         // event doesn't pass filter if filter should be used AND is not fulilled!
     {
         return false;
     }

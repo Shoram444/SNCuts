@@ -60,11 +60,13 @@ public:
 private:
     int                         eventNo;
     Event                       event;
+    Filters*                     eventFilter;
     std::vector<std::string>    _filtersToBeUsed;                 // This string is filled from the config file and determines which filters are to be enabled
 
 
     // configurable data members
     bool _useEventHasTwoNegativeParticles_      = false; 
+    bool _useEventHasTwoChargedParticles_       = false; 
     bool _useEventHasOneParticle_               = false; 
     bool _useEventHasParticles_                 = false; 
     bool _useEventHasTwoParticles_              = false; 

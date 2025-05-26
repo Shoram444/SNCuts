@@ -43,6 +43,19 @@ void SNCuts::initialize(
     {
     }
 
+    try 
+    {   
+        myConfig.fetch("useEventHasTwoChargedParticles", this->_useEventHasTwoChargedParticles_);
+        if (_useEventHasTwoChargedParticles_) // if in the config file, the useCut is flagged true,
+        {                                      // it will be added to the list of all filters to be used
+            // std::cout << "EventHasTwoChargedParticles" << std::endl;
+            _filtersToBeUsed.push_back("useEventHasTwoChargedParticles");
+        }
+    }
+    catch (std::logic_error &e)
+    {
+    }
+
     try
     {
         myConfig.fetch("useEventHasTwoParticles", this->_useEventHasTwoParticles_);
@@ -258,11 +271,13 @@ void SNCuts::initialize(
     }
 
     // std::cout << " -----------------------------" << std::endl;
+
 }
 
 dpp::base_module::process_status SNCuts::process(datatools::things &workItem)
 {
-    Filters *eventFilter = new Filters(_filtersToBeUsed);               // construct Filters instance which holds the filters
+    eventFilter = new Filters(_filtersToBeUsed);               // construct Filters instance which holds the filters
+
     eventFilter->set_min_sum_energy(_minSumEnergy_);                    // if not set in config file, value of -10000 is used.
     eventFilter->set_max_sum_energy(_maxSumEnergy_);                    // if not set in config file, value of 1000000 is used.
     eventFilter->set_max_foil_vertex_distance(_maxFoilVertexDistance_); // if not set in config file, value of 1000000 is used.
@@ -305,6 +320,7 @@ Event SNCuts::get_event_data(datatools::things &workItem)
 {
     event.reset();
     event.set_event_number(eventNo);
+    
 
     double totEne = 0.0;
 
@@ -386,6 +402,8 @@ Event SNCuts::get_event_data(datatools::things &workItem)
                     ptdparticle->set_energy_sigma_MeV(cch.get_sigma_energy() / CLHEP::MeV); // energy sigma in MeV
                     ptdparticle->set_time(cch.get_time() / CLHEP::ns);                      // calohit time in ns
                     ptdparticle->set_time_sigma(cch.get_sigma_time() / CLHEP::ns);          // calohit time sigma in ns
+
+                    // cout << "edep_bcu: " << cch.get_auxiliaries().fetch_real("edep_bcu") << endl;
 
                     totEne += cch.get_energy() / CLHEP::keV;
                     assCaloHitNo++;
