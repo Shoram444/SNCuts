@@ -100,7 +100,7 @@ public:
     void set_useEventHasVertexCloseToCalibSource(bool value);
 
     // ---------------------------------------------------------------
-    bool event_has_kink_tracks                 (Event &_event);
+    bool event_has_kinked_tracks                 (Event &_event);
 
     void set_useEventRejectIfKinkTracks        (bool use)
     {

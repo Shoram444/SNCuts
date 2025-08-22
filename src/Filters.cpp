@@ -502,7 +502,7 @@ bool Filters::event_has_vertex_close_to_calib_source(Event &_event)
 
 // ------------------------------------------------------------------------------------------------
 
-bool Filters::event_has_kink_tracks(Event &_event)
+bool Filters::event_has_kinked_tracks(Event &_event)
 {
     for (auto &particle : _event.get_particles())
     {
@@ -894,7 +894,7 @@ bool Filters::event_passed_filters(Event &_event)
 
     // new
     // -----------------------------------------------------------
-    if (useEventRejectIfKinkTracks_ && event_has_kink_tracks(_event))
+    if (useEventRejectIfKinkTracks_ && event_has_kinked_tracks(_event))
     {
         return false;
     }
