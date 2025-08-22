@@ -118,3 +118,14 @@ TVector3    PTDParticle::get_calo_vertex_position()
 {
     return caloVertexPosition;
 }
+
+void PTDParticle::add_associated_calo_hits(CDHit _associatedCaloHits)
+{
+    associatedCaloHits.push_back(_associatedCaloHits);
+    
+}
+
+vector<CDHit> PTDParticle::get_associated_calo_hits()
+{
+    return associatedCaloHits;
+}

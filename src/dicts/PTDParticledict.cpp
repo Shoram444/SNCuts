@@ -55,7 +55,7 @@ namespace ROOT {
       ::PTDParticle *ptr = nullptr;
       static ::TVirtualIsAProxy* isa_proxy = new ::TInstrumentedIsAProxy< ::PTDParticle >(nullptr);
       static ::ROOT::TGenericClassInfo 
-         instance("PTDParticle", ::PTDParticle::Class_Version(), "PTDParticle.hh", 14,
+         instance("PTDParticle", ::PTDParticle::Class_Version(), "PTDParticle.hh", 17,
                   typeid(::PTDParticle), ::ROOT::Internal::DefineBehavior(ptr, ptr),
                   &::PTDParticle::Dictionary, isa_proxy, 4,
                   sizeof(::PTDParticle) );
@@ -141,6 +141,71 @@ namespace ROOT {
       ((current_t*)p)->~current_t();
    }
 } // end of namespace ROOT for class ::PTDParticle
+
+namespace ROOT {
+   static TClass *vectorlECDHitgR_Dictionary();
+   static void vectorlECDHitgR_TClassManip(TClass*);
+   static void *new_vectorlECDHitgR(void *p = nullptr);
+   static void *newArray_vectorlECDHitgR(Long_t size, void *p);
+   static void delete_vectorlECDHitgR(void *p);
+   static void deleteArray_vectorlECDHitgR(void *p);
+   static void destruct_vectorlECDHitgR(void *p);
+
+   // Function generating the singleton type initializer
+   static TGenericClassInfo *GenerateInitInstanceLocal(const vector<CDHit>*)
+   {
+      vector<CDHit> *ptr = nullptr;
+      static ::TVirtualIsAProxy* isa_proxy = new ::TIsAProxy(typeid(vector<CDHit>));
+      static ::ROOT::TGenericClassInfo 
+         instance("vector<CDHit>", -2, "vector", 389,
+                  typeid(vector<CDHit>), ::ROOT::Internal::DefineBehavior(ptr, ptr),
+                  &vectorlECDHitgR_Dictionary, isa_proxy, 0,
+                  sizeof(vector<CDHit>) );
+      instance.SetNew(&new_vectorlECDHitgR);
+      instance.SetNewArray(&newArray_vectorlECDHitgR);
+      instance.SetDelete(&delete_vectorlECDHitgR);
+      instance.SetDeleteArray(&deleteArray_vectorlECDHitgR);
+      instance.SetDestructor(&destruct_vectorlECDHitgR);
+      instance.AdoptCollectionProxyInfo(TCollectionProxyInfo::Generate(TCollectionProxyInfo::Pushback< vector<CDHit> >()));
+
+      ::ROOT::AddClassAlternate("vector<CDHit>","std::vector<CDHit, std::allocator<CDHit> >");
+      return &instance;
+   }
+   // Static variable to force the class initialization
+   static ::ROOT::TGenericClassInfo *_R__UNIQUE_DICT_(Init) = GenerateInitInstanceLocal((const vector<CDHit>*)nullptr); R__UseDummy(_R__UNIQUE_DICT_(Init));
+
+   // Dictionary for non-ClassDef classes
+   static TClass *vectorlECDHitgR_Dictionary() {
+      TClass* theClass =::ROOT::GenerateInitInstanceLocal((const vector<CDHit>*)nullptr)->GetClass();
+      vectorlECDHitgR_TClassManip(theClass);
+   return theClass;
+   }
+
+   static void vectorlECDHitgR_TClassManip(TClass* ){
+   }
+
+} // end of namespace ROOT
+
+namespace ROOT {
+   // Wrappers around operator new
+   static void *new_vectorlECDHitgR(void *p) {
+      return  p ? ::new((::ROOT::Internal::TOperatorNewHelper*)p) vector<CDHit> : new vector<CDHit>;
+   }
+   static void *newArray_vectorlECDHitgR(Long_t nElements, void *p) {
+      return p ? ::new((::ROOT::Internal::TOperatorNewHelper*)p) vector<CDHit>[nElements] : new vector<CDHit>[nElements];
+   }
+   // Wrapper around operator delete
+   static void delete_vectorlECDHitgR(void *p) {
+      delete ((vector<CDHit>*)p);
+   }
+   static void deleteArray_vectorlECDHitgR(void *p) {
+      delete [] ((vector<CDHit>*)p);
+   }
+   static void destruct_vectorlECDHitgR(void *p) {
+      typedef vector<CDHit> current_t;
+      ((current_t*)p)->~current_t();
+   }
+} // end of namespace ROOT for class vector<CDHit>
 
 namespace {
   void TriggerDictionaryInitialization_PTDParticledict_Impl() {

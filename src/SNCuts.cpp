@@ -404,7 +404,12 @@ Event SNCuts::get_event_data(datatools::things &workItem)
                     ptdparticle->set_time_sigma(cch.get_sigma_time() / CLHEP::ns);          // calohit time sigma in ns
 
                     // cout << "edep_bcu: " << cch.get_auxiliaries().fetch_real("edep_bcu") << endl;
-
+                    CDHit *cdhit = new CDHit();
+                    cdhit->set_energy(cch.get_energy() / CLHEP::keV); // energy in keV
+                    cdhit->set_om_gid(om_num(cch.get_geom_id()));     // get OM ID from geom ID
+                    ptdparticle->add_associated_calo_hits(*cdhit); // add associated calo hit to this PTD entry
+                    delete cdhit;
+                    
                     totEne += cch.get_energy() / CLHEP::keV;
                     assCaloHitNo++;
                 }
@@ -416,7 +421,23 @@ Event SNCuts::get_event_data(datatools::things &workItem)
             {
                 const snemo::datamodel::tracker_trajectory &trajectory = track.get_trajectory();
 
-                ptdparticle->set_track_length(trajectory.get_pattern().get_shape().get_length());
+                double length = 1.0; // default
+                try {
+                    length = trajectory.get_pattern().get_shape().get_length();
+                } catch (const std::exception &e) {
+                    // Log if needed
+                    std::cerr << "Warning: could not get track length, using default 1.0. "
+                            << e.what() << std::endl;
+                }
+                ptdparticle->set_track_length(length);
+                // if(std::isnan(trajectory.get_pattern().get_shape().get_length()) )
+                // {
+                //     ptdparticle->set_track_length(0.001);
+                // }
+                // else
+                // {
+                //     ptdparticle->set_track_length(trajectory.get_pattern().get_shape().get_length());
+                // }
 
                 if (TMath::Abs(trajectory.get_pattern().get_first().x()) <= trajectory.get_pattern().get_last().x())
                 {

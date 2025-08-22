@@ -8,6 +8,9 @@
 // Standard headers
 #include "iostream"
 
+#include "CDHit.hh"
+
+
 using namespace std;
 
 
@@ -32,6 +35,9 @@ class PTDParticle: public TObject
 		bool 	has_foil_vertex();
 		bool 	has_calo_vertex();
 
+		void add_associated_calo_hits(CDHit _associatedCaloHit); // add associated calo hits to this PTD entry
+
+
         int     	get_charge();
         int 		get_associated_calo_hits_number();    					// get the number of calo hits per PTD entry (this may not be 1)
         double 		get_energy();
@@ -40,6 +46,8 @@ class PTDParticle: public TObject
 		double 		get_track_length();
 		double 		get_time();
 		double 		get_time_sigma();
+
+		vector<CDHit> get_associated_calo_hits(); // get the associated calo hits for this PTD entry
 		
 		TVector3    get_foil_vertex_position();
 		TVector3    get_calo_vertex_position();
@@ -58,6 +66,8 @@ class PTDParticle: public TObject
 
 		TVector3 foilVertexPosition;
 		TVector3 caloVertexPosition;
+
+		vector<CDHit> associatedCaloHits; // vector of associated calo hits for this PTD entry
     
     
 	ClassDef(PTDParticle,1);

@@ -280,20 +280,20 @@ bool Filters::event_has_two_distinct_associated_calo_hits(Event& _event)
                 return false;
             }
         }
-        if( _event.get_cd_bank().get_number_of_calo_hits() == 2 )
+        // Compare the first associated calo hit of each particle
+        if( 
+            _event.get_particles().at(0).get_associated_calo_hits().at(0).get_gid() != 
+            _event.get_particles().at(1).get_associated_calo_hits().at(0).get_gid() 
+        )
         {
-            if (_event.get_cd_bank().get_calo_hit(0).get_gid() == _event.get_cd_bank().get_calo_hit(1).get_gid())
-            {
-                return false;
-            }
             return true;
         }
+        return false;
     }
     else
     {
         return false;
     }
-    return false;
 }
 
 bool Filters::event_has_associated_calo_hits(Event& _event)
