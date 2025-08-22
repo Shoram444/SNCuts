@@ -345,7 +345,7 @@ nullptr
     };
     static const char* includePaths[] = {
 "/sps/nemo/sw/redhat-9-x86_64/snsw/opt2/root-6.26.06/include/root",
-"/sps/nemo/scratch/ykozina/Falaise/tutorial/SNCuts_fork/SNCuts/include/",
+"/sps/nemo/scratch/ykozina/Falaise/tutorial/SNCuts/include/",
 nullptr
     };
     static const char* fwdDeclCode = R"DICTFWDDCLS(
