@@ -10,4 +10,11 @@
 	SNCuts.directory : string = "@PROJECT_BINARY_DIR@/"
 
 [name="pipeline" type="SNCuts"]
-useEventHasTwoDistinctAssociatedCaloHits : boolean = true
+useEventHasTwoChargedParticles : boolean = true
+
+
+useEventHasPintAbove : boolean = true  # internal probability ToF cut
+minPint : real = 0.04
+
+useEventHasPextBelow : boolean = true   # external probability ToF cut
+maxPext : real = 0.30
